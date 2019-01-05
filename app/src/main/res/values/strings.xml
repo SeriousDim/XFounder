@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">X-Project</string>
+    <string name="title_home">Home</string>
+    <string name="title_employees">Employees</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_projects">Projects</string>
+    <string name="title_companies">Companies</string>
+</resources>
