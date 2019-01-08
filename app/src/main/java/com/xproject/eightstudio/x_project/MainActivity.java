@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -40,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
             fragments[0] = ChatFragment.class.newInstance();
             fragments[1] = CompanyListFragment.class.newInstance();
             fragments[2] = CompanyHomeFragment.class.newInstance();
-            fragments[3] = EmployeeListFragment.class.newInstance();
-            fragments[4] = ProjectListFragment.class.newInstance();
+            fragments[3] = ProfileListFragment.class.newInstance();
         } catch(Exception e){
             e.printStackTrace();
         }
+
+        setFragmentClass(fragments[1]);
     }
 
     private boolean setFragment(int item){
@@ -52,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_companies:
                 setFragmentClass(fragments[1]);
                 return true;
-            case R.id.navigation_employees:
+            case R.id.navigation_profile:
                 setFragmentClass(fragments[3]);
                 return true;
             case R.id.navigation_chat:
                 setFragmentClass(fragments[0]);
                 return true;
-            case R.id.navigation_projects:
+            /*case R.id.navigation_projects:
                 setFragmentClass(fragments[4]);
-                return true;
+                return true;*/
             case R.id.navigation_home:
                 setFragmentClass(fragments[2]);
                 return true;
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFragmentClass(Fragment frag){
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.container, frag).commit();
+        manager.beginTransaction().replace(R.id.contfrag, frag).commit();
     }
 
 }
