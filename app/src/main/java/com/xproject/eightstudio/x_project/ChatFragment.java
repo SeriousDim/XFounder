@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class ChatFragment extends Fragment {
     View view;
     ArrayList<Message> arrm = new ArrayList<>();
     private final String server = "https://gleb2700.000webhostapp.com";
-    String local = "Gleb Shanshin";
+    String local = "Nobody";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -100,11 +102,6 @@ public class ChatFragment extends Fragment {
 
     }
 
-    public void send(View view) {
-        sendMessage("zero0", ed.getText().toString(), local);
-        ed.setText("");
-    }
-
     private OnFragmentInteractionListener mListener;
 
     public ChatFragment() {}
@@ -116,6 +113,14 @@ public class ChatFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_chat, container, false);
         lv = view.findViewById(R.id.lv);
         ed = view.findViewById(R.id.editText);
+        ImageView send = view.findViewById(R.id.bt);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage("zero0", ed.getText().toString(), local);
+                ed.setText("");
+            }
+        });
         getUpdates("zero0"); //TODO:NullPtrExc; add checking
         return view;
     }
