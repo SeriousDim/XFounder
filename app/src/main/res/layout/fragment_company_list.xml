@@ -8,28 +8,37 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/shape"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="@string/title_companies"
-            app:titleTextColor="@android:color/background_light" />
+            android:layout_height="55dp"
+            android:background="@drawable/shape" />
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp"
+            android:textAlignment="center"
+            android:text="@string/title_companies"
+            android:textColor="#FFF"
+            android:textSize="25dp"
+            app:font_name="banch.ttf" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/companies_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/imageView2"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
         </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

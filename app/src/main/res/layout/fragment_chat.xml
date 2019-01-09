@@ -67,11 +67,11 @@
 
     <io.gloxey.cfv.CFTextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="100dp"
+        android:textAlignment="center"
         android:text="Чат компании"
         android:textColor="#FFF"
         android:textSize="25dp"
