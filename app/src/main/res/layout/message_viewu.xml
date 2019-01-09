@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:weightSum="1"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/arrow" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/lay"
+        android:layout_height="wrap_content"
+        android:background="@drawable/messager"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="5dp">
+
+
+        <io.gloxey.cfv.CFTextView
+            app:font_name="roboto_l.ttf"
+            android:id="@+id/text"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:maxWidth="200dp"
+            android:text="Hello"
+            android:textAlignment="textEnd"
+            android:textColor="#000"
+            android:textSize="17dp" />
+
+    </FrameLayout>
+</LinearLayout>

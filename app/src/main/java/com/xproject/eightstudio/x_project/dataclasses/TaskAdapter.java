@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.xproject.eightstudio.x_project.R;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
+/*public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 
     public class ViewHolder{
         TextView name, completed, percent;
@@ -18,3 +18,4 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     }
 
 }
+*/
