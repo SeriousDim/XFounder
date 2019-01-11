@@ -8,6 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class ProjectListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This XML is created by
+    (C) Dmitrii Lykov, 2019
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyselfFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:hint="@string/write_about"
+            android:inputType="textMultiLine"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/btn_background"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/accept"
+            android:textColor="@android:color/background_light"
+            android:translationZ="2dp" />
+    </LinearLayout>
+
+</FrameLayout>

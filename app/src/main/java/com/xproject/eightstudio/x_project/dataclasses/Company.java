@@ -4,6 +4,11 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class Company {
 
     public String name;

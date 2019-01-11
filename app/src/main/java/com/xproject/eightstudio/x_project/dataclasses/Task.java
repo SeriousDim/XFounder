@@ -2,6 +2,11 @@ package com.xproject.eightstudio.x_project.dataclasses;
 
 import java.util.ArrayList;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class Task {
 
     public Project project; // reference
@@ -9,7 +14,7 @@ public class Task {
     public String description;
     boolean complete;
     public Employee teamlead;
-    ArrayList<Item> items;
+    ArrayList<Employee> employees; // references
 
     public Task(Project project, String name, String description, Employee teamlead) {
         this.project = project;
@@ -17,10 +22,46 @@ public class Task {
         this.description = description;
         this.complete = false;
         this.teamlead = teamlead;
-        this.items = new ArrayList<>();
     }
 
-    public void addItem(Item item){
+    public void setComplete(boolean complete){
+        this.complete = complete;
+    }
+
+    public void addEmployee(Employee e){
+        this.employees.add(e);
+    }
+
+    public void deleteEmployee(int index){
+        this.employees.remove(index);
+    }
+
+    public Employee getEmployee(int index){
+        return employees.get(index);
+    }
+
+    public int getEmployeersAmount(){
+        return this.employees.size();
+    }
+
+    /*public int getCompletedItemsAmount(){
+        int a = 0;
+        for (Item i: items){
+            if (i.comlete)
+                a++;
+        }
+        return a;
+    }*/
+
+    /*public int getEmployeersAmount(){
+        int res = 0;
+        for (Employee e:employees){
+            res ++;
+        }
+        return res;
+    }*/
+
+    /*public void addItem(Item item){
         this.items.add(item);
     }
 
@@ -36,41 +77,20 @@ public class Task {
         }
         else if (this.complete)
             setComplete(false);
-    }
+    }*/
 
-    public void setComplete(boolean complete){
-        this.complete = complete;
-    }
-
-    public int getCompletedItemsAmount(){
-        int a = 0;
-        for (Item i: items){
-            if (i.comlete)
-                a++;
-        }
-        return a;
-    }
-
-    public int getEmployeersAmount(){
-        int res = 0;
-        for (Item i: items){
-            res += i.getEmployeersAmount();
-        }
-        return res;
-    }
-
-    public int getItemsAmount(){
+    /*public int getItemsAmount(){
         int res = 0;
         for (Item i:items){
             res++;
         }
         return res;
-    }
+    }*/
 
-    public class Item{
+    /*public class Item{
         String title;
         boolean comlete;
-        ArrayList<Employee> employees; // references
+         // references
 
         Item(String title){
             this.title = title;
@@ -78,21 +98,6 @@ public class Task {
             this.employees = new ArrayList<>();
         }
 
-        public void addEmployee(Employee e){
-            this.employees.add(e);
-        }
-
-        public void deleteEmployee(int index){
-            this.employees.remove(index);
-        }
-
-        public Employee getEmployee(int index){
-            return employees.get(index);
-        }
-
-        public int getEmployeersAmount(){
-            return this.employees.size();
-        }
-    }
+    }*/
 
 }

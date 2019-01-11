@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    This XML is created by
+    (C) Dmitrii Lykov, 2019
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,15 +12,20 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <View
             android:id="@+id/view3"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:background="@drawable/shape2" />
+            android:layout_height="0dp"
+            android:background="@drawable/gradient"
+            app:layout_constraintBottom_toBottomOf="@+id/tabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <io.gloxey.cfv.CFTextView
             android:id="@+id/title"
@@ -28,78 +37,95 @@
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="25dp"
-            app:font_name="banch.ttf" />
+            app:font_name="banch.ttf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/empl_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
-            android:layout_below="@id/title"
             android:layout_marginTop="8dp"
-            android:src="@drawable/avatar" />
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/empl_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/imageView"
-            android:layout_marginTop="8dp"
-            android:text="Name Surname"
+            android:layout_marginEnd="8dp"
+            android:text="Имя Фамилия"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_below="@id/textView"
-            android:layout_width="wrap_content"
-            android:layout_toEndOf="@id/imageView"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="My job"
-            android:textColor="@android:color/background_light"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/imageView"
-            android:drawableLeft="@drawable/ic_star_black_24dp"
-            android:text="42"
-            android:textColor="@color/star"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_below="@id/textView2"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empl_img" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/empl_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/tasks"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginEnd="8dp"
+            android:text="Программист"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_below="@+id/view3" />
+            app:layout_constraintTop_toBottomOf="@+id/empl_name" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/task_list"
+        <ImageButton
+            android:id="@+id/empl_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:tint="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empl_job"
+            app:tabIndicatorColor="@android:color/background_light"
+            app:tabIndicatorHeight="6dp"
+            app:tabSelectedTextColor="@android:color/background_light"
+            app:tabTextColor="@android:color/background_light">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_me" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab_tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks" />
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/v_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@+id/textView4"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </RelativeLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabs" />
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

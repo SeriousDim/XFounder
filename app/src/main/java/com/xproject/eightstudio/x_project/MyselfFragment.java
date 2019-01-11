@@ -1,11 +1,17 @@
 package com.xproject.eightstudio.x_project;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /*
  *  This class is written by
@@ -15,16 +21,17 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CompanyHomeFragment.OnFragmentInteractionListener} interface
+ * {@link MyselfFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CompanyHomeFragment#newInstance} factory method to
+ * Use the {@link MyselfFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CompanyHomeFragment extends Fragment {
+public class MyselfFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private View mView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -32,7 +39,7 @@ public class CompanyHomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CompanyHomeFragment() {
+    public MyselfFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +49,11 @@ public class CompanyHomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CompanyHomeFragment.
+     * @return A new instance of fragment MyselfFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CompanyHomeFragment newInstance(String param1, String param2) {
-        CompanyHomeFragment fragment = new CompanyHomeFragment();
+    public static MyselfFragment newInstance(String param1, String param2) {
+        MyselfFragment fragment = new MyselfFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,11 +70,43 @@ public class CompanyHomeFragment extends Fragment {
         }
     }
 
+    private void setAbout(int index){
+        EditText et = (EditText)mView.findViewById(R.id.about);
+        Storage.getInstance().companies.get(0).employees.get(index).about = et.getText().toString();
+        Log.d("ABOUT", Storage.getInstance().companies.get(0).employees.get(index).about);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_company_home, container, false);
+        if (mView == null)
+            mView = inflater.inflate(R.layout.fragment_myself, container, false);
+        EditText et = (EditText)mView.findViewById(R.id.about);
+        et.setText(Storage.getInstance().companies.get(0).employees.get(0).about);
+        ((Button)mView.findViewById(R.id.confirm)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(getResources().getString(R.string.confirm_changes))
+                        .setCancelable(false)
+                        .setNegativeButton(getResources().getString(R.string.no),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .setPositiveButton(getResources().getString(R.string.yes),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        setAbout(0);
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        return mView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

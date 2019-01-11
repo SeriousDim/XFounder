@@ -8,9 +8,15 @@ import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.util.ArrayList;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class Storage {
     private static final Storage ourInstance = new Storage();
-    ArrayList<Company> companies;
+    public int currentCompany;
+    public ArrayList<Company> companies;
 
     public static Storage getInstance() {
         return ourInstance;
@@ -18,10 +24,12 @@ public class Storage {
 
     private Storage() {
         companies = new ArrayList<>();
-        companies.add(new Company("My Company", new Director("Some", "One", "CEO")));
-
+        currentCompany = 0;
+        companies.add(new Company("My Company", new Director("Man", "Of Steel", "SuperCEO")));
+        Employee e = new Employee("Василий", "Пупкин", "Сын маминой подруги", 10000);
+        e.about = "It`s me";
         companies.get(0).employees.add(
-                new Employee("Nikita", "Yakovlev", "CEO", 10000)
+                e
         );
 
         Company c = companies.get(0);
@@ -40,16 +48,61 @@ public class Storage {
         );
         p.addTask(new Task(
                 p,
-                "Make adapters",
-                "Just do it",
+                "Make adapters 1",
+                "Just do it 1",
                 c.employees.get(0))
         );
         p.addTask(new Task(
                 p,
-                "Make adapters",
-                "Just do it",
+                "Make adapters 2",
+                "Just do it 2",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 2",
+                "Just do it 2",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 3",
+                "Just do it 3",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 4",
+                "Just do it 4",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 5",
+                "Just do it 5",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 6",
+                "Just do it 6",
+                c.employees.get(0))
+        );
+        p.addTask(new Task(
+                p,
+                "Make adapters 7",
+                "Just do it 7",
                 c.employees.get(0))
         );
         p.getTask(1).setComplete(true);
+
+        e.addTask(p.tasks.get(0));
+        e.addTask(p.tasks.get(1));
+        e.addTask(p.tasks.get(2));
+        e.addTask(p.tasks.get(3));
+        e.addTask(p.tasks.get(4));
+        e.addTask(p.tasks.get(5));
+        e.addTask(p.tasks.get(6));
+        e.addTask(p.tasks.get(7));
     }
 }

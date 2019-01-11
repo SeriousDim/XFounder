@@ -12,6 +12,11 @@ import com.xproject.eightstudio.x_project.dataclasses.Company;
 
 import java.util.List;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class CompanyListAdapter extends RecyclerView.Adapter<CompanyListAdapter.ViewHolder>{
 
     private LayoutInflater inflater;
@@ -46,8 +51,8 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyListAdapter.
         //final ImageView img;
         ViewHolder(View v){
             super(v);
-            name = (TextView)v.findViewById(R.id.il_t_name);
-            director = (TextView)v.findViewById(R.id.il_t_name);
+            name = (TextView)v.findViewById(R.id.v_name);
+            director = (TextView)v.findViewById(R.id.il_director);
             box = (CheckBox)v.findViewById(R.id.il_selected);
             //img = (ImageView)v.findViewById(R.id.il_logo);
         }

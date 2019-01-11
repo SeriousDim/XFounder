@@ -3,11 +3,16 @@ package com.xproject.eightstudio.x_project.dataclasses;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class Project {
 
     public String name;
     int color;
-    ArrayList<Task> tasks;
+    public ArrayList<Task> tasks;
     public int priority;
     public Employee teamlead;
     public boolean favorite, complete;
@@ -50,13 +55,13 @@ public class Project {
         return res;
     }
 
-    public int getItemsAmount(){
+    /*public int getItemsAmount(){
         int res = 0;
         for (Task i: tasks){
             res += i.getItemsAmount();
         }
         return res;
-    }
+    }*/
 
     public int getCompleteTasksAmount(){
         int res = 0;
@@ -67,12 +72,12 @@ public class Project {
         return res;
     }
 
-    public int getCompleteItemsAmount(){
+    /*public int getCompleteItemsAmount(){
         int res = 0;
         for (Task i: tasks){
             res += i.getCompletedItemsAmount();
         }
         return res;
-    }
+    }*/
 
 }

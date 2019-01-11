@@ -13,6 +13,11 @@ import com.xproject.eightstudio.x_project.dataclasses.Project;
 
 import java.util.List;
 
+/*
+ *  This class is written by
+ *  (C) Dmitrii Lykov, 2019
+ */
+
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder>{
 
     private LayoutInflater inflater;
@@ -57,7 +62,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         final ImageButton important;
         ViewHolder(View v){
             super(v);
-            name = (TextView)v.findViewById(R.id.il_t_name);
+            name = (TextView)v.findViewById(R.id.v_name);
             empl = (TextView)v.findViewById(R.id.il_empl);
             priority = (TextView)v.findViewById(R.id.il_priority);
             tasks = (TextView)v.findViewById(R.id.il_tasks);

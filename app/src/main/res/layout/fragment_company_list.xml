@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp"
-            android:textAlignment="center"
             android:text="@string/title_companies"
+            android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="25dp"
             app:font_name="banch.ttf" />

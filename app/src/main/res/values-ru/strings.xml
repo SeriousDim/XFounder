@@ -11,6 +11,14 @@
     <string name="director">Директор</string>
     <string name="employers_work">"Сотрудники: "</string>
     <string name="priority">"Приоритет: "</string>
-    <string name="tasks">Задачи</string>
+    <string name="tasks">Мои задачи</string>
     <string name="completed">Выполненные задачи</string>
+    <string name="complete">Завершить</string>
+    <string name="delete">Удалить</string>
+    <string name="write_about">Напишите что-нибудь о себе</string>
+    <string name="accept">Применить</string>
+    <string name="about_me">О себе</string>
+    <string name="confirm_changes">Подтвердить изменения?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>
