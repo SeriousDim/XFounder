@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    This XML is created by
-    (C) Dmitrii Lykov, 2019
--->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     tools:context=".ProfileListFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,7 +17,7 @@
             android:id="@+id/view3"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@drawable/gradient"
+            android:background="@drawable/shape"
             app:layout_constraintBottom_toBottomOf="@+id/tabs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,30 +65,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/empl_img" />
 
-        <TextView
-            android:id="@+id/empl_job"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Программист"
-            android:textColor="@android:color/background_light"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empl_name" />
-
-        <ImageButton
-            android:id="@+id/empl_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_edit_black_24dp"
-            android:tint="@android:color/background_light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -100,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empl_job"
+            app:layout_constraintTop_toBottomOf="@+id/empl_name"
             app:tabIndicatorColor="@android:color/background_light"
             app:tabIndicatorHeight="6dp"
             app:tabSelectedTextColor="@android:color/background_light"

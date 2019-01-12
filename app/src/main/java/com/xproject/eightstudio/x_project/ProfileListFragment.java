@@ -16,10 +16,6 @@ import com.xproject.eightstudio.x_project.dataclasses.Employee;
 
 import org.w3c.dom.Text;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,13 +69,11 @@ public class ProfileListFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (card == null) {
             card = inflater.inflate(R.layout.fragment_profile_list, container, false);
-            TextView name, job;
-            name = (TextView)card.findViewById(R.id.empl_name);
-            job = (TextView)card.findViewById(R.id.empl_job);
+            TextView name;
+            name = card.findViewById(R.id.empl_name);
             Employee e = Storage.getInstance().companies.get(0).employees.get(0);
             name.setText(e.name+" "+e.surname);
-            job.setText(e.job);
-            ViewPager vp = (ViewPager) card.findViewById(R.id.v_pager);
+            ViewPager vp = card.findViewById(R.id.v_pager);
             setupViewPager(vp);
             ((TabLayout) card.findViewById(R.id.tabs)).setupWithViewPager(vp);
         }

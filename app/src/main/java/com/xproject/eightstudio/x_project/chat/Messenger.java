@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.chat;
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;

@@ -13,11 +13,6 @@ import com.xproject.eightstudio.x_project.dataclasses.Project;
 
 import java.util.List;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder>{
 
     private LayoutInflater inflater;

@@ -7,11 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 

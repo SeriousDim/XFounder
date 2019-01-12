@@ -5,22 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.ProjectAdapter;
-import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.Storage;
 import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.util.List;
-
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 

@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project.dataclasses;
+package com.xproject.eightstudio.x_project.chat;
 
 import java.util.ArrayList;
 import android.content.Context;

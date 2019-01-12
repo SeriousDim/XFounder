@@ -7,19 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CompanyHomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CompanyHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CompanyHomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

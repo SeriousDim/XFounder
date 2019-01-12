@@ -14,10 +14,6 @@ import android.view.ViewGroup;
 
 import com.xproject.eightstudio.x_project.dataclasses.Company;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
 
 public class CompanyListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

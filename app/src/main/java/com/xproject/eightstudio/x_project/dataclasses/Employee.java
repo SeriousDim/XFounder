@@ -2,24 +2,16 @@ package com.xproject.eightstudio.x_project.dataclasses;
 
 import java.util.ArrayList;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class Employee {
 
     public String name, surname;
-    public String job;
     public String about;
-    public int level;
-    public int salary, score;
+    public int salary;
     public ArrayList<Task> tasks; // reference
 
-    public Employee(String name, String surname, String job, int salary){
+    public Employee(String name, String surname, int salary){
         this.name = name;
         this.surname = surname;
-        this.job = job;
         this.salary = salary;
         this.about = new String();
         this.tasks = new ArrayList<>();

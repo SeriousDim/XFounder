@@ -8,11 +8,6 @@ import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.util.ArrayList;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class Storage {
     private static final Storage ourInstance = new Storage();
     public int currentCompany;
@@ -25,8 +20,8 @@ public class Storage {
     private Storage() {
         companies = new ArrayList<>();
         currentCompany = 0;
-        companies.add(new Company("My Company", new Director("Man", "Of Steel", "SuperCEO")));
-        Employee e = new Employee("Василий", "Пупкин", "Сын маминой подруги", 10000);
+        companies.add(new Company("My Company", new Director("Name Surname", "CEO")));
+        Employee e = new Employee("Василий", "Пупкин", 10000);
         e.about = "It`s me";
         companies.get(0).employees.add(
                 e
