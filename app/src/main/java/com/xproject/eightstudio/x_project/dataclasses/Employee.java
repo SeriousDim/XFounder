@@ -6,14 +6,11 @@ public class Employee {
 
     public String name, surname;
     public String about;
-    public int salary;
     public ArrayList<Task> tasks; // reference
 
-    public Employee(String name, String surname, int salary){
+    public Employee(String name, String surname){
         this.name = name;
         this.surname = surname;
-        this.salary = salary;
-        this.about = new String();
         this.tasks = new ArrayList<>();
     }
 

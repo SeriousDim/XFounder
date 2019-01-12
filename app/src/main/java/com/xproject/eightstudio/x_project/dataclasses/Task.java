@@ -2,11 +2,6 @@ package com.xproject.eightstudio.x_project.dataclasses;
 
 import java.util.ArrayList;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class Task {
 
     public Project project; // reference

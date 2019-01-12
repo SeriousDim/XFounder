@@ -3,11 +3,6 @@ package com.xproject.eightstudio.x_project.dataclasses;
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class Project {
 
     public String name;

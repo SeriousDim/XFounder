@@ -3,14 +3,14 @@ package com.xproject.eightstudio.x_project;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.xproject.eightstudio.x_project.chat.ChatFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         storage = Storage.getInstance();
@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_chat:
                 setFragmentClass(fragments[0]);
                 return true;
-            /*case R.id.navigation_projects:
-                setFragmentClass(fragments[4]);
-                return true;*/
             case R.id.navigation_home:
                 setFragmentClass(fragments[2]);
                 return true;

@@ -21,7 +21,7 @@ public class Storage {
         companies = new ArrayList<>();
         currentCompany = 0;
         companies.add(new Company("My Company", new Director("Name Surname", "CEO")));
-        Employee e = new Employee("Василий", "Пупкин", 10000);
+        Employee e = new Employee("Василий", "Пупкин");
         e.about = "It`s me";
         companies.get(0).employees.add(
                 e
@@ -37,67 +37,10 @@ public class Storage {
         Project p = c.getProject(0);
         p.addTask(new Task(
                 p,
-                "Make adapters",
-                "Just do it",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 1",
-                "Just do it 1",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 2",
-                "Just do it 2",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 2",
-                "Just do it 2",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 3",
-                "Just do it 3",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 4",
-                "Just do it 4",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 5",
-                "Just do it 5",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
-                "Make adapters 6",
-                "Just do it 6",
-                c.employees.get(0))
-        );
-        p.addTask(new Task(
-                p,
                 "Make adapters 7",
                 "Just do it 7",
                 c.employees.get(0))
         );
-        p.getTask(1).setComplete(true);
-
         e.addTask(p.tasks.get(0));
-        e.addTask(p.tasks.get(1));
-        e.addTask(p.tasks.get(2));
-        e.addTask(p.tasks.get(3));
-        e.addTask(p.tasks.get(4));
-        e.addTask(p.tasks.get(5));
-        e.addTask(p.tasks.get(6));
-        e.addTask(p.tasks.get(7));
     }
 }

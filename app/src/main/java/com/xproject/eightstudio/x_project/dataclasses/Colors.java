@@ -2,11 +2,6 @@ package com.xproject.eightstudio.x_project.dataclasses;
 
 import com.xproject.eightstudio.x_project.R;
 
-/*
- *  This class is written by
- *  (C) Dmitrii Lykov, 2019
- */
-
 public class Colors {
 
     public static int[] colors = {

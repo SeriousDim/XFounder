@@ -1,67 +1,52 @@
 package com.xproject.eightstudio.x_project;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import org.w3c.dom.Text;
+import java.io.IOException;
+import java.util.HashMap;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ProfileListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ProfileListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileListFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    private final String server = "https://gleb2700.000webhostapp.com";
+    final Gson gson = new GsonBuilder().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(server)
+            .build();
+    private Workers work = retrofit.create(Workers.class);
+    String workerID="2";
+    ViewPagerAdapter view;
+    TextView nameField;
     View card;
-
-    public ProfileListFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileListFragment newInstance(String param1, String param2) {
-        ProfileListFragment fragment = new ProfileListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new MyselfFragment(), getResources().getString(R.string.about_me));
-        adapter.addFragment(new TaskFragment(), getResources().getString(R.string.tasks));
-        viewPager.setAdapter(adapter);
+        view = new ViewPagerAdapter(getFragmentManager());
+        view.addFragment(new MyselfFragment(), getResources().getString(R.string.about_me));
+        view.addFragment(new TaskFragment(), getResources().getString(R.string.tasks));
+        viewPager.setAdapter(view);
     }
 
     @Override
@@ -69,54 +54,43 @@ public class ProfileListFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (card == null) {
             card = inflater.inflate(R.layout.fragment_profile_list, container, false);
-            TextView name;
-            name = card.findViewById(R.id.empl_name);
-            Employee e = Storage.getInstance().companies.get(0).employees.get(0);
-            name.setText(e.name+" "+e.surname);
+            getInfo(workerID);
             ViewPager vp = card.findViewById(R.id.v_pager);
             setupViewPager(vp);
+            nameField = card.findViewById(R.id.empl_name);
             ((TabLayout) card.findViewById(R.id.tabs)).setupWithViewPager(vp);
         }
 
         return card;
     }
+    private void getInfo(String WID){
+        HashMap<String, String> getDataParams = new HashMap<>();
+        getDataParams.put("WID", WID);
+        getDataParams.put("command", "getAll");
+        Call<ResponseBody> call = work.performGetCall(getDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
+                    String name = resp.get("name");
+                    String description = resp.get("description");
+                    MyselfFragment frag = (MyselfFragment) view.getItem(0);
+                    frag.setDescription(description);
+                    nameField.setText(name);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }
