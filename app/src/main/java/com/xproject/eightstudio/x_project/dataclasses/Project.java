@@ -1,12 +1,10 @@
 package com.xproject.eightstudio.x_project.dataclasses;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Project {
 
     public String name;
-    int color;
     public ArrayList<Task> tasks;
     public int priority;
     public Employee teamlead;
@@ -19,7 +17,6 @@ public class Project {
         this.complete = false;
         this.teamlead = teamlead;
         this.tasks = new ArrayList<>();
-        this.color = Colors.colors[new Random().nextInt(9)];
     }
 
     public void addTask(Task t){

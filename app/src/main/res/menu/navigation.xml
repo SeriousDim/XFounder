@@ -2,17 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_companies"
-        android:icon="@drawable/t_companieslist_fill_icon"
-        android:title="@string/title_companies" />
-    <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/t_message_fill_icon"
         android:title="@string/title_chat" />
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/t_profile_fill_icon"
-        android:title="@string/title_employees" />
+        android:id="@+id/navigation_task"
+        android:icon="@drawable/t_task_icon"
+        android:title="@string/title_tasks" />
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/t_company_fill_icon"

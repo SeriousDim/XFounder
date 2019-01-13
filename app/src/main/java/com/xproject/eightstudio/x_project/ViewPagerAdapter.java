@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project.profile;
+package com.xproject.eightstudio.x_project;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -107,12 +107,6 @@ public class ChatFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle bun) {
-        super.onCreate(bun);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -129,9 +123,4 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CBD5DF">
+
+    <ImageView
+        android:id="@+id/title_background"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:background="@drawable/shape" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
+        android:text="Задача"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="25dp"
+        app:font_name="banch.ttf" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_back"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="3dp"
+        android:text="Название задачи"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        app:font_name="roboto_r.ttf" />
+
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/white_back"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:padding="7dp"
+        android:text="Очень длинное описание задачи, подробное с объяснениями частей"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        app:font_name="roboto_l.ttf" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_back"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="3dp"
+        android:text="Создатель: Имя Фамилия"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        app:font_name="roboto_r.ttf" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/author"
+        android:orientation="horizontal">
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/date_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/white_back"
+            android:padding="10dp"
+            android:text="01-01-2001"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="25dp"
+            app:font_name="roboto_l.ttf" />
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/date_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/white_back"
+            android:padding="10dp"
+            android:text="01-01-2001"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textSize="25dp"
+            app:font_name="roboto_l.ttf" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
