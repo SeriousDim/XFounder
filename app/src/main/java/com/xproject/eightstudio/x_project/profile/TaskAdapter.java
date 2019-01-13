@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.profile;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.xproject.eightstudio.x_project.Storage;
 import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.R;
 
 import java.util.List;
 

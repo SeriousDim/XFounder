@@ -8,13 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
+import com.xproject.eightstudio.x_project.profile.ProfileListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     Storage storage;
     Fragment[] fragments;
 
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

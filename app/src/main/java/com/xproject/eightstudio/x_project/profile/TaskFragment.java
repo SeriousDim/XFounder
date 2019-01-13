@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.profile;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+
+import com.xproject.eightstudio.x_project.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +65,7 @@ public class TaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_task, container, false);
-        RecyclerView rv = (RecyclerView)v.findViewById(R.id.tasks_list);
+        RecyclerView rv = v.findViewById(R.id.tasks_list);
         rv.setAdapter(new TaskAdapter(getActivity()));
 
         return v;

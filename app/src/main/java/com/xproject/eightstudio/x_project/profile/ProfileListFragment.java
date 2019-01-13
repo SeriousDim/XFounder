@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.profile;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.Workers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.xproject.eightstudio.x_project.R;
 public class ProfileListFragment extends Fragment {
 
     private final String server = "https://gleb2700.000webhostapp.com";
@@ -54,9 +56,9 @@ public class ProfileListFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (card == null) {
             card = inflater.inflate(R.layout.fragment_profile_list, container, false);
-            getInfo(workerID);
             ViewPager vp = card.findViewById(R.id.v_pager);
             setupViewPager(vp);
+            getInfo(workerID);
             nameField = card.findViewById(R.id.empl_name);
             ((TabLayout) card.findViewById(R.id.tabs)).setupWithViewPager(vp);
         }

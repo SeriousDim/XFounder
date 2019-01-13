@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.profile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.Workers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,6 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.xproject.eightstudio.x_project.R;
+
+import com.xproject.eightstudio.x_project.R;
 
 public class MyselfFragment extends Fragment {
     private View mView;
@@ -32,9 +36,11 @@ public class MyselfFragment extends Fragment {
             .baseUrl(server)
             .build();
     private Workers work = retrofit.create(Workers.class);
-    public MyselfFragment(){}
 
-    public void setDescription(String description){
+    public MyselfFragment() {
+    }
+
+    public void setDescription(String description) {
         descriptionField.setText(description);
     }
 
@@ -45,16 +51,17 @@ public class MyselfFragment extends Fragment {
 
     private void updateDescription(String description) {
         HashMap<String, String> getDataParams = new HashMap<>();
-        getDataParams.put("WID", workerID);
         getDataParams.put("command", "updateDescription");
+        getDataParams.put("WID", workerID);
         getDataParams.put("description", description);
+        Toast.makeText(getContext(), description, Toast.LENGTH_LONG).show();
         Call<ResponseBody> call = work.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
-                    if (resp.get("success") != "good")
+                    if (!resp.get("success").equals("good"))
                         Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -63,7 +70,7 @@ public class MyselfFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error1", Toast.LENGTH_LONG).show();
             }
         });
     }
