@@ -23,11 +23,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.xproject.eightstudio.x_project.R;
 
-import com.xproject.eightstudio.x_project.R;
-
 public class MyselfFragment extends Fragment {
     private View mView;
-    String workerID = "1";
+    String workerID = "2";
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     EditText descriptionField;
@@ -36,9 +34,6 @@ public class MyselfFragment extends Fragment {
             .baseUrl(server)
             .build();
     private Workers work = retrofit.create(Workers.class);
-
-    public MyselfFragment() {
-    }
 
     public void setDescription(String description) {
         descriptionField.setText(description);
@@ -54,7 +49,6 @@ public class MyselfFragment extends Fragment {
         getDataParams.put("command", "updateDescription");
         getDataParams.put("WID", workerID);
         getDataParams.put("description", description);
-        Toast.makeText(getContext(), description, Toast.LENGTH_LONG).show();
         Call<ResponseBody> call = work.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
