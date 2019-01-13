@@ -31,7 +31,6 @@ public class ChatFragment extends Fragment {
     private View view;
     final private String divider = "�";
     String localID = "1";
-    String localName = "Gleb Shanshin"; //TODO: replace with getting from preferences
     ArrayList<Message> messages = new ArrayList<>();
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
@@ -42,11 +41,11 @@ public class ChatFragment extends Fragment {
     private Messenger mes = retrofit.create(Messenger.class);
 
     public void getUpdates(String CID) {
-        HashMap<String, String> postDataParams = new HashMap<>();
-        postDataParams.put("CID", CID);
-        postDataParams.put("command", "getMessages");
-        postDataParams.put("count", messages.size() + "");
-        Call<ResponseBody> call = mes.performPostCall(postDataParams);
+        HashMap<String, String> getDataParams = new HashMap<>();
+        getDataParams.put("CID", CID);
+        getDataParams.put("command", "getMessages");
+        getDataParams.put("count", messages.size() + "");
+        Call<ResponseBody> call = mes.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -82,16 +81,15 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    public void sendMessage(final String CID, final String worker, final String workerID) {
+    public void sendMessage(final String CID, final String workerID) {
         final String message = typeInput.getText().toString();
         typeInput.setText("");
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("CID", CID);
         postDataParams.put("command", "addMessage");
         postDataParams.put("message", divider + message);
-        postDataParams.put("worker", divider + worker);
         postDataParams.put("workerID", divider + workerID);
-        messages.add(new Message(worker, message, (short) 2));
+        messages.add(new Message(workerID, message, (short) 2));
         fillView();
         Call<ResponseBody> call = mes.performPostCall(postDataParams);
         call.enqueue(new Callback<ResponseBody>() {
@@ -124,10 +122,9 @@ public class ChatFragment extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage("zero0", localName, localID);
+                sendMessage("zero0", localID);
             }
         });
-        fillView();
         getUpdates("zero0");
         return view;
     }
