@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
+import com.xproject.eightstudio.x_project.dataclasses.TaskClass;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,12 +64,15 @@ public class MainActivity extends AppCompatActivity {
                 setFragmentClass(fragments[0]);
                 currentFragment=0;
                 return true;
-            case 0:
-                setFragmentClass(fragments[3]);
-                currentFragment=3;
-                return true;
         }
         return false;
+    }
+
+    public void openTask(TaskClass task){
+        TaskViewFragment taskViewFragment = (TaskViewFragment) fragments[3];
+        taskViewFragment.setTask(task);
+        setFragmentClass(taskViewFragment);
+        currentFragment=3;
     }
 
     private void setFragmentClass(Fragment frag) {

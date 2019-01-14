@@ -119,6 +119,7 @@ public class ChatFragment extends Fragment {
                 sendMessage("zero0", localID);
             }
         });
+        fillView();
         getUpdates("zero0");
         return view;
     }

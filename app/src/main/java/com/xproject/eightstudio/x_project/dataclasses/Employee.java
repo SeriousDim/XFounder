@@ -6,7 +6,7 @@ public class Employee {
 
     public String name, surname;
     public String about;
-    public ArrayList<Task> tasks; // reference
+    public ArrayList<TaskClass> tasks; // reference
 
     public Employee(String name, String surname){
         this.name = name;
@@ -14,7 +14,7 @@ public class Employee {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task p){
+    public void addTask(TaskClass p){
         tasks.add(p);
     }
 
@@ -22,11 +22,11 @@ public class Employee {
         tasks.remove(index);
     }
 
-    public Task getTask(int index){
+    public TaskClass getTask(int index){
         return this.tasks.get(index);
     }
 
-    /*public void addTask(Task.Item p){
+    /*public void addTask(TaskClass.Item p){
         items.add(p);
     }
 
@@ -34,7 +34,7 @@ public class Employee {
         items.remove(index);
     }
 
-    public Task.Item getTask(int index){
+    public TaskClass.Item getTask(int index){
         return this.items.get(index);
     }*/
 

@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.xproject.eightstudio.x_project.dataclasses.Company;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class CompanyListAdapter extends RecyclerView.Adapter<CompanyListAdapter.ViewHolder>{
 
@@ -18,7 +22,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<CompanyListAdapter.
     private List<Company> companies;
 
     CompanyListAdapter(Context ctx){
-        this.companies = Storage.getInstance().companies;
+        this.companies = new ArrayList<>();
         this.inflater = LayoutInflater.from(ctx);
     }
 
