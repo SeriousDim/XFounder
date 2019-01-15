@@ -1,6 +1,7 @@
 package com.xproject.eightstudio.x_project.chat;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.R;
 
@@ -41,26 +43,24 @@ public class MessageAdapter extends BaseAdapter {
         return position;
     }
 
-    // пункт списка
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // используем созданные, но не используемые view
-        View view = convertView;
+        View view;
         Message m = getMessage(position);
-        if (m.isLocal==1) {
-            view = lInflater.inflate(R.layout.message_viewr, parent, false);
-        } else if (m.isLocal==0){
-            view = lInflater.inflate(R.layout.message_view, parent, false);
-            TextView worker = view.findViewById(R.id.worker);
-            worker.setText(m.worker);
-        }
-        else{
+        if (m.isLoading) {
             view = lInflater.inflate(R.layout.message_viewu, parent, false);
 
+        } else {
+            if (m.sender_id.equals(m.localID)) {
+                view = lInflater.inflate(R.layout.message_viewr, parent, false);
+            } else {
+                view = lInflater.inflate(R.layout.message_view, parent, false);
+                TextView worker = view.findViewById(R.id.worker);
+                worker.setText(m.name);
+            }
         }
-
         TextView message = view.findViewById(R.id.text);
-        message.setText(m.message);
+        message.setText(m.data);
         return view;
     }
 

@@ -1,13 +1,17 @@
 package com.xproject.eightstudio.x_project.chat;
 
 public class Message {
-    String message;
-    String worker;
-    short isLocal;
+    String sender_id;
+    String name;
+    String data;
+    String localID="1";
+    boolean isLoading;
 
-    public Message(String _worker, String _message, short _isLocal) {
-        message = _message;
-        worker = _worker;
-        isLocal = _isLocal;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setIsLoading(boolean isLoading) {
+        this.isLoading = isLoading;
     }
 }

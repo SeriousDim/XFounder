@@ -12,119 +12,158 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:background="@drawable/shape" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@id/title_background"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignBottom="@id/date"
-        android:background="@drawable/white_back" />
+        android:background="@drawable/backgr_item" />
 
     <io.gloxey.cfv.CFTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="3dp"
         android:text="Задача"
         android:textAlignment="center"
-        android:textColor="#FFF"
-        android:textSize="25dp"
+        android:textColor="#000"
+        android:textSize="38sp"
         app:font_name="banch.ttf" />
 
-    <io.gloxey.cfv.CFTextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_background"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_back"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="3dp"
-        android:text="Название задачи"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="25dp"
-        app:font_name="roboto_r.ttf" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:orientation="vertical">
 
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/creator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task_view_up_blue"
+            android:padding="3dp"
+            android:text="Создатель: Nikita Yakovlev"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="26sp"
+            app:font_name="roboto_l.ttf" />
 
-    <io.gloxey.cfv.CFTextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/white_back"
-        android:inputType="text|textMultiLine|textCapSentences"
-        android:padding="7dp"
-        android:text="Очень длинное описание задачи, подробное с объяснениями частей"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="25dp"
-        app:font_name="roboto_l.ttf" />
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:text="Название задачи"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="28sp"
+            app:font_name="roboto_r.ttf" />
 
-    <io.gloxey.cfv.CFTextView
-        android:id="@+id/creator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_back"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="3dp"
-        android:text="Создатель: Имя Фамилия"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="25dp"
-        app:font_name="roboto_r.ttf" />
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:text="Длинное и очень подробное описание задачи, длиною в несколько строк"
+            android:textAlignment="center"
+            android:textColor="#333"
+            android:textSize="25sp"
+            app:font_name="roboto_l.ttf" />
 
-    <RelativeLayout
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/performer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Исполнитель: Nikita Yakovlev"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="25sp"
+            app:font_name="roboto_l.ttf" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/creator"
-        android:id="@+id/date"
-        android:orientation="horizontal">
+        android:layout_below="@id/info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:orientation="vertical">
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/date_start"
-            android:layout_width="wrap_content"
+            android:id="@+id/date"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/white_back"
-            android:padding="10dp"
-            android:text="01-01-2001"
+            android:background="@drawable/task_view_up_red"
+            android:padding="3dp"
+            android:text="Сроки"
             android:textAlignment="center"
-            android:textColor="@color/green"
-            android:textSize="25dp"
+            android:textColor="#FFF"
+            android:textSize="28sp"
             app:font_name="roboto_l.ttf" />
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/date_end"
-            android:layout_width="wrap_content"
+            android:id="@+id/date_from"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/white_back"
-            android:padding="10dp"
-            android:text="01-01-2001"
+            android:padding="3dp"
+            android:text="Начало: 01-01-2018"
             android:textAlignment="center"
-            android:textColor="@color/red"
-            android:textSize="25dp"
+            android:textColor="#000"
+            android:textSize="30sp"
             app:font_name="roboto_l.ttf" />
-    </RelativeLayout>
 
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/date_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="Конец: 01-01-2019"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="30sp"
+            app:font_name="roboto_l.ttf" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dates"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:orientation="vertical">
+
+        <io.gloxey.cfv.CFTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task_view_up_green"
+            android:padding="3dp"
+            android:text="Статус"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="28sp"
+            app:font_name="roboto_l.ttf" />
+
+        <io.gloxey.cfv.CFTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="В ожидании"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="29sp"
+            app:font_name="roboto_l.ttf" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;
@@ -25,12 +26,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+class MessageResponse {
+    String time;
+    ArrayList<Message> messages;
+}
+
 public class ChatFragment extends Fragment {
     private EditText typeInput;
     private ListView messageView;
     private View view;
-    final private String divider = "�";
     String localID = "1";
+    private String lastTime = "0";
     ArrayList<Message> messages = new ArrayList<>();
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
@@ -40,27 +46,20 @@ public class ChatFragment extends Fragment {
             .build();
     private Messenger mes = retrofit.create(Messenger.class);
 
-    public void getUpdates(String CID) {
+    public void getUpdates(String projectID) {
         HashMap<String, String> getDataParams = new HashMap<>();
-        getDataParams.put("CID", CID);
+        getDataParams.put("projectID", projectID);
         getDataParams.put("command", "getMessages");
-        getDataParams.put("count", messages.size() + "");
+        getDataParams.put("time", lastTime);
         Call<ResponseBody> call = mes.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
-                    if (!resp.get("success").equals("no updates")) {
-                        String history[] = resp.get("history").split(divider);
-                        String workerIDs[] = resp.get("workerIDs").split(divider);
-                        String workers[] = resp.get("workers").split(divider);
-                        messages = new ArrayList<>();
-                        for (int i = 0; i < history.length; i++) {
-                            messages.add(new Message(workers[i], history[i], (short) (workerIDs[i].equals(localID) ? 1 : 0)));
-                        }
-                        fillView();
-                    }
+                    MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
+                    messages.addAll(resp.messages);
+                    lastTime = resp.time;
+                    fillView();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -81,22 +80,25 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    public void sendMessage(final String CID, final String workerID) {
+    public void sendMessage(final String projectID, final String workerID) {
         final String message = typeInput.getText().toString();
         typeInput.setText("");
         HashMap<String, String> postDataParams = new HashMap<>();
-        postDataParams.put("CID", CID);
         postDataParams.put("command", "addMessage");
-        postDataParams.put("message", divider + message);
-        postDataParams.put("workerID", divider + workerID);
-        messages.add(new Message(workerID, message, (short) 2));
+        postDataParams.put("message", message);
+        postDataParams.put("workerID", workerID);
+        postDataParams.put("projectID", projectID);
+        Message m = new Message();
+        m.setData(message);
+        m.setIsLoading(true);
+        messages.add(m);
         fillView();
         Call<ResponseBody> call = mes.performPostCall(postDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 messages.remove(messages.size() - 1);
-                getUpdates(CID);
+                getUpdates(projectID);
             }
 
             @Override
@@ -116,11 +118,11 @@ public class ChatFragment extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage("zero0", localID);
+                sendMessage("1", localID);
             }
         });
         fillView();
-        getUpdates("zero0");
+        getUpdates("1");
         return view;
     }
 

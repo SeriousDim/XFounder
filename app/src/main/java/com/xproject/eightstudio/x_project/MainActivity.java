@@ -52,27 +52,27 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean setFragment(int item) {
         switch (item) {
+            case R.id.navigation_home:
+                setFragmentClass(fragments[0]);
+                currentFragment = 0;
+                return true;
             case R.id.navigation_chat:
                 setFragmentClass(fragments[1]);
-                currentFragment=1;
+                currentFragment = 1;
                 return true;
             case R.id.navigation_task:
                 setFragmentClass(fragments[2]);
-                currentFragment=2;
-                return true;
-            case R.id.navigation_home:
-                setFragmentClass(fragments[0]);
-                currentFragment=0;
+                currentFragment = 2;
                 return true;
         }
         return false;
     }
 
-    public void openTask(TaskClass task){
+    public void openTask(TaskClass task) {
         TaskViewFragment taskViewFragment = (TaskViewFragment) fragments[3];
         taskViewFragment.setTask(task);
         setFragmentClass(taskViewFragment);
-        currentFragment=3;
+        currentFragment = 3;
     }
 
     private void setFragmentClass(Fragment frag) {
