@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
 import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;
@@ -46,6 +45,16 @@ public class ChatFragment extends Fragment {
             .build();
     private Messenger mes = retrofit.create(Messenger.class);
 
+    class MyClass implements Runnable { //TODO: it always crushes because of bad asyncing
+        public void run() {
+            try {
+                getUpdates("1");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void getUpdates(String projectID) {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("projectID", projectID);
@@ -57,9 +66,13 @@ public class ChatFragment extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
-                    messages.addAll(resp.messages);
+                    if (resp.messages.size() != 0) {
+                        messages.addAll(resp.messages);
+                        fillView();
+                    }
                     lastTime = resp.time;
-                    fillView();
+                    Thread t1 = new Thread(new MyClass());
+                    t1.start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +111,6 @@ public class ChatFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 messages.remove(messages.size() - 1);
-                getUpdates(projectID);
             }
 
             @Override

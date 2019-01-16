@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
-public interface Task {
+public interface Tasks {
     @FormUrlEncoded
     @POST("/task.php")
     Call<ResponseBody> performPostCall(@FieldMap HashMap<String, String> postDataParams);

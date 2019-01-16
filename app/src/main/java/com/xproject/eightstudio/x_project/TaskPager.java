@@ -11,13 +11,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
-import com.xproject.eightstudio.x_project.dataclasses.TaskClass;
+import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,11 +24,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+class TaskResponse {
+    ArrayList<Task> tasks;
+}
+
+
 public class TaskPager extends Fragment {
     ViewPagerAdapter viewpager;
     TaskFragment pending, inProgress, done;
-    View card;
-
+    View view;
     String localID = "1";
     String projectID = "2";
     private final String server = "https://gleb2700.000webhostapp.com";
@@ -39,7 +41,7 @@ public class TaskPager extends Fragment {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(server)
             .build();
-    private Task task = retrofit.create(Task.class);
+    private Tasks tasks = retrofit.create(Tasks.class);
 
     private void setupViewPager(ViewPager viewPager) {
         viewpager = new ViewPagerAdapter(getFragmentManager());
@@ -53,16 +55,23 @@ public class TaskPager extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getList();
-        if (card == null) {
-            card = inflater.inflate(R.layout.fragment_task_pager, container, false);
-            ViewPager vp = card.findViewById(R.id.v_pager);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_task_pager, container, false);
+            ViewPager vp = view.findViewById(R.id.v_pager);
             setupViewPager(vp);
-            ((TabLayout) card.findViewById(R.id.tabs)).setupWithViewPager(vp);
+            ((TabLayout) view.findViewById(R.id.tabs)).setupWithViewPager(vp);
+
+            view.findViewById(R.id.add_task).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) inflater.getContext()).addTask();
+                }
+            });
         }
-        return card;
+        return view;
     }
 
     public void getList() {
@@ -70,29 +79,23 @@ public class TaskPager extends Fragment {
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);
         getDataParams.put("project_id", projectID);
-        Call<ResponseBody> call = task.performGetCall(getDataParams);
+        Call<ResponseBody> call = tasks.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    ArrayList<LinkedTreeMap<String, String>> resp = gson.fromJson(response.body().string(), ArrayList.class);
-                    ArrayList<TaskClass> pendingL = new ArrayList<>();
-                    ArrayList<TaskClass> progressL = new ArrayList<>();
-                    ArrayList<TaskClass> doneL = new ArrayList<>();
-                    for (int p = 0; p < resp.size(); p++) {
-                        LinkedTreeMap<String, String> currrentTask = resp.get(p);
-                        if (currrentTask.get("status").equals("0"))
-                            pendingL.add(new TaskClass(currrentTask.get("title"),
-                                                       currrentTask.get("name"),
-                                                       currrentTask.get("task_id")));
-                        else if (currrentTask.get("status").equals("1"))
-                            progressL.add(new TaskClass(currrentTask.get("title"),
-                                                        currrentTask.get("name"),
-                                                        currrentTask.get("task_id")));
-                        else if (currrentTask.get("status").equals("2"))
-                            doneL.add(new TaskClass(currrentTask.get("title"),
-                                                    currrentTask.get("name"),
-                                                    currrentTask.get("task_id")));
+                    TaskResponse resp = gson.fromJson(response.body().string(), TaskResponse.class);
+                    ArrayList<Task> pendingL = new ArrayList<>();
+                    ArrayList<Task> progressL = new ArrayList<>();
+                    ArrayList<Task> doneL = new ArrayList<>();
+                    for (int p = 0; p < resp.tasks.size(); p++) {
+                        Task currrentTask = resp.tasks.get(p);
+                        if (currrentTask.status.equals("0"))
+                            pendingL.add(currrentTask);
+                        else if (currrentTask.status.equals("1"))
+                            progressL.add(currrentTask);
+                        else if (currrentTask.status.equals("2"))
+                            doneL.add(currrentTask);
                     }
                     pending.setTasks(pendingL);
                     inProgress.setTasks(progressL);

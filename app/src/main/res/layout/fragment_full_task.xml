@@ -115,10 +115,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Начало: 01-01-2018"
+            android:text="Начало: 01-01-2018 11:00"
             android:textAlignment="center"
             android:textColor="#000"
-            android:textSize="30sp"
+            android:textSize="28sp"
             app:font_name="roboto_l.ttf" />
 
         <io.gloxey.cfv.CFTextView
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Конец: 01-01-2019"
+            android:text="Конец: 01-01-2019 11:00"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="30sp"
@@ -156,6 +156,7 @@
             app:font_name="roboto_l.ttf" />
 
         <io.gloxey.cfv.CFTextView
+            android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"

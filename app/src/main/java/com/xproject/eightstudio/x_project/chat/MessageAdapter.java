@@ -23,6 +23,7 @@ public class MessageAdapter extends BaseAdapter {
         objects = messages;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        notifyDataSetChanged();
     }
 
     // кол-во элементов

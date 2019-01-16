@@ -8,10 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
-import com.xproject.eightstudio.x_project.dataclasses.TaskClass;
+import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,12 +35,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragments = new Fragment[4];
+        fragments = new Fragment[3];
         try {
             fragments[0] = CompanyHomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
-            fragments[3] = TaskViewFragment.class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void openTask(TaskClass task) {
-        TaskViewFragment taskViewFragment = (TaskViewFragment) fragments[3];
+    public void openTask(Task task) {
+        TaskViewFragment taskViewFragment = new TaskViewFragment();
         taskViewFragment.setTask(task);
         setFragmentClass(taskViewFragment);
         currentFragment = 3;
@@ -82,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (currentFragment == 3)
+        if (currentFragment == 3 || currentFragment == 4)
             setFragment(R.id.navigation_task);
+    }
+
+    public void addTask() {
+        setFragmentClass(new TaskCreateFragment());
+        currentFragment = 4;
     }
 }

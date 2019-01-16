@@ -6,6 +6,14 @@
     android:background="@color/background">
 
 
+    <Button
+        android:id="@+id/add_task"
+        android:layout_width="40dp"
+        android:layout_margin="12dp"
+        android:layout_height="40dp"
+        android:background="@drawable/add_icon"
+        android:layout_alignParentEnd="true"/>
+
     <ImageView
         android:id="@+id/title"
         android:layout_width="match_parent"
