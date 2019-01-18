@@ -18,4 +18,10 @@
     <string name="pending">В ожидании</string>
     <string name="in_progress">В процессе</string>
     <string name="done">Готово</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
+    <string name="open_profile">Открыть профиль</string>
+    <string name="add_company">Добавить компанию</string>
+    <string name="current_task">Задача</string>
+    <string name="add_comp">Добавить задачу</string>
 </resources>

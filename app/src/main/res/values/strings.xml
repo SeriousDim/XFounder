@@ -18,4 +18,10 @@
     <string name="pending">Pending</string>
     <string name="in_progress">In progress</string>
     <string name="done">Done</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
+    <string name="open_profile">Open profile</string>
+    <string name="add_company">Add company</string>
+    <string name="current_task">Task</string>
+    <string name="add_comp">Add company</string>
 </resources>
