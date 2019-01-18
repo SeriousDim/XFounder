@@ -34,7 +34,7 @@ import java.util.Random;
 import io.gloxey.cfv.CFTextView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     int currentFragment;
     Fragment[] fragments;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        title = (CFTextView)findViewById(R.id.my_title);
+        title = (CFTextView) findViewById(R.id.my_title);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         fragments = new Fragment[3];
@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         intentAddCompany = new Intent(this, AddCompanyActivity.class);
-        intentAddTask = new Intent(this, AddTaskActivity.class);
-        ((Button)findViewById(R.id.add_comp)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(intentAddCompany);
@@ -97,10 +96,10 @@ public class MainActivity extends AppCompatActivity
         setFragmentClass(fragments[2]);
         navigation.setSelectedItemId(R.id.navigation_task);
 
-        lv = ((ListView)findViewById(R.id.comp_list));
+        lv = findViewById(R.id.comp_list);
         Company[] c = new Company[25];
-        for (int i=1; i<26; i++)
-            c[i-1] = new Company("My Company "+i, new Director(new Random().nextLong()+"", ""));
+        for (int i = 1; i < 26; i++)
+            c[i - 1] = new Company("My Company " + i, new Director(new Random().nextLong() + "", ""));
         adapter = new NewProjectListAdapter(this, c);
         lv.setAdapter(
                 adapter
@@ -114,8 +113,8 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public void setCurrentCompany(int company){
-        Company c = (Company)lv.getItemAtPosition(company);
+    public void setCurrentCompany(int company) {
+        Company c = (Company) lv.getItemAtPosition(company);
         c.selected = true;
         adapter.currentComapny = company;
         adapter.notifyDataSetChanged();
@@ -159,8 +158,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (currentFragment == 3)
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (currentFragment == 3 || currentFragment == 4)
             setFragment(R.id.navigation_task);
         else if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -169,9 +168,12 @@ public class MainActivity extends AppCompatActivity
         }*/
     }
 
+    public void updateTasks() {
+        ((TaskPager) fragments[2]).getList();
+    }
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options, menu);
         return true;
@@ -188,14 +190,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

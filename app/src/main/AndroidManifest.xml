@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddCompanyActivity" />
-        <activity android:name=".AddTaskActivity"></activity>
     </application>
 
 </manifest>

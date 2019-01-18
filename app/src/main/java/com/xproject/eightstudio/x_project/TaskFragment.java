@@ -28,7 +28,6 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
             mSwipeRefreshLayout.setOnRefreshListener(this);
             mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-
             tAdapter = new TaskAdapter(getActivity());
             tAdapter.setTasks(tasks);
             taskView.setAdapter(tAdapter);
@@ -49,12 +48,7 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        }, 4000);
+        ((MainActivity)getActivity()).updateTasks();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }
