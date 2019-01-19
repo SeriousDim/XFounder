@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <io.gloxey.cfv.CFButton
+        android:id="@+id/btn_reg"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="Зарегистрироваться"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:font_name="banch.ttf" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical">
+
+        <io.gloxey.cfv.CFEditText
+            android:id="@+id/reg_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="Имя"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <io.gloxey.cfv.CFEditText
+            android:id="@+id/reg_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/task_view_down_white"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="Фамилия"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <io.gloxey.cfv.CFEditText
+            android:id="@+id/reg_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/task_view_down_white"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="Род деятельности"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <io.gloxey.cfv.CFEditText
+            android:id="@+id/reg_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/task_view_down_white"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="Описание"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>
