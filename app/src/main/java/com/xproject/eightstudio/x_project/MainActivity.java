@@ -38,13 +38,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int currentFragment;
+    Fragment now;
     Fragment[] fragments;
     Toolbar toolbar;
     CFTextView title;
     ListView lv;
     NewProjectListAdapter adapter;
-    Intent intentAddCompany, intentAddTask;
-    MenuItem add, edit, okTask;
+    Intent intentAddCompany;
+    MenuItem add, edit;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setFragmentClass(Fragment frag) {
+        now = frag;
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.contfrag, frag).commit();
     }
@@ -184,34 +186,28 @@ public class MainActivity extends AppCompatActivity
         inflater.inflate(R.menu.options, menu);
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
-        okTask = menu.findItem(R.id.ok_task);
-        switch(this.currentFragment){
-            case 0:
+        switch (this.currentFragment) {
             case 1:
                 add.setVisible(false);
                 edit.setVisible(false);
-                okTask.setVisible(false);
                 break;
             case 2:
                 add.setVisible(true);
                 edit.setVisible(false);
-                okTask.setVisible(false);
                 break;
             case 3:
                 add.setVisible(false);
                 edit.setVisible(true);
-                okTask.setVisible(false);
                 break;
             case 4:
+                add.setVisible(false);
+                edit.setVisible(false);
+                break;
             case 5:
                 add.setVisible(false);
                 edit.setVisible(false);
-                okTask.setVisible(true);
                 break;
         }
-        Log.d("menu", add.isVisible()+"");
-        Log.d("menu", edit.isVisible()+"");
-        Log.d("menu", okTask.isVisible()+"");
         return true;
     }
 
@@ -222,10 +218,7 @@ public class MainActivity extends AppCompatActivity
                 addTask();
                 return true;
             case R.id.edit:
-                openTaskEdit(new Task());
-                return true;
-            case R.id.ok_task:
-                // сохранить информацию о задаче
+                openTaskEdit(((TaskViewFragment)now).getTask());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -249,7 +242,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void openTaskEdit(Task task) {
-        setFragmentClass(new TaskEdit());
+        TaskEdit te = new TaskEdit();
+        te.setTask(task);
+        setFragmentClass(te);
         currentFragment = 5;
         invalidateOptionsMenu();
     }

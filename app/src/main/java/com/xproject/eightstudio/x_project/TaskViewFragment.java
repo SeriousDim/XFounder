@@ -35,7 +35,7 @@ public class TaskViewFragment extends Fragment {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(server)
             .build();
-    Task task;
+    private Task task;
     private Tasks tasks = retrofit.create(Tasks.class);
 
     private Button btn_edit;
@@ -47,20 +47,16 @@ public class TaskViewFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
             ((TextView) view.findViewById(R.id.name)).setText(task.title);
             ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
-            btn_edit = view.findViewById(R.id.btn_edit);
-            getTask();
-            btn_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity(), "Hello!",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
+            getTaskInfo();
         }
         return view;
     }
 
-    public void getTask() {
+    public Task getTask() {
+        return task;
+    }
+
+    public void getTaskInfo() {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getTask");
         getDataParams.put("taskID", task.task_id);
@@ -71,9 +67,12 @@ public class TaskViewFragment extends Fragment {
                 try {
                     HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
                     ((TextView) view.findViewById(R.id.performer)).setText("Исполнитель: " + resp.get("name"));
-                    ((TextView) view.findViewById(R.id.description)).setText(resp.get("description"));
-                    Date date_from = new Date(1000L * Long.parseLong(resp.get("date_from")));
-                    Date date_to = new Date(1000L * Long.parseLong(resp.get("date_to")));
+                    task.description = resp.get("description");
+                    ((TextView) view.findViewById(R.id.description)).setText(task.description);
+                    task.date_from = Long.parseLong(resp.get("date_from"));
+                    Date date_from = new Date(1000L * task.date_from);
+                    task.date_to = Long.parseLong(resp.get("date_to"));
+                    Date date_to = new Date(1000L * task.date_to);
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                     final String dateFrom = df.format(date_from);
                     final String dateTo = df.format(date_to);

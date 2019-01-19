@@ -1,6 +1,5 @@
 package com.xproject.eightstudio.x_project;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -16,10 +15,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -84,7 +81,7 @@ public class TaskCreateFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Toast.makeText(getContext(),response.body().string(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.body().string(), Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

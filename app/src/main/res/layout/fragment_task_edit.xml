@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sss"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -18,7 +19,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Изменить задачу"
+        android:text="Создать задачу"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="38sp"
@@ -46,7 +47,7 @@
             app:font_name="roboto_l.ttf" />
 
         <io.gloxey.cfv.CFEditText
-            android:id="@+id/edittxt_taskname"
+            android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -60,7 +61,6 @@
             android:textSize="20sp" />
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/txt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -71,7 +71,7 @@
             app:font_name="roboto_l.ttf" />
 
         <io.gloxey.cfv.CFEditText
-            android:id="@+id/edittxt_taskdesc"
+            android:id="@+id/task_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -85,7 +85,6 @@
             android:textSize="20sp" />
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/txt_empchoose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -98,12 +97,12 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:spinnerMode="dialog"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:padding="8dp"
             android:background="@drawable/task_view_down_white"
-            android:entries="@array/catlist" />
+            android:entries="@array/catlist"
+            android:padding="8dp"
+            android:spinnerMode="dialog" />
 
         <io.gloxey.cfv.CFTextView
             android:id="@+id/txt_deadlines"
@@ -203,7 +202,7 @@
     </LinearLayout>
 
     <io.gloxey.cfv.CFButton
-        android:id="@+id/btn_createtask"
+        android:id="@+id/save_task"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -214,5 +213,5 @@
         android:textAllCaps="false"
         android:textSize="24sp"
         app:font_name="banch.ttf" />
-
+    <!--TODO: add all to the scroll layout-->
 </RelativeLayout>
