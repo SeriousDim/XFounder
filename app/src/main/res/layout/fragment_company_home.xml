@@ -1,22 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompanyHomeFragment">
+    android:background="@color/background">
 
-    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/img_back"
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/title"
+        android:background="@color/colorPrimary" />
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="171dp"
+        android:orientation="vertical">
 
-        <View
-            android:id="@+id/view"
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/txt_companyname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COMPANY NAME"
+            android:textAlignment="center"
+            android:textColor="@color/background"
+            android:textSize="25sp"
+            app:font_name="banch.ttf"
+            tools:text="COMPANY NAME" />
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/txt_directorname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Директор: Никита Яковлев"
+            android:textAlignment="center"
+            android:textColor="@color/background"
+            android:textSize="18sp"
+            app:font_name="banch.ttf"
+            tools:text="Директор: Никита Яковлев" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/backgr_item" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="О проекте"
+        android:textAlignment="textStart"
+        android:textColor="#000"
+        android:textSize="38sp"
+        android:layout_marginLeft="15dp"
+        app:font_name="banch.ttf" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:src="@drawable/avatar" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="201dp"
+        app:tabIndicatorColor="@color/background"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@android:color/background_light"
+        app:tabTextColor="@android:color/background_light">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/Employees"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:background="@drawable/shape2" />
+            android:layout_height="wrap_content"
+            android:text="@string/employers_work" />
 
-    </android.support.constraint.ConstraintLayout>
-</FrameLayout>
+        <android.support.design.widget.TabItem
+            android:id="@+id/Tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_tasks" />
+
+    </android.support.design.widget.TabLayout>
+
+</RelativeLayout>
