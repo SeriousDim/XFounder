@@ -204,4 +204,9 @@ public class MainActivity extends AppCompatActivity
         setFragmentClass(new TaskCreateFragment());
         currentFragment = 4;
     }
+
+    public void openTaskEdit(Task task) {
+        setFragmentClass(new TaskEdit());
+        currentFragment = 5;
+    }
 }

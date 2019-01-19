@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class TaskViewFragment extends Fragment {
     Task task;
     private Tasks tasks = retrofit.create(Tasks.class);
 
+    private Button btn_edit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +47,15 @@ public class TaskViewFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
             ((TextView) view.findViewById(R.id.name)).setText(task.title);
             ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
+            btn_edit = view.findViewById(R.id.btn_edit);
             getTask();
+            btn_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "Hello!",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
         }
         return view;
     }
