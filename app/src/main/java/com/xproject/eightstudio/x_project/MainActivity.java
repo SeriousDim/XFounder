@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity
         navigation.setSelectedItemId(R.id.navigation_task);
 
         lv = findViewById(R.id.comp_list);
-        Company[] c = new Company[25];
-        for (int i = 1; i < 26; i++)
+        Company[] c = new Company[5];
+        for (int i = 1; i < 6; i++)
             c[i - 1] = new Company("My Company " + i, new Director(new Random().nextLong() + "", ""));
         adapter = new NewProjectListAdapter(this, c);
         lv.setAdapter(
