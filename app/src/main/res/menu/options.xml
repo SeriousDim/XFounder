@@ -7,4 +7,16 @@
         android:icon="@drawable/add_icon"
         android:title="Item"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="@string/edit_task"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ok_task"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="@string/confirm_task"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     ListView lv;
     NewProjectListAdapter adapter;
     Intent intentAddCompany, intentAddTask;
+    MenuItem add, edit, okTask;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -128,16 +130,19 @@ public class MainActivity extends AppCompatActivity
                 setFragmentClass(fragments[0]);
                 currentFragment = 0;
                 title.setText(getResources().getString(R.string.title_home));
+                invalidateOptionsMenu();
                 return true;
             case R.id.navigation_chat:
                 setFragmentClass(fragments[1]);
                 currentFragment = 1;
                 title.setText(getResources().getString(R.string.title_chat));
+                invalidateOptionsMenu();
                 return true;
             case R.id.navigation_task:
                 setFragmentClass(fragments[2]);
                 currentFragment = 2;
                 title.setText(getResources().getString(R.string.title_tasks));
+                invalidateOptionsMenu();
                 return true;
         }
         return false;
@@ -149,6 +154,7 @@ public class MainActivity extends AppCompatActivity
         setFragmentClass(taskViewFragment);
         currentFragment = 3;
         title.setText(getResources().getString(R.string.current_task));
+        invalidateOptionsMenu();
     }
 
     private void setFragmentClass(Fragment frag) {
@@ -176,6 +182,36 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options, menu);
+        add = menu.findItem(R.id.add_task);
+        edit = menu.findItem(R.id.edit);
+        okTask = menu.findItem(R.id.ok_task);
+        switch(this.currentFragment){
+            case 0:
+            case 1:
+                add.setVisible(false);
+                edit.setVisible(false);
+                okTask.setVisible(false);
+                break;
+            case 2:
+                add.setVisible(true);
+                edit.setVisible(false);
+                okTask.setVisible(false);
+                break;
+            case 3:
+                add.setVisible(false);
+                edit.setVisible(true);
+                okTask.setVisible(false);
+                break;
+            case 4:
+            case 5:
+                add.setVisible(false);
+                edit.setVisible(false);
+                okTask.setVisible(true);
+                break;
+        }
+        Log.d("menu", add.isVisible()+"");
+        Log.d("menu", edit.isVisible()+"");
+        Log.d("menu", okTask.isVisible()+"");
         return true;
     }
 
@@ -184,6 +220,12 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.add_task:
                 addTask();
+                return true;
+            case R.id.edit:
+                openTaskEdit(new Task());
+                return true;
+            case R.id.ok_task:
+                // сохранить информацию о задаче
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -203,10 +245,12 @@ public class MainActivity extends AppCompatActivity
     public void addTask() {
         setFragmentClass(new TaskCreateFragment());
         currentFragment = 4;
+        invalidateOptionsMenu();
     }
 
     public void openTaskEdit(Task task) {
         setFragmentClass(new TaskEdit());
         currentFragment = 5;
+        invalidateOptionsMenu();
     }
 }

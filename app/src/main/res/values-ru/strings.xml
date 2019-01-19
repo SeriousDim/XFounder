@@ -24,4 +24,6 @@
     <string name="add_company">Добавить компанию</string>
     <string name="current_task">Задача</string>
     <string name="add_comp">Добавить задачу</string>
+    <string name="edit_task">Изменить задачу</string>
+    <string name="confirm_task">Создать задачу</string>
 </resources>
