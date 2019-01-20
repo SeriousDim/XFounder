@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project.dataclasses;
+package com.xproject.eightstudio.x_project.task;
 
 public class Task {
     public String title;

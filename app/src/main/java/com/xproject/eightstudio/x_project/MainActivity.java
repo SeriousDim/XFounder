@@ -9,32 +9,33 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
 import com.xproject.eightstudio.x_project.dataclasses.Company;
 import com.xproject.eightstudio.x_project.dataclasses.Director;
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.task.Task;
+import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
+import com.xproject.eightstudio.x_project.task.TaskEdit;
+import com.xproject.eightstudio.x_project.task.TaskPager;
+import com.xproject.eightstudio.x_project.task.TaskViewFragment;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import io.gloxey.cfv.CFTextView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends LocalData
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int currentFragment;
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity
     NewProjectListAdapter adapter;
     Intent intentAddCompany;
     MenuItem add, edit;
-
+    BottomNavigationView navigation;
+    
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -63,15 +65,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        title = (CFTextView) findViewById(R.id.my_title);
+        title = findViewById(R.id.my_title);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerSlideAnimationEnabled(false);
@@ -97,17 +99,19 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intentAddCompany);
             }
         });
-        setFragmentClass(fragments[2]);
-        navigation.setSelectedItemId(R.id.navigation_task);
-
+        if (loadUser() == "") {
+            navigation.setVisibility(View.GONE);
+            getSupportActionBar().hide();
+            setFragmentClass(new LoginFragment());
+        } else {
+            loginSuccess();
+        }
         lv = findViewById(R.id.comp_list);
         Company[] c = new Company[5];
         for (int i = 1; i < 6; i++)
             c[i - 1] = new Company("My Company " + i, new Director(new Random().nextLong() + "", ""));
         adapter = new NewProjectListAdapter(this, c);
-        lv.setAdapter(
-                adapter
-        );
+        lv.setAdapter(adapter);
         setCurrentCompany(0);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -162,7 +166,7 @@ public class MainActivity extends AppCompatActivity
         invalidateOptionsMenu();
     }
 
-    private void setFragmentClass(Fragment frag) {
+    public void setFragmentClass(Fragment frag) {
         now = frag;
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.contfrag, frag).commit();
@@ -237,7 +241,7 @@ public class MainActivity extends AppCompatActivity
                 addTask();
                 return true;
             case R.id.edit:
-                openTaskEdit(((TaskViewFragment)now).getTask());
+                openTaskEdit(((TaskViewFragment) now).getTask());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -267,5 +271,11 @@ public class MainActivity extends AppCompatActivity
         setFragmentClass(te);
         currentFragment = 5;
         invalidateOptionsMenu();
+    }
+
+    public void loginSuccess() {
+        navigation.setVisibility(View.VISIBLE);
+        getSupportActionBar().show();
+        navigation.setSelectedItemId(R.id.navigation_task);
     }
 }

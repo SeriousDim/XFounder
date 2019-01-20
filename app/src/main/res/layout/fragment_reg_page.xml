@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Регистрация"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="38sp"
+        app:font_name="banch.ttf"
+        android:layout_marginStart="0dp"
+        android:background="@drawable/backgr_item" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/title"
+        android:background="@drawable/input"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Имя"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reg_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Фамилия"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reg_lastname"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Род деятельности"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reg_job"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="О себе"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reg_desc"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Логин"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/reg_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reg_login"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Пароль"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <io.gloxey.cfv.CFButton
+        android:id="@+id/btn_reg"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="Готово"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:font_name="banch.ttf" />
+</RelativeLayout>

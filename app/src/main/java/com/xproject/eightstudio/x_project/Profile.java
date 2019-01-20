@@ -8,14 +8,13 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.QueryMap;
 
-public interface Tasks {
+public interface Profile {
     @FormUrlEncoded
-    @POST("/task.php")
+    @POST("/profile.php")
     Call<ResponseBody> performPostCall(@FieldMap HashMap<String, String> postDataParams);
 
-    @GET("/task.php")
+    @GET("/profile.php")
     Call<ResponseBody> performGetCall(@QueryMap HashMap<String, String> getDataParams);
 }

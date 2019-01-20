@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.task;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.task.Task;
 
 import java.io.IOException;
 import java.util.Calendar;
