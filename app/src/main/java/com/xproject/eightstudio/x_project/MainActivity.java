@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
 import com.xproject.eightstudio.x_project.dataclasses.Company;
 import com.xproject.eightstudio.x_project.dataclasses.Director;
+import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
 import com.xproject.eightstudio.x_project.task.TaskEdit;
@@ -82,7 +83,14 @@ public class MainActivity extends LocalData
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        findViewById(R.id.avatar).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setFragmentClass(new ProfileFragment());
+                    }
+                }
+        );
         fragments = new Fragment[3];
         try {
             fragments[0] = CompanyHomeFragment.class.newInstance();
@@ -277,5 +285,6 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         navigation.setSelectedItemId(R.id.navigation_task);
+        updateTasks();
     }
 }

@@ -36,7 +36,7 @@ public class ProfileFragment extends Fragment {
             .build();
     private Workers work = retrofit.create(Workers.class);
     String workerID = "1";
-    TextView nameField;
+    TextView nameField, jobField;
     EditText descriptionField;
     Button confirm;
     View view;
@@ -47,6 +47,7 @@ public class ProfileFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_profile_list, container, false);
             nameField = view.findViewById(R.id.empl_name);
+            jobField = view.findViewById(R.id.empl_job);
             descriptionField = view.findViewById(R.id.about);
             confirm = view.findViewById(R.id.confirm);
 
@@ -74,8 +75,10 @@ public class ProfileFragment extends Fragment {
                     HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
                     String name = resp.get("name");
                     String description = resp.get("description");
+                    String job = resp.get("job");
                     descriptionField.setText(description);
                     nameField.setText(name);
+                    jobField.setText(job);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

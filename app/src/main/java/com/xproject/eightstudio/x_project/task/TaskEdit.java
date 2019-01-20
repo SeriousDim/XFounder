@@ -17,9 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.task.Task;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -96,22 +94,18 @@ public class TaskEdit extends Fragment {
     private void editTask() {
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("command", "updateTask");
-        postDataParams.put("date_from", (long) (dt_from.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("date_to", (long) (dt_to.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("emplName", task_name.getText().toString());
+        postDataParams.put("date_from", (dt_from.getTimeInMillis() / 1000L) + "");
+        postDataParams.put("date_to", (dt_to.getTimeInMillis() / 1000L) + "");
+        postDataParams.put("title", task_name.getText().toString());
         postDataParams.put("description", task_desc.getText().toString());
         postDataParams.put("performer_id", localID);
+        postDataParams.put("project_id", projectID);
         postDataParams.put("task_id", task.task_id);
 
         Call<ResponseBody> call = tasks.performPostCall(postDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Toast.makeText(getContext(), response.body().string(), Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 MainActivity m = (MainActivity) getActivity();
                 m.openTask(task);
             }
@@ -126,13 +120,13 @@ public class TaskEdit extends Fragment {
 
     private boolean checking() {
         if (task_name.getText().toString().equals("")) {
-            //TODO: no name
+            Toast.makeText(getContext(), "Пустое название задачи", Toast.LENGTH_SHORT).show();
             return false;
         } else if (task_desc.getText().toString().equals("")) {
-            //TODO: no desc
+            Toast.makeText(getContext(), "Пустое описание", Toast.LENGTH_SHORT).show();
             return false;
         } else if (dt_from.compareTo(dt_to) > -1) {
-            //TODO: wrong time
+            Toast.makeText(getContext(), "Срок окончания должен быть позже срока начала", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

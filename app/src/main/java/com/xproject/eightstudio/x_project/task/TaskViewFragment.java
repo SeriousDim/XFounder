@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.R;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -92,5 +93,6 @@ public class TaskViewFragment extends Fragment {
 
     public void setTask(Task task) {
         this.task = task;
+        getTaskInfo();
     }
 }

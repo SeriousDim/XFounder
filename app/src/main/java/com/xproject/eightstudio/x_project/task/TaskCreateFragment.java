@@ -102,16 +102,16 @@ public class TaskCreateFragment extends Fragment {
 
     private boolean checking() {
         if (task_name.getText().toString().equals("")) {
-            //TODO: no name
+            Toast.makeText(getContext(), "Пустое название задачи", Toast.LENGTH_SHORT).show();
             return false;
         } else if (task_desc.getText().toString().equals("")) {
-            //TODO: no desc
+            Toast.makeText(getContext(), "Пустое описание", Toast.LENGTH_SHORT).show();
             return false;
         } else if (dt_from.compareTo(dt_to) > -1) {
-            //TODO: wrong time
+            Toast.makeText(getContext(), "Срок окончания должен быть позже срока начала", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!fD || !fT || !tD || !tT) {
-            //TODO: time not chosen
+            Toast.makeText(getContext(), "Не выбрано время", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

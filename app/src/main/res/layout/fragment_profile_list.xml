@@ -1,27 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF">
 
+
+    <io.gloxey.cfv.CFButton
+        android:id="@+id/confirm"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/accept"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:font_name="banch.ttf" />
+
     <ImageView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="55dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:background="@color/colorPrimary" />
+        android:background="@drawable/backgr_item" />
 
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Чат"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="38sp"
+        app:font_name="banch.ttf" />
+
+    <ImageView
+        android:id="@+id/color_title"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/title"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:background="@color/colorPrimary" />
 
     <ImageView
         android:id="@+id/empl_img"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/title"
+        android:layout_marginTop="25dp"
         android:src="@drawable/avatar" />
 
-    <TextView
+    <io.gloxey.cfv.CFTextView
         android:id="@+id/empl_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,40 +71,35 @@
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
-        android:textStyle="bold" />
-    <!--TODO: add profession-->
-    <LinearLayout
+        app:font_name="roboto_l.ttf" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/empl_job"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:orientation="horizontal">
+        android:layout_below="@id/empl_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Профессия"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        app:font_name="roboto_l.ttf" />
 
-        <io.gloxey.cfv.CFEditText
-            android:id="@+id/about"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="50"
-            android:background="@drawable/btn_background"
-            android:ems="10"
-            android:focusableInTouchMode="true"
-            android:hint="@string/write_about"
-            android:inputType="text|textMultiLine|textCapSentences"
-            android:padding="10dp"
-            android:textColor="#FFF" />
-
-        <Button
-            android:id="@+id/confirm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="30"
-            android:background="@drawable/btn_background"
-            android:text="@string/accept"
-            android:textColor="@android:color/background_light" />
-    </LinearLayout>
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/color_title"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_background"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="@string/write_about"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:padding="10dp"
+        android:textColor="#FFF" />
 </RelativeLayout>

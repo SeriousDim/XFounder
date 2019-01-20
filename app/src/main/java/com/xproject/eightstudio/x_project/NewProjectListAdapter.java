@@ -31,8 +31,8 @@ public class NewProjectListAdapter extends ArrayAdapter<Company> {
             LayoutInflater inflater = ctx.getLayoutInflater();
             row = inflater.inflate(R.layout.company_item_layout, null, true);
             holder = new ViewHolder();
-            holder.name = (TextView) row.findViewById(R.id.il_name);
-            holder.director = (TextView) row.findViewById(R.id.il_director);
+            holder.name = row.findViewById(R.id.il_name);
+            holder.director = row.findViewById(R.id.il_director);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -40,7 +40,7 @@ public class NewProjectListAdapter extends ArrayAdapter<Company> {
         holder.name.setText(this.data[pos].name);
         holder.director.setText(this.data[pos].director.name);
         if (currentComapny==pos){
-            ((CardView)row).setCardBackgroundColor(ctx.getResources().getColor(R.color.dark_blue));
+            ((CardView)row).setCardBackgroundColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
             holder.name.setTextColor(ctx.getResources().getColor(android.R.color.white));
             holder.director.setTextColor(ctx.getResources().getColor(android.R.color.white));
         }
