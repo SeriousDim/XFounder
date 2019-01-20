@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xproject.eightstudio.x_project.dataclasses.Employee;
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.task.Task;
 
 import java.util.ArrayList;
 

@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.task.Task;
+import com.xproject.eightstudio.x_project.task.TaskAdapter;
 
 import java.util.ArrayList;
 

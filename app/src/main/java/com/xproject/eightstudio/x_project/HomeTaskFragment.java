@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.task.Task;
+import com.xproject.eightstudio.x_project.task.TaskAdapter;
 
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class HomeTaskFragment extends Fragment {
             }
             taskAdapter.setTasks(tasks);
             rv.setAdapter(taskAdapter);
-            Log.d("debug", tasks.size()+"");
+            Log.d("tasklog", tasks.size()+"");
             /*view.findViewById(R.id.add_task).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

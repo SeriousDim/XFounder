@@ -17,7 +17,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private List<Task> tasks = new ArrayList<>();
 
-    TaskAdapter(Context ctx) {
+    public TaskAdapter(Context ctx) {
         this.inflater = LayoutInflater.from(ctx);
     }
 
@@ -57,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     ((MainActivity) inflater.getContext()).openTask(t);
                 }
             });
-            this.title = v.findViewById(R.id.il_name);
+            this.title = v.findViewById(R.id.v_name);
             this.creator = v.findViewById(R.id.v_proj_name);
         }
     }
