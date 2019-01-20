@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -58,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     ((MainActivity) inflater.getContext()).openTask(t);
                 }
             });
-            this.title = v.findViewById(R.id.v_name);
+            this.title = v.findViewById(R.id.il_name);
             this.creator = v.findViewById(R.id.v_proj_name);
         }
     }

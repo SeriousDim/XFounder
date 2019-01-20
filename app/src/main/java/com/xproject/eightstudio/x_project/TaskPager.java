@@ -62,7 +62,7 @@ public class TaskPager extends Fragment {
             view = inflater.inflate(R.layout.fragment_task_pager, container, false);
             ViewPager vp = view.findViewById(R.id.v_pager);
             setupViewPager(vp);
-            ((TabLayout) view.findViewById(R.id.tabs)).setupWithViewPager(vp);
+            ((TabLayout) view.findViewById(R.id.my_tabs)).setupWithViewPager(vp);
 
             view.findViewById(R.id.add_task).setOnClickListener(new View.OnClickListener() {
                 @Override

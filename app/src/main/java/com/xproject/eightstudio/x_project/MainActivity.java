@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int currentFragment;
+    int lastFragment;
     Fragment now;
     Fragment[] fragments;
     Toolbar toolbar;
@@ -114,6 +115,8 @@ public class MainActivity extends AppCompatActivity
                 setCurrentCompany(i);
             }
         });
+
+        lastFragment = 2;
     }
 
     public void setCurrentCompany(int company) {
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity
         TaskViewFragment taskViewFragment = new TaskViewFragment();
         taskViewFragment.setTask(task);
         setFragmentClass(taskViewFragment);
+        lastFragment = currentFragment;
         currentFragment = 3;
         title.setText(getResources().getString(R.string.current_task));
         invalidateOptionsMenu();
@@ -167,11 +171,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (currentFragment == 3 || currentFragment == 4)
-            setFragment(R.id.navigation_task);
-        else if (drawer.isDrawerOpen(GravityCompat.START)) {
+        /*if (currentFragment == 3 || currentFragment == 4)
+            setFragment(R.id.navigation_task);*/
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }/* else {
+        }
+        else if (currentFragment>2){
+            switch(lastFragment){
+                case 0:
+                    setFragment(R.id.navigation_home);
+                    break;
+                case 1:
+                    setFragment(R.id.navigation_chat);
+                    break;
+                case 2:
+                    setFragment(R.id.navigation_task);
+                    break;
+            }
+        }
+        /*else {
             super.onBackPressed();
         }*/
     }
@@ -187,6 +205,7 @@ public class MainActivity extends AppCompatActivity
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
         switch (this.currentFragment) {
+            case 0:
             case 1:
                 add.setVisible(false);
                 edit.setVisible(false);
@@ -237,6 +256,7 @@ public class MainActivity extends AppCompatActivity
 
     public void addTask() {
         setFragmentClass(new TaskCreateFragment());
+        lastFragment = currentFragment;
         currentFragment = 4;
         invalidateOptionsMenu();
     }

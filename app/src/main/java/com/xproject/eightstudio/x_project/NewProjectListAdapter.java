@@ -31,7 +31,7 @@ public class NewProjectListAdapter extends ArrayAdapter<Company> {
             LayoutInflater inflater = ctx.getLayoutInflater();
             row = inflater.inflate(R.layout.company_item_layout, null, true);
             holder = new ViewHolder();
-            holder.name = (TextView) row.findViewById(R.id.v_name);
+            holder.name = (TextView) row.findViewById(R.id.il_name);
             holder.director = (TextView) row.findViewById(R.id.il_director);
             row.setTag(holder);
         } else {

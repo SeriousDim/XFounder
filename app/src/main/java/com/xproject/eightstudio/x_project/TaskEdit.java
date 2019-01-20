@@ -96,7 +96,7 @@ public class TaskEdit extends Fragment {
         postDataParams.put("command", "updateTask");
         postDataParams.put("date_from", (long) (dt_from.getTimeInMillis() / 1000L) + "");
         postDataParams.put("date_to", (long) (dt_to.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("title", task_name.getText().toString());
+        postDataParams.put("emplName", task_name.getText().toString());
         postDataParams.put("description", task_desc.getText().toString());
         postDataParams.put("performer_id", localID);
         postDataParams.put("task_id", task.task_id);

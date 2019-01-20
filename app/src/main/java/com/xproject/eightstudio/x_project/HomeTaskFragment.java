@@ -1,11 +1,13 @@
 package com.xproject.eightstudio.x_project;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,19 @@ import com.xproject.eightstudio.x_project.dataclasses.Task;
 
 import java.util.ArrayList;
 
-public class CompanyHomeFragment extends Fragment {
-    ViewPagerAdapter adapter;
-    TaskAdapter taskAdapter;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link HomeTaskFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link HomeTaskFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HomeTaskFragment extends Fragment {
     View view;
+    TaskAdapter taskAdapter;
+    ArrayList<Task> tasks;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -25,7 +36,7 @@ public class CompanyHomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CompanyHomeFragment() {
+    public HomeTaskFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +46,11 @@ public class CompanyHomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CompanyHomeFragment.
+     * @return A new instance of fragment HomeTaskFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CompanyHomeFragment newInstance(String param1, String param2) {
-        CompanyHomeFragment fragment = new CompanyHomeFragment();
+    public static HomeTaskFragment newInstance(String param1, String param2) {
+        HomeTaskFragment fragment = new HomeTaskFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -52,21 +63,29 @@ public class CompanyHomeFragment extends Fragment {
         }
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new EmployeesFragment(), getResources().getString(R.string.employers_work));
-        adapter.addFragment(new HomeTaskFragment(), getResources().getString(R.string.title_tasks));
-        viewPager.setAdapter(adapter);
-    }
-
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_company_home, container, false);
-            ViewPager vp = view.findViewById(R.id.home_pager);
-            setupViewPager(vp);
-            ((TabLayout) view.findViewById(R.id.home_tabs)).setupWithViewPager(vp);
+            view = inflater.inflate(R.layout.fragment_home_task, container, false);
+            RecyclerView rv = (view.findViewById(R.id.home_tasks));
+            taskAdapter = new TaskAdapter(getActivity());
+            tasks = new ArrayList<>();
+            for (int i=0; i<=25; i++) {
+                Task t = new Task();
+                t.title = "Task "+i;
+                t.name = "Man "+i;
+                tasks.add(t);
+            }
+            taskAdapter.setTasks(tasks);
+            rv.setAdapter(taskAdapter);
+            Log.d("debug", tasks.size()+"");
+            /*view.findViewById(R.id.add_task).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) inflater.getContext()).addTask();
+                }
+            });*/
         }
         return view;
     }
@@ -78,16 +97,16 @@ public class CompanyHomeFragment extends Fragment {
         }
     }
 
-    /*@Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        /*if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
-    }*/
+        }*/
+    }
 
     @Override
     public void onDetach() {

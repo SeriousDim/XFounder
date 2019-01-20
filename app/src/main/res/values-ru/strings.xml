@@ -7,7 +7,7 @@
     <string name="title_companies">Компании</string>
     <string name="choose_performer">Выбрать исполнителя</string>
     <string name="director">Директор</string>
-    <string name="employers_work">"Сотрудники: "</string>
+    <string name="employers_work">Сотрудники</string>
     <string name="priority">"Приоритет: "</string>
     <string name="completed">Выполненные задачи</string>
     <string name="action_settings">Настройки</string>
