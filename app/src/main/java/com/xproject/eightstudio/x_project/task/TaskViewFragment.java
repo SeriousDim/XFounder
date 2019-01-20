@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.task;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,8 +12,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.dataclasses.Task;
-
+import com.xproject.eightstudio.x_project.R;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,8 +36,6 @@ public class TaskViewFragment extends Fragment {
             .build();
     private Task task;
     private Tasks tasks = retrofit.create(Tasks.class);
-
-    private Button btn_edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

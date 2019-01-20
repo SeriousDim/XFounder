@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.task;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.dataclasses.Task;
-
+import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.R;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {

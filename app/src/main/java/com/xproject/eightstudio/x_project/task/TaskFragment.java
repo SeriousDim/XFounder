@@ -1,7 +1,6 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.task;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xproject.eightstudio.x_project.dataclasses.Task;
+import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.R;
 
 import java.util.ArrayList;
 

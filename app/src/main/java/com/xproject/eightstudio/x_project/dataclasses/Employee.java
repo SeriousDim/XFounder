@@ -1,5 +1,7 @@
 package com.xproject.eightstudio.x_project.dataclasses;
 
+import com.xproject.eightstudio.x_project.task.Task;
+
 import java.util.ArrayList;
 
 public class Employee {
