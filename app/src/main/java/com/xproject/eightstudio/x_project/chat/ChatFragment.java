@@ -2,6 +2,7 @@ package com.xproject.eightstudio.x_project.chat;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +49,10 @@ public class ChatFragment extends Fragment {
     class MyClass implements Runnable {
         public void run() {
             try {
+                Thread.sleep(2000);
                 getUpdates("1");
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("tagged",e.toString());
             }
         }
     }
@@ -67,7 +69,12 @@ public class ChatFragment extends Fragment {
             MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
             if (resp.messages.size() != 0) {
                 messages.addAll(resp.messages);
-                fillView();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fillView();
+                    }
+                });
             }
             lastTime = resp.time;
             Thread t1 = new Thread(new MyClass());

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,7 @@ public class RegistationFragment extends Fragment {
                         } else if (resp.get("success").equals("not unique")) {
                             Toast.makeText(getContext(), "Login is not unique", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 }

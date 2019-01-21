@@ -20,24 +20,42 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <include
                 layout="@layout/nav_header"
+                android:id="@+id/nav_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <ListView
                 android:id="@+id/comp_list"
+                android:layout_below="@id/nav_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:cacheColorHint="#00000000"
                 android:divider="#00000000"
+                android:layout_above="@id/exit"
                 android:listSelector="#00000000" />
-        </LinearLayout>
+            <io.gloxey.cfv.CFButton
+                android:id="@+id/exit"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Выйти"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                app:font_name="banch.ttf" />
+        </RelativeLayout>
 
     </android.support.design.widget.NavigationView>
 

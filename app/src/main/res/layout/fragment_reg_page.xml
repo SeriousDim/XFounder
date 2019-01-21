@@ -116,7 +116,7 @@
         android:ems="10"
         android:focusableInTouchMode="true"
         android:hint="Пароль"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:padding="5dp"
         android:textColor="#000"
         android:textSize="20sp" />

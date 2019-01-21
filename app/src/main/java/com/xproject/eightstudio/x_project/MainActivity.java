@@ -50,7 +50,7 @@ public class MainActivity extends LocalData
     Intent intentAddCompany;
     MenuItem add, edit;
     BottomNavigationView navigation;
-    
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -83,6 +83,13 @@ public class MainActivity extends LocalData
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUser("");
+                openLogin();
+            }
+        });
         findViewById(R.id.avatar).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -108,9 +115,7 @@ public class MainActivity extends LocalData
             }
         });
         if (loadUser() == "") {
-            navigation.setVisibility(View.GONE);
-            getSupportActionBar().hide();
-            setFragmentClass(new LoginFragment());
+            openLogin();
         } else {
             loginSuccess();
         }
@@ -129,6 +134,12 @@ public class MainActivity extends LocalData
         });
 
         lastFragment = 2;
+    }
+
+    private void openLogin() {
+        navigation.setVisibility(View.GONE);
+        getSupportActionBar().hide();
+        setFragmentClass(new LoginFragment());
     }
 
     public void setCurrentCompany(int company) {
@@ -187,9 +198,8 @@ public class MainActivity extends LocalData
             setFragment(R.id.navigation_task);*/
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else if (currentFragment>2){
-            switch(lastFragment){
+        } else if (currentFragment > 2) {
+            switch (lastFragment) {
                 case 0:
                     setFragment(R.id.navigation_home);
                     break;
@@ -199,6 +209,8 @@ public class MainActivity extends LocalData
                 case 2:
                     setFragment(R.id.navigation_task);
                     break;
+                case 6:
+                    setFragmentClass(new LoginFragment());
             }
         }
         /*else {
