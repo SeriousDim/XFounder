@@ -26,4 +26,7 @@
     <string name="edit_task">Изменить задачу</string>
     <string name="confirm_task">Создать задачу</string>
     <string name="create_project">Создать проект</string>
+    <string name="decsription">Про себя</string>
+    <string name="chart">Диаграмма</string>
+    <string name="enter_title_comp">Введите название проекта</string>
 </resources>

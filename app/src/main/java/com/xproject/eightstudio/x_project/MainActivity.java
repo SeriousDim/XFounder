@@ -2,6 +2,7 @@ package com.xproject.eightstudio.x_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -103,7 +104,6 @@ public class MainActivity extends LocalData
             fragments[0] = CompanyHomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
-            fragments[3] = LoadingFragment.class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +133,13 @@ public class MainActivity extends LocalData
             }
         });
 
+        setProgress(false);
         lastFragment = 2;
+    }
+
+    public void setProgress(boolean vis){
+        int visible = vis ? View.VISIBLE : View.GONE;
+        findViewById(R.id.loading).setVisibility(visible);
     }
 
     private void openLogin() {
