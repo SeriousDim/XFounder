@@ -66,12 +66,12 @@ public class ChatFragment extends Fragment {
         Response<ResponseBody> response = null;
         try {
             response = call.execute();
-            MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
+            final MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
             if (resp.messages.size() != 0) {
-                messages.addAll(resp.messages);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        messages.addAll(resp.messages);
                         fillView();
                     }
                 });

@@ -4,7 +4,6 @@
     <string name="title_employees">Profile</string>
     <string name="title_chat">Chat</string>
     <string name="title_tasks">Tasks</string>
-    <string name="title_companies">Companies</string>
     <string name="director">Director</string>
     <string name="completed">Completed items</string>
     <string name="choose_performer">Choose performer</string>
@@ -21,9 +20,9 @@
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="open_profile">Open profile</string>
-    <string name="add_company">Add company</string>
     <string name="current_task">Task</string>
-    <string name="add_comp">Add company</string>
+    <string name="add_comp">Add project</string>
+    <string name="projects">Projects</string>
     <string name="edit_task">Edit task</string>
     <string name="confirm_task">Accept the task</string>
     <string name="create_project">Create project</string>

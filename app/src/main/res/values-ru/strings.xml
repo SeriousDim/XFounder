@@ -4,7 +4,6 @@
     <string name="title_employees">Профиль</string>
     <string name="title_chat">Чат</string>
     <string name="title_tasks">Задачи</string>
-    <string name="title_companies">Компании</string>
     <string name="choose_performer">Выбрать исполнителя</string>
     <string name="director">Директор</string>
     <string name="employers_work">Сотрудники</string>
@@ -21,9 +20,9 @@
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="open_profile">Открыть профиль</string>
-    <string name="add_company">Добавить компанию</string>
+    <string name="projects">Проекты</string>
     <string name="current_task">Задача</string>
-    <string name="add_comp">Добавить задачу</string>
+    <string name="add_comp">Добавить проект</string>
     <string name="edit_task">Изменить задачу</string>
     <string name="confirm_task">Создать задачу</string>
     <string name="create_project">Создать проект</string>

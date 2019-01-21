@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="@string/add_company"
+            android:text="@string/add_comp"
             android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="25dp"
@@ -31,12 +31,34 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
+    <io.gloxey.cfv.CFEditText
+        android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_view_down_white"
+        android:drawableRight="@drawable/ic_search_black_24dp"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="Ваше сообщение"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:padding="10dp"
+        android:textColor="#000" />
+
+    <ListView
+        android:id="@+id/projects"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/search"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="67dp"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:listSelector="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_toolbar">
 

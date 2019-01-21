@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,8 +19,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
@@ -49,7 +46,6 @@ public class MainActivity extends LocalData
     CFTextView title;
     ListView lv;
     NewProjectListAdapter adapter;
-    Intent intentAddCompany;
     MenuItem add, edit;
     FrameLayout progress;
     BottomNavigationView navigation;
@@ -111,12 +107,11 @@ public class MainActivity extends LocalData
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        intentAddCompany = new Intent(this, AddCompanyActivity.class);
         findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentAddCompany);
+                setFragmentClass(new SearchProjectFragment());
+                title.setText(getResources().getString(R.string.projects));
             }
         });
         if (loadUser() == "") {
