@@ -18,13 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
 import com.xproject.eightstudio.x_project.dataclasses.Company;
 import com.xproject.eightstudio.x_project.dataclasses.Director;
+import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
 import com.xproject.eightstudio.x_project.task.TaskEdit;
@@ -48,6 +51,7 @@ public class MainActivity extends LocalData
     NewProjectListAdapter adapter;
     Intent intentAddCompany;
     MenuItem add, edit;
+    FrameLayout progress;
     BottomNavigationView navigation;
     
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -82,12 +86,14 @@ public class MainActivity extends LocalData
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        progress = findViewById(R.id.progressBar);
 
-        fragments = new Fragment[3];
+        fragments = new Fragment[4];
         try {
             fragments[0] = CompanyHomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
+            fragments[3] = LoadingFragment.class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -164,6 +170,18 @@ public class MainActivity extends LocalData
         currentFragment = 3;
         title.setText(getResources().getString(R.string.current_task));
         invalidateOptionsMenu();
+    }
+
+    public void setProgressBar(boolean visible){
+        int vis = (visible ? View.VISIBLE  : View.GONE);
+        progress.setVisibility(vis);
+    }
+
+    public void openProfile(){
+        ProfileFragment profileFragment = new ProfileFragment();
+        setFragmentClass(profileFragment);
+        lastFragment = currentFragment;
+        currentFragment = 6;
     }
 
     public void setFragmentClass(Fragment frag) {

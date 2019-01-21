@@ -57,8 +57,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     ((MainActivity) inflater.getContext()).openTask(t);
                 }
             });
-            this.title = v.findViewById(R.id.v_name);
-            this.creator = v.findViewById(R.id.v_proj_name);
+            this.title = v.findViewById(R.id.il_name);
+            this.creator = v.findViewById(R.id.il_job);
         }
     }
 }

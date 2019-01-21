@@ -34,6 +34,7 @@ class TaskResponse {
 public class TaskPager extends Fragment {
     ViewPagerAdapter viewpager;
     TaskFragment pending, inProgress, done;
+    MainActivity activity;
     View view;
     String localID = "1";
     String projectID = "2";
@@ -71,11 +72,14 @@ public class TaskPager extends Fragment {
                     ((MainActivity) inflater.getContext()).addTask();
                 }
             });
+            activity = ((MainActivity)getActivity());
         }
+        activity.setProgressBar(false);
         return view;
     }
 
     public void getList() {
+        //activity.setProgressBar(true);
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);
@@ -104,6 +108,7 @@ public class TaskPager extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                activity.setProgressBar(false);
             }
 
             @Override
