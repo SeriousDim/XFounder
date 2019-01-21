@@ -80,7 +80,7 @@ public class ChatFragment extends Fragment {
             Thread t1 = new Thread(new MyClass());
             t1.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("tagged",e.toString());
         }
     }
 
