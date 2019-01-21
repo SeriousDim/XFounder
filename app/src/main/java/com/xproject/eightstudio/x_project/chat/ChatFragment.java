@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class ChatFragment extends Fragment {
     private EditText typeInput;
     private ListView messageView;
     private View view;
-    String localID = "1";
+    String localID, projectID = "1";
     private String lastTime = "0";
     ArrayList<Message> messages = new ArrayList<>();
     private final String server = "https://gleb2700.000webhostapp.com";
@@ -50,14 +51,14 @@ public class ChatFragment extends Fragment {
         public void run() {
             try {
                 Thread.sleep(2000);
-                getUpdates("1");
+                getUpdates();
             } catch (Exception e) {
-                Log.d("tagged",e.toString());
+                Log.d("tagged", e.toString());
             }
         }
     }
 
-    public void getUpdates(String projectID) {
+    public void getUpdates() {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("projectID", projectID);
         getDataParams.put("command", "getMessages");
@@ -80,19 +81,19 @@ public class ChatFragment extends Fragment {
             Thread t1 = new Thread(new MyClass());
             t1.start();
         } catch (IOException e) {
-            Log.d("tagged",e.toString());
+            Log.d("tagged", e.toString());
         }
     }
 
     private void fillView() {
         if (getContext() != null) {
-            MessageAdapter messageAdapter = new MessageAdapter(getContext(), messages);
+            MessageAdapter messageAdapter = new MessageAdapter(getContext(), messages, localID);
             messageView.setAdapter(messageAdapter);
             messageView.setSelection(messages.size() - 1);
         }
     }
 
-    public void sendMessage(final String projectID, final String workerID) {
+    public void sendMessage() {
         final String message = typeInput.getText().toString();
         if (message.equals("")) {
             Toast.makeText(getContext(), "Empty message", Toast.LENGTH_SHORT).show();
@@ -102,7 +103,7 @@ public class ChatFragment extends Fragment {
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("command", "addMessage");
         postDataParams.put("message", message);
-        postDataParams.put("workerID", workerID);
+        postDataParams.put("workerID", localID);
         postDataParams.put("projectID", projectID);
         Message m = new Message();
         m.setData(message);
@@ -114,7 +115,6 @@ public class ChatFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 messages.remove(messages.size() - 1);
-                //getUpdates(projectID);
             }
 
             @Override
@@ -131,10 +131,12 @@ public class ChatFragment extends Fragment {
         messageView = view.findViewById(R.id.lv);
         typeInput = view.findViewById(R.id.editText);
         ImageView send = view.findViewById(R.id.bt);
+        localID = ((MainActivity) getActivity()).loadUser();
+        //projectID =  ((MainActivity)getActivity()).loadProject();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage("1", localID);
+                sendMessage();
             }
         });
         Thread t1 = new Thread(new MyClass());

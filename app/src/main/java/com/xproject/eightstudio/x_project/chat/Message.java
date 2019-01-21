@@ -4,7 +4,6 @@ public class Message {
     String sender_id;
     String name;
     String data;
-    String localID="1";
     boolean isLoading;
 
     public void setData(String data) {

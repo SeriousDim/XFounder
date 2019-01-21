@@ -6,57 +6,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.dataclasses.Company;
+import com.xproject.eightstudio.x_project.dataclasses.Project;
 
-public class NewProjectListAdapter extends ArrayAdapter<Company> {
+import java.util.ArrayList;
+
+public class NewProjectListAdapter extends ArrayAdapter<Project> {
 
     final Activity ctx;
-    final Company[] data;
+    final ArrayList<Project> data;
     int currentComapny;
 
-    NewProjectListAdapter(Activity ctx, Company[] data){
+    NewProjectListAdapter(Activity ctx, ArrayList<Project> data) {
         super(ctx, R.layout.company_item_layout, data);
         this.ctx = ctx;
         this.data = data;
     }
 
     @Override
-    public View getView(int pos, View convert, ViewGroup parent){
+    public View getView(int pos, View convert, ViewGroup parent) {
         ViewHolder holder;
         View row = convert;
         if (row == null) {
             LayoutInflater inflater = ctx.getLayoutInflater();
             row = inflater.inflate(R.layout.company_item_layout, null, true);
             holder = new ViewHolder();
-            holder.name = row.findViewById(R.id.il_name);
-            holder.director = row.findViewById(R.id.il_director);
+            holder.title = row.findViewById(R.id.il_name);
+            holder.founder = row.findViewById(R.id.il_director);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
         }
-        holder.name.setText(this.data[pos].name);
-        holder.director.setText(this.data[pos].director.name);
-        if (currentComapny==pos){
-            ((CardView)row).setCardBackgroundColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
-            holder.name.setTextColor(ctx.getResources().getColor(android.R.color.white));
-            holder.director.setTextColor(ctx.getResources().getColor(android.R.color.white));
-        }
-        else if (holder.director.getCurrentTextColor()==ctx.getResources().getColor(android.R.color.white) &&
-                currentComapny != pos){
-            ((CardView)row).setCardBackgroundColor(ctx.getResources().getColor(android.R.color.white));
-            holder.name.setTextColor(ctx.getResources().getColor(R.color.standart));
-            holder.director.setTextColor(ctx.getResources().getColor(R.color.standart));
+        holder.title.setText(this.data.get(pos).title);
+        holder.founder.setText(this.data.get(pos).name);
+        if (currentComapny == pos) {
+            ((CardView) row).setCardBackgroundColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
+            holder.title.setTextColor(ctx.getResources().getColor(android.R.color.white));
+            holder.founder.setTextColor(ctx.getResources().getColor(android.R.color.white));
+        } else if (holder.founder.getCurrentTextColor() == ctx.getResources().getColor(android.R.color.white) &&
+                currentComapny != pos) {
+            ((CardView) row).setCardBackgroundColor(ctx.getResources().getColor(android.R.color.white));
+            holder.title.setTextColor(ctx.getResources().getColor(R.color.standart));
+            holder.founder.setTextColor(ctx.getResources().getColor(R.color.standart));
         }
 
         return row;
     }
 
-    static class ViewHolder{
-        TextView name, director;
-        ImageView img;
+    static class ViewHolder {
+        TextView title, founder;
     }
 
 }

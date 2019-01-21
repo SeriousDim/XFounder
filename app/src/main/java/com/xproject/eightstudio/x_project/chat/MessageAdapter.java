@@ -17,9 +17,11 @@ public class MessageAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
     ArrayList<Message> objects;
+    String localID;
 
-    public MessageAdapter(Context context, ArrayList<Message> messages) {
+    public MessageAdapter(Context context, ArrayList<Message> messages, String localID) {
         ctx = context;
+        this.localID = localID;
         objects = messages;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,7 +54,7 @@ public class MessageAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.message_viewu, parent, false);
 
         } else {
-            if (m.sender_id.equals(m.localID)) {
+            if (m.sender_id.equals(localID)) {
                 view = lInflater.inflate(R.layout.message_viewr, parent, false);
             } else {
                 view = lInflater.inflate(R.layout.message_view, parent, false);
