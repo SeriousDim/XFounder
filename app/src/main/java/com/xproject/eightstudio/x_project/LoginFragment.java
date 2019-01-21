@@ -2,6 +2,7 @@ package com.xproject.eightstudio.x_project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class LoginFragment extends Fragment {
                 public void onClick(View v) {
                     MainActivity m  = (MainActivity) getActivity();
                     m.setFragmentClass(new RegistationFragment());
+                    m.lastFragment = 6;
+                    m.currentFragment = 6;
                 }
             });
             Button log = view.findViewById(R.id.btn_login);

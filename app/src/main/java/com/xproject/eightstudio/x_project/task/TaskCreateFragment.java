@@ -30,6 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TaskCreateFragment extends Fragment {
+    //TODO: fucking spinner isn't ready
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -74,7 +75,7 @@ public class TaskCreateFragment extends Fragment {
         postDataParams.put("project_id", projectID);
         postDataParams.put("date_from", (Long) (dt_from.getTimeInMillis() / 1000L) + "");
         postDataParams.put("date_to", (Long) (dt_to.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("emplName", task_name.getText().toString());
+        postDataParams.put("title", task_name.getText().toString());
         postDataParams.put("description", task_desc.getText().toString());
         postDataParams.put("performer_id", localID);
 
@@ -102,16 +103,16 @@ public class TaskCreateFragment extends Fragment {
 
     private boolean checking() {
         if (task_name.getText().toString().equals("")) {
-            //TODO: no name
+            Toast.makeText(getContext(), "Пустое название задачи", Toast.LENGTH_SHORT).show();
             return false;
         } else if (task_desc.getText().toString().equals("")) {
-            //TODO: no desc
+            Toast.makeText(getContext(), "Пустое описание", Toast.LENGTH_SHORT).show();
             return false;
         } else if (dt_from.compareTo(dt_to) > -1) {
-            //TODO: wrong time
+            Toast.makeText(getContext(), "Срок окончания должен быть позже срока начала", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!fD || !fT || !tD || !tT) {
-            //TODO: time not chosen
+            Toast.makeText(getContext(), "Не выбрано время", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -2,6 +2,7 @@ package com.xproject.eightstudio.x_project.chat;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,12 +46,13 @@ public class ChatFragment extends Fragment {
             .build();
     private Messenger mes = retrofit.create(Messenger.class);
 
-    class MyClass implements Runnable { //TODO: it always crushes because of bad asyncing
+    class MyClass implements Runnable {
         public void run() {
             try {
+                Thread.sleep(2000);
                 getUpdates("1");
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d("tagged",e.toString());
             }
         }
     }
@@ -61,28 +63,25 @@ public class ChatFragment extends Fragment {
         getDataParams.put("command", "getMessages");
         getDataParams.put("time", lastTime);
         Call<ResponseBody> call = mes.performGetCall(getDataParams);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
-                    if (resp.messages.size() != 0) {
-                        messages.addAll(resp.messages);
+        Response<ResponseBody> response = null;
+        try {
+            response = call.execute();
+            MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
+            if (resp.messages.size() != 0) {
+                messages.addAll(resp.messages);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         fillView();
                     }
-                    lastTime = resp.time;
-                    Thread t1 = new Thread(new MyClass());
-                    t1.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                });
             }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-            }
-        });
+            lastTime = resp.time;
+            Thread t1 = new Thread(new MyClass());
+            t1.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fillView() {
@@ -95,6 +94,10 @@ public class ChatFragment extends Fragment {
 
     public void sendMessage(final String projectID, final String workerID) {
         final String message = typeInput.getText().toString();
+        if (message.equals("")) {
+            Toast.makeText(getContext(), "Empty message", Toast.LENGTH_SHORT).show();
+            return;
+        }
         typeInput.setText("");
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("command", "addMessage");
@@ -111,6 +114,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 messages.remove(messages.size() - 1);
+                //getUpdates(projectID);
             }
 
             @Override
@@ -133,8 +137,9 @@ public class ChatFragment extends Fragment {
                 sendMessage("1", localID);
             }
         });
+        Thread t1 = new Thread(new MyClass());
+        t1.start();
         fillView();
-        getUpdates("1");
         return view;
     }
 

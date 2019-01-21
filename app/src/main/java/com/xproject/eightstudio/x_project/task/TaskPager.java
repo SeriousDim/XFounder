@@ -74,7 +74,7 @@ public class TaskPager extends Fragment {
             });
             activity = ((MainActivity)getActivity());
         }
-        activity.setProgressBar(false);
+        //activity.setProgressBar(false);
         return view;
     }
 
@@ -108,7 +108,7 @@ public class TaskPager extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                activity.setProgressBar(false);
+                //activity.setProgressBar(false);
             }
 
             @Override

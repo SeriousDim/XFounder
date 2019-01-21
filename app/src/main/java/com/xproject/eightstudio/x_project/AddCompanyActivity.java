@@ -11,7 +11,7 @@ public class AddCompanyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_company);
+        setContentView(R.layout.fragment_find_project);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setSupportActionBar((Toolbar)(findViewById(R.id.add_toolbar)));
