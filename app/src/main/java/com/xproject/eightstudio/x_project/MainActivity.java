@@ -1,6 +1,5 @@
 package com.xproject.eightstudio.x_project;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -12,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,9 +22,10 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
-import com.xproject.eightstudio.x_project.dataclasses.Company;
-import com.xproject.eightstudio.x_project.dataclasses.Director;
+import com.xproject.eightstudio.x_project.dataclasses.Project;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
@@ -32,12 +33,33 @@ import com.xproject.eightstudio.x_project.task.TaskEdit;
 import com.xproject.eightstudio.x_project.task.TaskPager;
 import com.xproject.eightstudio.x_project.task.TaskViewFragment;
 
-import java.util.Random;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.gloxey.cfv.CFTextView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+class ProjectResponse{
+    ArrayList<Project> projects;
+}
 
 public class MainActivity extends LocalData
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private final String server = "https://gleb2700.000webhostapp.com";
+    final Gson gson = new GsonBuilder().create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(server)
+            .build();
+    private Projects pro = retrofit.create(Projects.class);
 
     int currentFragment;
     int lastFragment;
@@ -120,10 +142,17 @@ public class MainActivity extends LocalData
             loginSuccess();
         }
         lv = findViewById(R.id.comp_list);
-        Company[] c = new Company[5];
-        for (int i = 1; i < 6; i++)
-            c[i - 1] = new Company("My Company " + i, new Director(new Random().nextLong() + "", ""));
-        adapter = new NewProjectListAdapter(this, c);
+        lastFragment = 2;
+    }
+
+    private void openLogin() {
+        navigation.setVisibility(View.GONE);
+        getSupportActionBar().hide();
+        setFragmentClass(new LoginFragment());
+    }
+
+    public void addProjectsToNavigationView(ArrayList<Project> projects) {
+        adapter = new NewProjectListAdapter(this, projects);
         lv.setAdapter(adapter);
         setCurrentCompany(0);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,6 +162,7 @@ public class MainActivity extends LocalData
             }
         });
 
+<<<<<<< HEAD
         setProgress(false);
         lastFragment = 2;
     }
@@ -146,15 +176,16 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.GONE);
         getSupportActionBar().hide();
         setFragmentClass(new LoginFragment());
+=======
+>>>>>>> 036c6ee7c1ebfb9e89d729f3a429a1f8946af94f
     }
 
     public void setCurrentCompany(int company) {
-        Company c = (Company) lv.getItemAtPosition(company);
+        Project c = (Project) lv.getItemAtPosition(company);
         c.selected = true;
         adapter.currentComapny = company;
         adapter.notifyDataSetChanged();
-        Toast.makeText(this, "You select company", Toast.LENGTH_SHORT).show();
-        // загрузка данных о другой компании здесь
+        saveProject(c.p_id);
     }
 
     public boolean setFragment(int item) {
@@ -196,7 +227,7 @@ public class MainActivity extends LocalData
         progress.setVisibility(vis);
     }*/
 
-    public void openProfile(){
+    public void openProfile() {
         ProfileFragment profileFragment = new ProfileFragment();
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
@@ -316,5 +347,29 @@ public class MainActivity extends LocalData
         getSupportActionBar().show();
         navigation.setSelectedItemId(R.id.navigation_task);
         updateTasks();
+        getProjectsForNav();
+    }
+
+    private void getProjectsForNav() {
+        HashMap<String, String> getDataParams = new HashMap<>();
+        getDataParams.put("user_id", loadUser());
+        getDataParams.put("command", "getMyProjects");
+        Call<ResponseBody> call = pro.performGetCall(getDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    ProjectResponse resp = gson.fromJson(response.body().string(), ProjectResponse.class);
+                    addProjectsToNavigationView(resp.projects);
+                } catch (IOException e) {
+                    Log.d("tagged",e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

@@ -35,7 +35,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
     public void onBindViewHolder(EmployeeAdapter.ViewHolder holder, int position) {
         Employee e = employees.get(position);
         holder.e = e;
-        holder.emplName.setText(e.name+" "+e.surname);
+        holder.emplName.setText(e.name);
         holder.job.setText(e.job);
     }
 

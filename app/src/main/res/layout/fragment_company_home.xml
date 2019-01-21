@@ -25,26 +25,24 @@
         android:orientation="vertical">
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/txt_companyname"
+            android:id="@+id/project_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="COMPANY NAME"
+            android:text="PROJECT NAME"
             android:textAlignment="center"
             android:textColor="@color/background"
             android:textSize="25sp"
-            app:font_name="banch.ttf"
-            tools:text="COMPANY NAME" />
+            app:font_name="banch.ttf"/>
 
         <io.gloxey.cfv.CFTextView
-            android:id="@+id/txt_directorname"
+            android:id="@+id/founder_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Директор: Никита Яковлев"
+            android:text="Основатель: Никита Яковлев"
             android:textAlignment="center"
             android:textColor="@color/background"
             android:textSize="18sp"
-            app:font_name="banch.ttf"
-            tools:text="Директор: Никита Яковлев" />
+            app:font_name="banch.ttf"/>
 
     </LinearLayout>
 
