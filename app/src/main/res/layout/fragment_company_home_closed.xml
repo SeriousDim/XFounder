@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <io.gloxey.cfv.CFButton
+        android:id="@+id/btn_join"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary"
+        android:text="Присоединиться"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:font_name="banch.ttf" />
+
+    <View
+        android:id="@+id/img_back"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/title"
+        android:layout_alignBottom="@+id/home_tabs"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/project_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PROJECT NAME"
+            android:textAlignment="center"
+            android:textColor="@color/background"
+            android:textSize="25sp"
+            app:font_name="banch.ttf"/>
+
+        <io.gloxey.cfv.CFTextView
+            android:id="@+id/founder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Основатель: Никита Яковлев"
+            android:textAlignment="center"
+            android:textColor="@color/background"
+            android:textSize="18sp"
+            app:font_name="banch.ttf"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/backgr_item" />
+
+    <io.gloxey.cfv.CFTextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="О проекте"
+        android:textAlignment="textStart"
+        android:textColor="#000"
+        android:textSize="38sp"
+        android:layout_marginLeft="15dp"
+        app:font_name="banch.ttf" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/avatar" />
+
+</RelativeLayout>
