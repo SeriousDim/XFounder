@@ -18,7 +18,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
 
     private LayoutInflater inflater;
     private List<Employee> employees = new ArrayList<>();
-    ProfileFragment profileFragment;
     Context ctx;
 
     EmployeeAdapter(Context ctx) {
@@ -39,8 +38,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         holder.job.setText(e.job);
     }
 
-    public void setEmployees(List<Employee> newTasks) {
-        employees = newTasks;
+    public void setEmployees(List<Employee> newEmployees) {
+        employees = newEmployees;
         notifyDataSetChanged();
     }
 
@@ -58,7 +57,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainActivity) inflater.getContext()).openProfile();
+                    ((MainActivity) inflater.getContext()).openProfile(e.id);
                 }
             });
             this.emplName = v.findViewById(R.id.il_name);

@@ -76,17 +76,75 @@ public class TaskCreateFragment extends Fragment {
             task_name = view.findViewById(R.id.task_name);
             sp = view.findViewById(R.id.spinner);
             getWorkers();
-            view.findViewById(R.id.create_task).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (checking()) {
-                        createTask();
+            if (task != null) {
+                fT = true;
+                fD = true;
+                tT = true;
+                tD = true;
+                initView();
+                view.findViewById(R.id.create_task).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checking()) {
+                            editTask();
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                view.findViewById(R.id.create_task).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checking()) {
+                            createTask();
+                        }
+                    }
+                });
+            }
 
         }
         return view;
+    }
+
+    private void editTask() {
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("command", "updateTask");
+        postDataParams.put("date_from", (dt_from.getTimeInMillis() / 1000L) + "");
+        postDataParams.put("date_to", (dt_to.getTimeInMillis() / 1000L) + "");
+        postDataParams.put("title", task_name.getText().toString());
+        postDataParams.put("description", task_desc.getText().toString());
+        postDataParams.put("performer_id", localID);
+        postDataParams.put("project_id", projectID);
+        postDataParams.put("task_id", task.task_id);
+
+        Call<ResponseBody> call = tasks.performPostCall(postDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                MainActivity m = (MainActivity) getActivity();
+                m.openTask(task);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), call.request().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void initView() {
+        task_name.setText(task.title);
+        task_desc.setText(task.description);
+        dt_from.setTimeInMillis(task.date_from * 1000L);
+        dt_to.setTimeInMillis(task.date_to * 1000L);
+        to_d.setText(dt_to.get(Calendar.DAY_OF_MONTH) + "-" + (dt_to.get(Calendar.MONTH) + 1) + "-" + dt_to.get(Calendar.YEAR));
+        to_d.setTextSize(22);
+        from_d.setText(dt_from.get(Calendar.DAY_OF_MONTH) + "-" + (dt_from.get(Calendar.MONTH) + 1) + "-" + dt_from.get(Calendar.YEAR));
+        from_d.setTextSize(22);
+        to_t.setText(dt_to.get(Calendar.HOUR_OF_DAY) + ":" + dt_to.get(Calendar.MINUTE));
+        to_t.setTextSize(25);
+        from_t.setText(dt_from.get(Calendar.HOUR_OF_DAY) + ":" + dt_from.get(Calendar.MINUTE));
+        from_t.setTextSize(25);
+
     }
 
     private void createTask() {

@@ -28,7 +28,6 @@ import com.xproject.eightstudio.x_project.dataclasses.Project;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
-import com.xproject.eightstudio.x_project.task.TaskEditFragment;
 import com.xproject.eightstudio.x_project.task.TaskPager;
 import com.xproject.eightstudio.x_project.task.TaskViewFragment;
 
@@ -69,7 +68,6 @@ public class MainActivity extends LocalData
     ListView lv;
     NewProjectListAdapter adapter;
     MenuItem add, edit;
-    FrameLayout progress;
     BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -116,7 +114,7 @@ public class MainActivity extends LocalData
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setFragmentClass(new ProfileFragment());
+                        openProfile(loadUser());
                     }
                 }
         );
@@ -211,13 +209,10 @@ public class MainActivity extends LocalData
         invalidateOptionsMenu();
     }
 
-    /*public void setProgressBar(boolean visible){
-        int vis = (visible ? View.VISIBLE  : View.GONE);
-        progress.setVisibility(vis);
-    }*/
 
-    public void openProfile() {
+    public void openProfile(String id) {
         ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setID(id);
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
         currentFragment = 6;
@@ -324,7 +319,7 @@ public class MainActivity extends LocalData
     }
 
     public void openTaskEdit(Task task) {
-        TaskEditFragment te = new TaskEditFragment();
+        TaskCreateFragment te = new TaskCreateFragment();
         te.setTask(task);
         setFragmentClass(te);
         currentFragment = 5;
@@ -334,8 +329,8 @@ public class MainActivity extends LocalData
     public void loginSuccess() {
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
+        ((TaskPager) fragments[2]).setLocalID(loadUser());
         navigation.setSelectedItemId(R.id.navigation_task);
-        updateTasks();
         getProjectsForNav();
     }
 

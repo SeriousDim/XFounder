@@ -63,9 +63,9 @@ public class TaskPager extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_task_pager, container, false);
             ViewPager vp = view.findViewById(R.id.v_pager);
-            localID = ((MainActivity) getActivity()).loadUser();
             //projectID =  ((MainActivity)getActivity()).loadProject();
-
+            activity = ((MainActivity) getActivity());
+            getList();
             setupViewPager(vp);
             ((TabLayout) view.findViewById(R.id.my_tabs)).setupWithViewPager(vp);
 
@@ -75,14 +75,17 @@ public class TaskPager extends Fragment {
                     ((MainActivity) inflater.getContext()).addTask();
                 }
             });
-            activity = ((MainActivity) getActivity());
         }
         //activity.setProgressBar(false);
         return view;
     }
 
+    public void setLocalID(String id){
+        this.localID = id;
+    }
+
     public void getList() {
-        //activity.setProgressBar(true);
+        activity.setProgress(true);
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);
@@ -111,7 +114,7 @@ public class TaskPager extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //activity.setProgressBar(false);
+                activity.setProgress(false);
             }
 
             @Override

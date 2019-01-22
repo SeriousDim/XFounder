@@ -36,6 +36,7 @@ public class ChatFragment extends Fragment {
     private EditText typeInput;
     private ListView messageView;
     private View view;
+    MainActivity activity;
     String localID, projectID = "1";
     private String lastTime = "0";
     ArrayList<Message> messages = new ArrayList<>();
@@ -69,11 +70,12 @@ public class ChatFragment extends Fragment {
             response = call.execute();
             final MessageResponse resp = gson.fromJson(response.body().string(), MessageResponse.class);
             if (resp.messages.size() != 0) {
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         messages.addAll(resp.messages);
                         fillView();
+                        activity.setProgress(false);
                     }
                 });
             }
@@ -131,7 +133,9 @@ public class ChatFragment extends Fragment {
         messageView = view.findViewById(R.id.lv);
         typeInput = view.findViewById(R.id.editText);
         ImageView send = view.findViewById(R.id.bt);
-        localID = ((MainActivity) getActivity()).loadUser();
+        activity = (MainActivity) getActivity();
+        localID = activity.loadUser();
+        activity.setProgress(true);
         //projectID =  ((MainActivity)getActivity()).loadProject();
         send.setOnClickListener(new View.OnClickListener() {
             @Override

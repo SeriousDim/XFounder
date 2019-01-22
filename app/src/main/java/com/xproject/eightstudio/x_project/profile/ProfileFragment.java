@@ -39,7 +39,7 @@ public class ProfileFragment extends Fragment {
             .baseUrl(server)
             .build();
     private Workers work = retrofit.create(Workers.class);
-    String workerID = "1";
+    String workerID;
     TextView nameField, jobField;
     View view;
     DescriptionFragment desc;
@@ -49,6 +49,7 @@ public class ProfileFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         desc = new DescriptionFragment();
+        desc.setWorkerID(workerID);
         chart = new GanntFragment();
         adapter.addFragment(desc, getResources().getString(R.string.decsription));
         adapter.addFragment(chart, getResources().getString(R.string.chart));
@@ -71,15 +72,17 @@ public class ProfileFragment extends Fragment {
             descriptionField = desc.getDescriptionField();
             confirm = desc.getConfirm();
 
-            getInfo(workerID);
+            getInfo();
         }
 
         return view;
     }
-
-    private void getInfo(String WID) {
+    public void setID(String id){
+        this.workerID = id;
+    }
+    private void getInfo() {
         HashMap<String, String> getDataParams = new HashMap<>();
-        getDataParams.put("WID", WID);
+        getDataParams.put("WID", workerID);
         getDataParams.put("command", "getAll");
         Call<ResponseBody> call = work.performGetCall(getDataParams);
         call.enqueue(new Callback<ResponseBody>() {
@@ -90,7 +93,6 @@ public class ProfileFragment extends Fragment {
                     String name = resp.get("name");
                     String description = resp.get("description");
                     String job = resp.get("job");
-                    //descriptionField.setText(description);
                     desc.setDescription(description);
                     nameField.setText(name);
                     jobField.setText(job);

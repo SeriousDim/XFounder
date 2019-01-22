@@ -30,7 +30,7 @@ public class DescriptionFragment extends Fragment {
     Button confirm;
     String description;
     private final String server = "https://gleb2700.000webhostapp.com";
-    String workerID = "1";
+    String workerID;
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -55,6 +55,10 @@ public class DescriptionFragment extends Fragment {
             });
         }
         return view;
+    }
+
+    public void setWorkerID(String id){
+        this.workerID = id;
     }
 
     private void updateDescription(String description) {

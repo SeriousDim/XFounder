@@ -40,6 +40,7 @@ public class CompanyHomeFragment extends Fragment {
     HomeTaskFragment taskFragment;
     TextView founderName, projectName;
     View view;
+    MainActivity activity;
     String projectID = "1";
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
@@ -50,7 +51,7 @@ public class CompanyHomeFragment extends Fragment {
     private Projects pro = retrofit.create(Projects.class);
 
     public void getList() {
-        //activity.setProgressBar(true);
+        activity.setProgress(true);
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getInfo");
         getDataParams.put("projectID", projectID);
@@ -68,7 +69,7 @@ public class CompanyHomeFragment extends Fragment {
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());
                 }
-                //activity.setProgressBar(false);
+                activity.setProgress(false);
             }
 
             @Override
@@ -94,6 +95,7 @@ public class CompanyHomeFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_company_home, container, false);
             ViewPager vp = view.findViewById(R.id.home_pager);
             setupViewPager(vp);
+            activity = (MainActivity) getActivity();
             ((TabLayout) view.findViewById(R.id.home_tabs)).setupWithViewPager(vp);
             founderName = view.findViewById(R.id.founder_name);
             projectName = view.findViewById(R.id.project_name);
