@@ -32,4 +32,8 @@
     <string name="decsription">About me</string>
     <string name="chart">Chart</string>
     <string name="enter_title_comp">Enter project name</string>
+    <string name="project_name_title">Project title</string>
+    <string name="branch">Project occupation</string>
+    <string name="desc_proj">Project description</string>
+    <string name="create_new_project">Create project</string>
 </resources>

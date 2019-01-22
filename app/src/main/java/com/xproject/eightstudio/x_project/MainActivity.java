@@ -66,7 +66,7 @@ public class MainActivity extends LocalData
     CFTextView title;
     ListView lv;
     NewProjectListAdapter adapter;
-    MenuItem add, edit;
+    MenuItem add, edit, addProj;
     BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -117,19 +117,24 @@ public class MainActivity extends LocalData
                     }
                 }
         );
-        fragments = new Fragment[4];
+        fragments = new Fragment[5];
         try {
             fragments[0] = CompanyHomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
+            fragments[3] = SearchProjectFragment.class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
         findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentClass(new SearchProjectFragment());
+                setFragmentClass(/*new SearchProjectFragment()*/fragments[3]);
+                lastFragment = currentFragment;
+                currentFragment = 7;
                 title.setText(getResources().getString(R.string.projects));
+                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                invalidateOptionsMenu();
             }
         });
         if (loadUser() == "") {
@@ -152,13 +157,14 @@ public class MainActivity extends LocalData
     public void addProjectsToNavigationView(ArrayList<Project> projects) {
         adapter = new NewProjectListAdapter(this, projects);
         lv.setAdapter(adapter);
-        setCurrentCompany(0);
+        /*setCurrentCompany(0);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 setCurrentCompany(i);
             }
-        });
+        });*/
+        saveProject("1");
         ((TaskPager) fragments[2]).setLocalID(loadUser());
         navigation.setSelectedItemId(R.id.navigation_task);
     }
@@ -219,6 +225,8 @@ public class MainActivity extends LocalData
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
         currentFragment = 6;
+        ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+        invalidateOptionsMenu();
     }
 
     public void setFragmentClass(Fragment frag) {
@@ -245,8 +253,15 @@ public class MainActivity extends LocalData
                 case 2:
                     setFragment(R.id.navigation_task);
                     break;
-                case 6:
-                    setFragmentClass(new LoginFragment());
+                case 7:
+                    setFragmentClass(/*new SearchProjectFragment()*/fragments[3]);
+                    lastFragment = currentFragment;
+                    currentFragment = 7;
+                    title.setText(getResources().getString(R.string.projects));
+                    ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                    invalidateOptionsMenu();
+                /*case 6:
+                    setFragmentClass(new LoginFragment());*/
             }
         }
         /*else {
@@ -264,27 +279,44 @@ public class MainActivity extends LocalData
         inflater.inflate(R.menu.options, menu);
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
+        addProj = menu.findItem(R.id.create_proj);
         switch (this.currentFragment) {
             case 0:
             case 1:
+            case 8:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 2:
                 add.setVisible(true);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 3:
                 add.setVisible(false);
                 edit.setVisible(true);
+                addProj.setVisible(false);
                 break;
             case 4:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 5:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
+                break;
+            case 6:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(false);
+                break;
+            case 7:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(true);
                 break;
         }
         return true;
@@ -298,6 +330,13 @@ public class MainActivity extends LocalData
                 return true;
             case R.id.edit:
                 openTaskEdit(((TaskViewFragment) now).getTask());
+                return true;
+            case R.id.create_proj:
+                setFragmentClass(new CreateProjectFragment());
+                lastFragment = currentFragment;
+                currentFragment = 8;
+                title.setText(R.string.create_new_project);
+                invalidateOptionsMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
