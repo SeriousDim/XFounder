@@ -22,12 +22,22 @@ import java.util.Date;
 public class GanntFragment extends Fragment {
     View view;
     ArrayList<String> tasks;
-    float spLength, liLength;
+    int width;
+    int margin;
+    int length;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile_gannt, container, false);
         tasks = new ArrayList<>();
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+
+        margin = (int) (width * (1f / 3.5f));
+        length = width - margin;
 
         final long allTime = 86400 * 31;
 
@@ -39,32 +49,31 @@ public class GanntFragment extends Fragment {
         startMonth.setYear(d.getYear());
         startMonth.setMonth(d.getMonth());
         startMonth.setDate(0);
-        long startTime = startMonth.getTime()/1000L;
-        long diff = DATE1 - startTime;
-        spLength = (float)diff/allTime;
-        long diff2 = DATE2 - DATE1;
-        liLength = (float)diff2/allTime;
 
-        for (int i=0; i<27; i+=2) {
-            newLine(liLength, spLength, i+1);
-            newLine(0.5f, 0.2f, i+2);
+        float spLength, liLength;
+        long startTime = startMonth.getTime() / 1000L;
+        long diff = DATE1 - startTime;
+        spLength = (float) diff / allTime;
+        long diff2 = DATE2 - DATE1;
+        liLength = (float) diff2 / allTime;
+
+        for (int i = 0; i < 27; i += 2) {
+            newLine(liLength, spLength, i + 1);
+            newLine(0.5f, 0.2f, i + 2);
         }
         return view;
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
 
-    public void addTask(String name, int number, ViewGroup layout){
+    public void addTask(String name, int number, ViewGroup layout) {
         tasks.add(name);
+
         // add the cardview with task name
         TextView tv = new TextView(getContext());
         RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(140, RelativeLayout.LayoutParams.WRAP_CONTENT);
         tvlp.topMargin = 75 * number;
         tv.setLayoutParams(tvlp);
-        tv.setText(name.substring(0, 12)+"...");
+        tv.setText(name.substring(0, 12) + "...");
         tv.setTextSize(14);
         layout.addView(tv);
     }
@@ -73,19 +82,9 @@ public class GanntFragment extends Fragment {
         ViewGroup layout = view.findViewById(R.id.sss);
         CardView cv = new CardView(getContext());
 
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
 
-        int margin = (int)(width*(1f/3.5f));
-        int length= width-margin;
-        //Toast.makeText(getContext(),margin+" "+length+"\n"+width+' '+height,Toast.LENGTH_LONG).show();
-
-        RelativeLayout.LayoutParams prll = new RelativeLayout.LayoutParams((int)(length*lineLength),60);
-        prll.setMargins(margin + (int) (length * spaceLength), 75 * number, 0, 0);
+        RelativeLayout.LayoutParams prll = new RelativeLayout.LayoutParams((int) (length * lineLength), 60);
+        prll.setMargins(margin + (int) (length * spaceLength), 80 * number, 0, 0);
         cv.setLayoutParams(prll);
         cv.setCardBackgroundColor(getResources().getColor(R.color.colorAccent));
         cv.setRadius(10);
