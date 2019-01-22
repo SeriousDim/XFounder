@@ -1,7 +1,6 @@
 package com.xproject.eightstudio.x_project;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -29,7 +28,7 @@ import com.xproject.eightstudio.x_project.dataclasses.Project;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
-import com.xproject.eightstudio.x_project.task.TaskEdit;
+import com.xproject.eightstudio.x_project.task.TaskEditFragment;
 import com.xproject.eightstudio.x_project.task.TaskPager;
 import com.xproject.eightstudio.x_project.task.TaskViewFragment;
 
@@ -45,7 +44,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class ProjectResponse{
+class ProjectResponse {
     ArrayList<Project> projects;
 }
 
@@ -142,8 +141,10 @@ public class MainActivity extends LocalData
             loginSuccess();
         }
         lv = findViewById(R.id.comp_list);
+        setProgress(false);
         lastFragment = 2;
     }
+
 
     private void openLogin() {
         navigation.setVisibility(View.GONE);
@@ -161,23 +162,11 @@ public class MainActivity extends LocalData
                 setCurrentCompany(i);
             }
         });
-
-<<<<<<< HEAD
-        setProgress(false);
-        lastFragment = 2;
     }
 
-    public void setProgress(boolean vis){
+    public void setProgress(boolean vis) {
         int visible = vis ? View.VISIBLE : View.GONE;
         findViewById(R.id.loading).setVisibility(visible);
-    }
-
-    private void openLogin() {
-        navigation.setVisibility(View.GONE);
-        getSupportActionBar().hide();
-        setFragmentClass(new LoginFragment());
-=======
->>>>>>> 036c6ee7c1ebfb9e89d729f3a429a1f8946af94f
     }
 
     public void setCurrentCompany(int company) {
@@ -335,7 +324,7 @@ public class MainActivity extends LocalData
     }
 
     public void openTaskEdit(Task task) {
-        TaskEdit te = new TaskEdit();
+        TaskEditFragment te = new TaskEditFragment();
         te.setTask(task);
         setFragmentClass(te);
         currentFragment = 5;
@@ -362,7 +351,7 @@ public class MainActivity extends LocalData
                     ProjectResponse resp = gson.fromJson(response.body().string(), ProjectResponse.class);
                     addProjectsToNavigationView(resp.projects);
                 } catch (IOException e) {
-                    Log.d("tagged",e.toString());
+                    Log.d("tagged", e.toString());
                 }
             }
 

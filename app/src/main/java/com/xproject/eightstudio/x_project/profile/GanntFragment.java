@@ -1,6 +1,7 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.profile;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xproject.eightstudio.x_project.R;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,14 +70,13 @@ public class GanntFragment extends Fragment {
 
     public void addTask(String name, int number, ViewGroup layout) {
         tasks.add(name);
-
-        // add the cardview with task name
         TextView tv = new TextView(getContext());
-        RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(140, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        tvlp.topMargin = 75 * number;
+        RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(margin - 10, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        tvlp.topMargin = 80 * number;
         tv.setLayoutParams(tvlp);
         tv.setText(name.substring(0, 12) + "...");
-        tv.setTextSize(14);
+        tv.setTextSize(12);
+        tv.setTextColor(Color.BLACK);
         layout.addView(tv);
     }
 

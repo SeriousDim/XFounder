@@ -28,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TaskEdit extends Fragment {
+public class TaskEditFragment extends Fragment {
     private final String server = "https://gleb2700.000webhostapp.com";
     Task task;
     final Gson gson = new GsonBuilder().create();

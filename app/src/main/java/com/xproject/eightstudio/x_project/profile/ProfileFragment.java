@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.ChartFragment;
-import com.xproject.eightstudio.x_project.DescriptionFragment;
-import com.xproject.eightstudio.x_project.GanntFragment;
 import com.xproject.eightstudio.x_project.ViewPagerAdapter;
 import com.xproject.eightstudio.x_project.Workers;
 
@@ -31,7 +28,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.task.TaskFragment;
 
 public class ProfileFragment extends Fragment {
 

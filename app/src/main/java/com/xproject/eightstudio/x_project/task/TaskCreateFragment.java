@@ -4,11 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -16,9 +19,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.Projects;
 import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.dataclasses.Employee;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -29,8 +35,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+class SpinnerResponse {
+    ArrayList<Employee> workers;
+}
+
+
 public class TaskCreateFragment extends Fragment {
-    //TODO: fucking spinner isn't ready
+    Task task;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -38,23 +49,33 @@ public class TaskCreateFragment extends Fragment {
             .baseUrl(server)
             .build();
     private Tasks tasks = retrofit.create(Tasks.class);
-    String localID = "1";
-    String projectID = "2";
+    private Projects pro = retrofit.create(Projects.class);
+    String localID;
+    String projectID = "1";
     View view;
     TextView from_t, from_d, to_t, to_d;
     EditText task_name, task_desc;
+    Spinner sp;
     boolean fT = false, fD = false, tT = false, tD = false;
 
     Calendar dt_from = Calendar.getInstance();
     Calendar dt_to = Calendar.getInstance();
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_task_create, container, false);
             initDateAndTime(view);
+            localID = ((MainActivity) getActivity()).loadUser();
+            //projectID =  ((MainActivity)getActivity()).loadProject();
             task_desc = view.findViewById(R.id.task_desc);
             task_name = view.findViewById(R.id.task_name);
+            sp = view.findViewById(R.id.spinner);
+            getWorkers();
             view.findViewById(R.id.create_task).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,23 +92,18 @@ public class TaskCreateFragment extends Fragment {
     private void createTask() {
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("command", "createTask");
-        postDataParams.put("creator_id", "2");
+        postDataParams.put("creator_id", localID);
         postDataParams.put("project_id", projectID);
         postDataParams.put("date_from", (Long) (dt_from.getTimeInMillis() / 1000L) + "");
         postDataParams.put("date_to", (Long) (dt_to.getTimeInMillis() / 1000L) + "");
         postDataParams.put("title", task_name.getText().toString());
         postDataParams.put("description", task_desc.getText().toString());
-        postDataParams.put("performer_id", localID);
+        postDataParams.put("performer_id", ((Employee) sp.getSelectedItem()).id);
 
         Call<ResponseBody> call = tasks.performPostCall(postDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Toast.makeText(getContext(), response.body().string(), Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 MainActivity m = (MainActivity) getActivity();
                 m.setFragment(R.id.navigation_task);
                 m.updateTasks();
@@ -205,6 +221,32 @@ public class TaskCreateFragment extends Fragment {
                         dt_to.get(Calendar.HOUR_OF_DAY),
                         dt_to.get(Calendar.MINUTE), true)
                         .show();
+            }
+        });
+    }
+
+    public void getWorkers() {
+        HashMap<String, String> getDataParams = new HashMap<>();
+        getDataParams.put("command", "getWorkers");
+        getDataParams.put("userID", localID);
+        getDataParams.put("projectID", projectID);
+        Call<ResponseBody> call = pro.performGetCall(getDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    SpinnerResponse resp = gson.fromJson(response.body().string(), SpinnerResponse.class);
+
+                    SpinAdapter spa = new SpinAdapter(getActivity(), resp.workers);
+                    sp.setAdapter(spa);
+                } catch (IOException e) {
+                    Log.d("tagged", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
             }
         });
     }
