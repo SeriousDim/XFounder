@@ -30,8 +30,8 @@ public class LocalData extends AppCompatActivity {
     }
 
     public String loadProject() {
-        sPref = getSharedPreferences("project_id", MODE_PRIVATE);
-        String savedText = sPref.getString("project1_id", "");
+        sPref = getPreferences(MODE_PRIVATE);
+        String savedText = sPref.getString("project_id", "");
         return savedText;
     }
 }

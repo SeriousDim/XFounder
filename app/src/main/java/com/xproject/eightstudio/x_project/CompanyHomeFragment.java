@@ -41,7 +41,7 @@ public class CompanyHomeFragment extends Fragment {
     TextView founderName, projectName;
     View view;
     MainActivity activity;
-    String projectID = "1";
+    String projectID;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -92,10 +92,11 @@ public class CompanyHomeFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_company_home, container, false);
+            view = inflater.inflate(R.layout.fragment_company_home_opened, container, false);
             ViewPager vp = view.findViewById(R.id.home_pager);
             setupViewPager(vp);
             activity = (MainActivity) getActivity();
+            projectID = activity.loadProject();
             ((TabLayout) view.findViewById(R.id.home_tabs)).setupWithViewPager(vp);
             founderName = view.findViewById(R.id.founder_name);
             projectName = view.findViewById(R.id.project_name);

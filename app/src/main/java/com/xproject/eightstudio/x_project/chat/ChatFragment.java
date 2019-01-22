@@ -37,7 +37,7 @@ public class ChatFragment extends Fragment {
     private ListView messageView;
     private View view;
     MainActivity activity;
-    String localID, projectID = "1";
+    String localID, projectID;
     private String lastTime = "0";
     ArrayList<Message> messages = new ArrayList<>();
     private final String server = "https://gleb2700.000webhostapp.com";
@@ -61,8 +61,8 @@ public class ChatFragment extends Fragment {
 
     public void getUpdates() {
         HashMap<String, String> getDataParams = new HashMap<>();
-        getDataParams.put("projectID", projectID);
         getDataParams.put("command", "getMessages");
+        getDataParams.put("projectID", projectID);
         getDataParams.put("time", lastTime);
         Call<ResponseBody> call = mes.performGetCall(getDataParams);
         Response<ResponseBody> response = null;
@@ -75,10 +75,15 @@ public class ChatFragment extends Fragment {
                     public void run() {
                         messages.addAll(resp.messages);
                         fillView();
-                        activity.setProgress(false);
                     }
                 });
             }
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    activity.setProgress(false);
+                }
+            });
             lastTime = resp.time;
             Thread t1 = new Thread(new MyClass());
             t1.start();
@@ -136,7 +141,7 @@ public class ChatFragment extends Fragment {
         activity = (MainActivity) getActivity();
         localID = activity.loadUser();
         activity.setProgress(true);
-        //projectID =  ((MainActivity)getActivity()).loadProject();
+        projectID = ((MainActivity) getActivity()).loadProject();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -51,7 +51,7 @@ public class TaskCreateFragment extends Fragment {
     private Tasks tasks = retrofit.create(Tasks.class);
     private Projects pro = retrofit.create(Projects.class);
     String localID;
-    String projectID = "1";
+    String projectID;
     View view;
     TextView from_t, from_d, to_t, to_d;
     EditText task_name, task_desc;
@@ -71,7 +71,7 @@ public class TaskCreateFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_task_create, container, false);
             initDateAndTime(view);
             localID = ((MainActivity) getActivity()).loadUser();
-            //projectID =  ((MainActivity)getActivity()).loadProject();
+            projectID =  ((MainActivity)getActivity()).loadProject();
             task_desc = view.findViewById(R.id.task_desc);
             task_name = view.findViewById(R.id.task_name);
             sp = view.findViewById(R.id.spinner);

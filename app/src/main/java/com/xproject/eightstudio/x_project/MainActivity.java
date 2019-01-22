@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -160,6 +159,8 @@ public class MainActivity extends LocalData
                 setCurrentCompany(i);
             }
         });
+        ((TaskPager) fragments[2]).setLocalID(loadUser());
+        navigation.setSelectedItemId(R.id.navigation_task);
     }
 
     public void setProgress(boolean vis) {
@@ -167,12 +168,12 @@ public class MainActivity extends LocalData
         findViewById(R.id.loading).setVisibility(visible);
     }
 
-    public void setCurrentCompany(int company) {
-        Project c = (Project) lv.getItemAtPosition(company);
-        c.selected = true;
-        adapter.currentComapny = company;
+    public void setCurrentCompany(int position) {
+        Project p = (Project) lv.getItemAtPosition(position);
+        p.selected = true;
+        adapter.currentProject = position;
         adapter.notifyDataSetChanged();
-        saveProject(c.p_id);
+        saveProject(p.p_id);
     }
 
     public boolean setFragment(int item) {
@@ -186,7 +187,8 @@ public class MainActivity extends LocalData
             case R.id.navigation_chat:
                 setFragmentClass(fragments[1]);
                 currentFragment = 1;
-                title.setText(getResources().getString(R.string.title_chat));
+                Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
+                title.setText(getResources().getString(R.string.title_chat)+" "+p.title);
                 invalidateOptionsMenu();
                 return true;
             case R.id.navigation_task:
@@ -213,6 +215,7 @@ public class MainActivity extends LocalData
     public void openProfile(String id) {
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setID(id);
+        title.setText(getResources().getString(R.string.title_employees));
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
         currentFragment = 6;
@@ -329,8 +332,6 @@ public class MainActivity extends LocalData
     public void loginSuccess() {
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
-        ((TaskPager) fragments[2]).setLocalID(loadUser());
-        navigation.setSelectedItemId(R.id.navigation_task);
         getProjectsForNav();
     }
 

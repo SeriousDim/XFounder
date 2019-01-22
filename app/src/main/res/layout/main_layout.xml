@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="Чат компании"
+            android:text="Загрузка..."
             android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="25dp"

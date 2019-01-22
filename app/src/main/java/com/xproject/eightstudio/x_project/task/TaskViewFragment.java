@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TaskViewFragment extends Fragment {
     View view;
+    MainActivity activity;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -45,6 +47,7 @@ public class TaskViewFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
             ((TextView) view.findViewById(R.id.name)).setText(task.title);
             ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
+            activity = (MainActivity) getActivity();
             getTaskInfo();
         }
         return view;
@@ -55,6 +58,7 @@ public class TaskViewFragment extends Fragment {
     }
 
     public void getTaskInfo() {
+        activity.setProgress(true);
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getTask");
         getDataParams.put("taskID", task.task_id);
@@ -77,6 +81,7 @@ public class TaskViewFragment extends Fragment {
                     ((TextView) view.findViewById(R.id.date_from)).setText("Начало: " + dateFrom);
                     ((TextView) view.findViewById(R.id.date_to)).setText("Конец: " + dateTo);
                     ((TextView) view.findViewById(R.id.status)).setText(new int[]{R.string.pending, R.string.in_progress, R.string.done}[Integer.parseInt(resp.get("status"))]);
+                    activity.setProgress(false);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -93,6 +98,5 @@ public class TaskViewFragment extends Fragment {
 
     public void setTask(Task task) {
         this.task = task;
-        getTaskInfo();
     }
 }

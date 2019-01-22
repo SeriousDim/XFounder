@@ -16,7 +16,7 @@ public class NewProjectListAdapter extends ArrayAdapter<Project> {
 
     final Activity ctx;
     final ArrayList<Project> data;
-    int currentComapny;
+    int currentProject;
 
     NewProjectListAdapter(Activity ctx, ArrayList<Project> data) {
         super(ctx, R.layout.company_item_layout, data);
@@ -40,12 +40,12 @@ public class NewProjectListAdapter extends ArrayAdapter<Project> {
         }
         holder.title.setText(this.data.get(pos).title);
         holder.founder.setText(this.data.get(pos).name);
-        if (currentComapny == pos) {
+        if (currentProject == pos) {
             ((CardView) row).setCardBackgroundColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
             holder.title.setTextColor(ctx.getResources().getColor(android.R.color.white));
             holder.founder.setTextColor(ctx.getResources().getColor(android.R.color.white));
         } else if (holder.founder.getCurrentTextColor() == ctx.getResources().getColor(android.R.color.white) &&
-                currentComapny != pos) {
+                currentProject != pos) {
             ((CardView) row).setCardBackgroundColor(ctx.getResources().getColor(android.R.color.white));
             holder.title.setTextColor(ctx.getResources().getColor(R.color.standart));
             holder.founder.setTextColor(ctx.getResources().getColor(R.color.standart));

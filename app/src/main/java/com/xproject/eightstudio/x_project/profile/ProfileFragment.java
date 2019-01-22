@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
         desc = new DescriptionFragment();
         desc.setWorkerID(workerID);
         chart = new GanntFragment();
+        chart.setId(workerID);
         adapter.addFragment(desc, getResources().getString(R.string.decsription));
         adapter.addFragment(chart, getResources().getString(R.string.chart));
         viewPager.setAdapter(adapter);
