@@ -92,7 +92,7 @@ public class CompanyHomeFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_company_home, container, false);
+            view = inflater.inflate(R.layout.fragment_company_home_opened, container, false);
             ViewPager vp = view.findViewById(R.id.home_pager);
             setupViewPager(vp);
             activity = (MainActivity) getActivity();
