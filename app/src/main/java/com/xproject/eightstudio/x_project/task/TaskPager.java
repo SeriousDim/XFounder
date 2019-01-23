@@ -115,7 +115,6 @@ public class TaskPager extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), call.request().toString(), Toast.LENGTH_LONG).show();
             }
         });
     }

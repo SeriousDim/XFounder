@@ -2,11 +2,9 @@ package com.xproject.eightstudio.x_project.task;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +43,6 @@ public class TaskViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
-            ((TextView) view.findViewById(R.id.name)).setText(task.title);
-            ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
             activity = (MainActivity) getActivity();
             getTaskInfo();
         }
@@ -69,6 +65,10 @@ public class TaskViewFragment extends Fragment {
                 try {
                     HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
                     ((TextView) view.findViewById(R.id.performer)).setText("Исполнитель: " + resp.get("name"));
+                    task.title = resp.get("title");
+                    ((TextView) view.findViewById(R.id.name)).setText(task.title);
+                    task.name = resp.get("name");
+                    ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
                     task.description = resp.get("description");
                     ((TextView) view.findViewById(R.id.description)).setText(task.description);
                     task.date_from = Long.parseLong(resp.get("date_from"));

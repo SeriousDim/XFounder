@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
                     taskFragment.setTasks(resp.tasks);
                     founderName.setText("Основатель: " + resp.founder);
                     projectName.setText(resp.title);
-                    Log.d("tagged", "got it");
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());
                 }

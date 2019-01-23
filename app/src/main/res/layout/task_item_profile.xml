@@ -20,7 +20,8 @@
             android:background="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:id="@+id/imageView6"
@@ -67,13 +68,13 @@
             app:layout_constraintTop_toBottomOf="@+id/il_name" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="До 20.11.2012"
+            android:layout_marginBottom="5dp"
+            android:text="До 20-11-2012"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,9 +85,10 @@
             android:id="@+id/imageView4"
             android:layout_width="44dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_event_available_black_24dp"
-            tools:layout_editor_absoluteX="289dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:src="@drawable/ic_event_available_black_24dp"
+            app:layout_constraintEnd_toEndOf="@id/date"
+            android:layout_marginEnd="35dp"
+            app:layout_constraintBottom_toTopOf="@id/date"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

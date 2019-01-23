@@ -9,13 +9,18 @@ import android.widget.TextView;
 
 import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
     private List<Task> tasks = new ArrayList<>();
+    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
     public TaskAdapter(Context ctx) {
         this.inflater = LayoutInflater.from(ctx);
@@ -32,6 +37,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.t = t;
         holder.title.setText(t.title);
         holder.creator.setText(t.name);
+        Date date_to = new Date(1000L * t.date_to);
+        holder.date_to.setText("До "+ df.format(date_to));
     }
 
     public void setTasks(List<Task> newTasks) {
@@ -45,7 +52,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView title, creator;
+        final TextView title, creator, date_to;
         Task t;
 
         ViewHolder(View v) {
@@ -59,6 +66,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             });
             this.title = v.findViewById(R.id.il_name);
             this.creator = v.findViewById(R.id.il_job);
+            this.date_to = v.findViewById(R.id.date);
         }
     }
 }

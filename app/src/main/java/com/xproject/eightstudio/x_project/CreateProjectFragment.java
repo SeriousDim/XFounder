@@ -61,6 +61,7 @@ public class CreateProjectFragment extends Fragment {
         HashMap<String, String> postDataParams = new HashMap<>();
         postDataParams.put("command", "addProject");
         postDataParams.put("userID", localID);
+        Log.d("tagged",localID);
         postDataParams.put("title", title.getText().toString());
         postDataParams.put("description", desc.getText().toString());
 
@@ -68,6 +69,11 @@ public class CreateProjectFragment extends Fragment {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Toast.makeText(getContext(), response.body().string(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 activity.getProjectsForNav();
             }
 
