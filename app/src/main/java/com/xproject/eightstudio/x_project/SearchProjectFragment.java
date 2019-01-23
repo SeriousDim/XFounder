@@ -92,11 +92,14 @@ public class SearchProjectFragment extends Fragment {
             activity.setProgress(true);
             activity.setFragmentClass(hf);
             hf.getList(project.get("p_id").toString());
+            activity.currentFragment = 10;
         } else {
             ProjectFragment pf = new ProjectFragment();
             pf.setProject(project);
             activity.setFragmentClass(pf);
+            activity.currentFragment = 11;
         }
+        activity.invalidateOptionsMenu();
     }
 
     private void updateList(String text) {

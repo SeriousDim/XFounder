@@ -18,4 +18,10 @@
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Item"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/give_resume"
+        android:icon="@drawable/resume_icon"
+        android:title="Item"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>
