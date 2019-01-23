@@ -181,7 +181,7 @@ public class MainActivity extends LocalData
             fragments[2] = TaskPager.class.newInstance();
             fragments[3] = SearchProjectFragment.class.newInstance();
         } catch (Exception e) {
-            Log.d("tagged",e.toString());
+            Log.d("tagged", e.toString());
         }
     }
 
@@ -312,7 +312,6 @@ public class MainActivity extends LocalData
         addProj = menu.findItem(R.id.create_proj);
         resume = menu.findItem(R.id.give_resume);
         switch (this.currentFragment) {
-            case 0:
             case 1:
             case 8:
                 add.setVisible(false);
@@ -363,6 +362,7 @@ public class MainActivity extends LocalData
                 resume.setVisible(false);
                 break;
             case 11:
+            case 0:
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(false);
@@ -412,9 +412,8 @@ public class MainActivity extends LocalData
         return true;
     }
 
-    public void openResume(){
-        //setFragmentClass(...);
-        Toast.makeText(this, "Resume", Toast.LENGTH_LONG).show();
+    public void openResume() {
+        setFragmentClass(new RequestFragment());
         lastFragment = currentFragment;
         currentFragment = 9;
         //invalidateOptionsMenu();
