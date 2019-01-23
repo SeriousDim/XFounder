@@ -157,6 +157,7 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.GONE);
         getSupportActionBar().hide();
         setFragmentClass(new LoginFragment());
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     public void addProjectsToNavigationView(ProjectResponse response) {
@@ -388,6 +389,7 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         getProjectsForNav();
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     public void getProjectsForNav() {
