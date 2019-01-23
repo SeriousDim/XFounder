@@ -29,4 +29,8 @@
     <string name="decsription">Про себя</string>
     <string name="chart">Диаграмма</string>
     <string name="enter_title_comp">Введите название проекта</string>
+    <string name="project_name_title">Название проекта</string>
+    <string name="branch">Род деятельности</string>
+    <string name="desc_proj">Описание</string>
+    <string name="create_new_project">Создать проект</string>
 </resources>

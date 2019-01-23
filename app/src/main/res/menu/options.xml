@@ -13,4 +13,9 @@
         android:title="@string/edit_task"
         android:visible="false"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/create_proj"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Item"
+        app:showAsAction="always" />
 </menu>

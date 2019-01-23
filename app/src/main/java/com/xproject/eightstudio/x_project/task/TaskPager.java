@@ -30,14 +30,13 @@ class TaskResponse {
     ArrayList<Task> tasks;
 }
 
-
 public class TaskPager extends Fragment {
     ViewPagerAdapter viewpager;
     TaskFragment pending, inProgress, done;
     MainActivity activity;
     View view;
     String localID;
-    String projectID = "2";
+    String projectID;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -63,7 +62,6 @@ public class TaskPager extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_task_pager, container, false);
             ViewPager vp = view.findViewById(R.id.v_pager);
-            //projectID =  ((MainActivity)getActivity()).loadProject();
             activity = ((MainActivity) getActivity());
             getList();
             setupViewPager(vp);
@@ -76,7 +74,6 @@ public class TaskPager extends Fragment {
                 }
             });
         }
-        //activity.setProgressBar(false);
         return view;
     }
 
@@ -86,6 +83,7 @@ public class TaskPager extends Fragment {
 
     public void getList() {
         activity.setProgress(true);
+        projectID =  activity.loadProject();
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);

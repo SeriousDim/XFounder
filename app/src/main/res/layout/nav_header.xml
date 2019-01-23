@@ -18,29 +18,29 @@
         app:srcCompat="@drawable/avatar" />
 
     <io.gloxey.cfv.CFTextView
-        android:id="@+id/CFTextView2"
+        android:id="@+id/nav_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Tony Stark"
         android:textColor="@android:color/background_light"
-        android:textSize="26sp"
+        android:textSize="24sp"
         app:font_name="roboto_l.ttf"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar" />
 
     <io.gloxey.cfv.CFTextView
-        android:id="@+id/textView2"
+        android:id="@+id/nav_job"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Iron man"
         android:textColor="@android:color/background_light"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:font_name="roboto_l.ttf"
         app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/CFTextView2" />
+        app:layout_constraintTop_toBottomOf="@+id/nav_name" />
 
     <Button
         android:id="@+id/add_comp"

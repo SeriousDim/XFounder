@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xproject.eightstudio.x_project.R;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskAdapter;
 

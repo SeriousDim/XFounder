@@ -1,13 +1,13 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xproject.eightstudio.x_project.R;
 import com.xproject.eightstudio.x_project.dataclasses.Employee;
 import java.util.ArrayList;
 

@@ -17,14 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
 import com.xproject.eightstudio.x_project.dataclasses.Project;
+import com.xproject.eightstudio.x_project.home.HomeFragment;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
@@ -45,11 +46,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 class ProjectResponse {
     ArrayList<Project> projects;
+    String name;
+    String job;
 }
 
 public class MainActivity extends LocalData
         implements NavigationView.OnNavigationItemSelectedListener {
-
 
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
@@ -61,13 +63,14 @@ public class MainActivity extends LocalData
 
     int currentFragment;
     int lastFragment;
+    ArrayList<Project> projects;
     Fragment now;
     Fragment[] fragments;
     Toolbar toolbar;
     CFTextView title;
     ListView lv;
     NewProjectListAdapter adapter;
-    MenuItem add, edit;
+    MenuItem add, edit, addProj;
     BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -118,19 +121,25 @@ public class MainActivity extends LocalData
                     }
                 }
         );
-        fragments = new Fragment[4];
+        fragments = new Fragment[5];
         try {
-            fragments[0] = CompanyHomeFragment.class.newInstance();
+            fragments[0] = HomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
+            fragments[3] = SearchProjectFragment.class.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
         findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setProgress(true);
                 setFragmentClass(new SearchProjectFragment());
+                lastFragment = currentFragment;
+                currentFragment = 7;
                 title.setText(getResources().getString(R.string.projects));
+                ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                invalidateOptionsMenu();
             }
         });
         if (loadUser() == "") {
@@ -148,18 +157,27 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.GONE);
         getSupportActionBar().hide();
         setFragmentClass(new LoginFragment());
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
-    public void addProjectsToNavigationView(ArrayList<Project> projects) {
-        adapter = new NewProjectListAdapter(this, projects);
+    public void addProjectsToNavigationView(ProjectResponse response) {
+        adapter = new NewProjectListAdapter(this, response.projects);
         lv.setAdapter(adapter);
         setCurrentCompany(0);
+        TextView name, job;
+        name = findViewById(R.id.nav_name);
+        job = findViewById(R.id.nav_job);
+        name.setText(response.name);
+        job.setText(response.job);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 setCurrentCompany(i);
+                updateTasks();
             }
         });
+        ((TaskPager) fragments[2]).setLocalID(loadUser());
+        navigation.setSelectedItemId(R.id.navigation_task);
     }
 
     public void setProgress(boolean vis) {
@@ -167,18 +185,21 @@ public class MainActivity extends LocalData
         findViewById(R.id.loading).setVisibility(visible);
     }
 
-    public void setCurrentCompany(int company) {
-        Project c = (Project) lv.getItemAtPosition(company);
-        c.selected = true;
-        adapter.currentComapny = company;
+    public void setCurrentCompany(int position) {
+        Project p = (Project) lv.getItemAtPosition(position);
+        p.selected = true;
+        adapter.currentProject = position;
+        saveProject(p.p_id);
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
         adapter.notifyDataSetChanged();
-        saveProject(c.p_id);
     }
 
     public boolean setFragment(int item) {
         switch (item) {
             case R.id.navigation_home:
                 setFragmentClass(fragments[0]);
+                setProgress(true);
+                ((HomeFragment) fragments[0]).getList(loadProject());
                 currentFragment = 0;
                 title.setText(getResources().getString(R.string.title_home));
                 invalidateOptionsMenu();
@@ -186,7 +207,8 @@ public class MainActivity extends LocalData
             case R.id.navigation_chat:
                 setFragmentClass(fragments[1]);
                 currentFragment = 1;
-                title.setText(getResources().getString(R.string.title_chat));
+                Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
+                title.setText(getResources().getString(R.string.title_chat) + " " + p.title);
                 invalidateOptionsMenu();
                 return true;
             case R.id.navigation_task:
@@ -213,9 +235,13 @@ public class MainActivity extends LocalData
     public void openProfile(String id) {
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setID(id);
+        title.setText(getResources().getString(R.string.title_employees));
+        setProgress(true);
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
         currentFragment = 6;
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+        invalidateOptionsMenu();
     }
 
     public void setFragmentClass(Fragment frag) {
@@ -244,6 +270,15 @@ public class MainActivity extends LocalData
                     break;
                 case 6:
                     setFragmentClass(new LoginFragment());
+                    break;
+                case 7:
+                    setFragmentClass(fragments[3]);
+                    lastFragment = currentFragment;
+                    currentFragment = 7;
+                    title.setText(getResources().getString(R.string.projects));
+                    ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                    invalidateOptionsMenu();
+
             }
         }
         /*else {
@@ -261,27 +296,44 @@ public class MainActivity extends LocalData
         inflater.inflate(R.menu.options, menu);
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
+        addProj = menu.findItem(R.id.create_proj);
         switch (this.currentFragment) {
             case 0:
             case 1:
+            case 8:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 2:
                 add.setVisible(true);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 3:
                 add.setVisible(false);
                 edit.setVisible(true);
+                addProj.setVisible(false);
                 break;
             case 4:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
                 break;
             case 5:
                 add.setVisible(false);
                 edit.setVisible(false);
+                addProj.setVisible(false);
+                break;
+            case 6:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(false);
+                break;
+            case 7:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(true);
                 break;
         }
         return true;
@@ -295,6 +347,13 @@ public class MainActivity extends LocalData
                 return true;
             case R.id.edit:
                 openTaskEdit(((TaskViewFragment) now).getTask());
+                return true;
+            case R.id.create_proj:
+                setFragmentClass(new CreateProjectFragment());
+                lastFragment = currentFragment;
+                currentFragment = 8;
+                title.setText(R.string.create_new_project);
+                invalidateOptionsMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -329,12 +388,11 @@ public class MainActivity extends LocalData
     public void loginSuccess() {
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
-        ((TaskPager) fragments[2]).setLocalID(loadUser());
-        navigation.setSelectedItemId(R.id.navigation_task);
         getProjectsForNav();
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
-    private void getProjectsForNav() {
+    public void getProjectsForNav() {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("user_id", loadUser());
         getDataParams.put("command", "getMyProjects");
@@ -344,7 +402,8 @@ public class MainActivity extends LocalData
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     ProjectResponse resp = gson.fromJson(response.body().string(), ProjectResponse.class);
-                    addProjectsToNavigationView(resp.projects);
+                    projects = resp.projects;
+                    addProjectsToNavigationView(resp);
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());
                 }
