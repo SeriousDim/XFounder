@@ -121,15 +121,7 @@ public class MainActivity extends LocalData
                     }
                 }
         );
-        fragments = new Fragment[5];
-        try {
-            fragments[0] = HomeFragment.class.newInstance();
-            fragments[1] = ChatFragment.class.newInstance();
-            fragments[2] = TaskPager.class.newInstance();
-            fragments[3] = SearchProjectFragment.class.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        initFragments();
         findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,11 +165,24 @@ public class MainActivity extends LocalData
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 setCurrentCompany(i);
-                updateTasks();
+                initFragments();
+                navigation.setSelectedItemId(R.id.navigation_task);
+
             }
         });
-        ((TaskPager) fragments[2]).setLocalID(loadUser());
         navigation.setSelectedItemId(R.id.navigation_task);
+    }
+
+    public void initFragments() {
+        fragments = new Fragment[5];
+        try {
+            fragments[0] = HomeFragment.class.newInstance();
+            fragments[1] = ChatFragment.class.newInstance();
+            fragments[2] = TaskPager.class.newInstance();
+            fragments[3] = SearchProjectFragment.class.newInstance();
+        } catch (Exception e) {
+            Log.d("tagged",e.toString());
+        }
     }
 
     public void setProgress(boolean vis) {

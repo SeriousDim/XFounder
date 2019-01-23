@@ -77,13 +77,11 @@ public class TaskPager extends Fragment {
         return view;
     }
 
-    public void setLocalID(String id){
-        this.localID = id;
-    }
 
     public void getList() {
         activity.setProgress(true);
-        projectID =  activity.loadProject();
+        projectID = activity.loadProject();
+        localID = activity.loadUser();
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);
@@ -117,7 +115,7 @@ public class TaskPager extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), call.request().toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
