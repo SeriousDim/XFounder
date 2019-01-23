@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.LocalData;
+import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.Tasks;
@@ -120,6 +121,7 @@ public class GanntFragment extends Fragment {
                     tasks = resp.tasks;
                     time = resp.time;
                     initGannt();
+                    ((MainActivity)getActivity()).setProgress(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

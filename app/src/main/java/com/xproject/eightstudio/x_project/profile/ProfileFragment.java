@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.MainActivity;
 import com.xproject.eightstudio.x_project.ViewPagerAdapter;
 import com.xproject.eightstudio.x_project.Workers;
 
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment {
     GanntFragment chart;
     EditText descriptionField;
     Button confirm;
+    MainActivity activity;
 
     private void setupViewPager(ViewPager viewPager) {
         desc = new DescriptionFragment();
@@ -66,21 +68,22 @@ public class ProfileFragment extends Fragment {
             adapter = new ViewPagerAdapter(getFragmentManager());
             ViewPager pager = view.findViewById(R.id.profile_pager);
             setupViewPager(pager);
-            ((TabLayout)view.findViewById(R.id.prof_tabs)).setupWithViewPager(pager);
+            ((TabLayout) view.findViewById(R.id.prof_tabs)).setupWithViewPager(pager);
 
             nameField = view.findViewById(R.id.empl_name);
             jobField = view.findViewById(R.id.empl_job);
             descriptionField = desc.getDescriptionField();
-            confirm = desc.getConfirm();
-
+            activity = (MainActivity) getActivity();
             getInfo();
         }
 
         return view;
     }
-    public void setID(String id){
+
+    public void setID(String id) {
         this.workerID = id;
     }
+
     private void getInfo() {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("WID", workerID);
@@ -97,6 +100,12 @@ public class ProfileFragment extends Fragment {
                     desc.setDescription(description);
                     nameField.setText(name);
                     jobField.setText(job);
+                    confirm = desc.getConfirm();
+                    if (!activity.loadUser().equals(workerID)) {
+                        desc.getDescriptionField().setFocusable(false);
+                        desc.getDescriptionField().setLongClickable(false);
+                        confirm.setVisibility(View.GONE);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

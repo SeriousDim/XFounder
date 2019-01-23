@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,6 +45,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 class ProjectResponse {
     ArrayList<Project> projects;
+    String name;
+    String job;
 }
 
 public class MainActivity extends LocalData
@@ -133,7 +136,7 @@ public class MainActivity extends LocalData
                 lastFragment = currentFragment;
                 currentFragment = 7;
                 title.setText(getResources().getString(R.string.projects));
-                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                 invalidateOptionsMenu();
             }
         });
@@ -154,17 +157,21 @@ public class MainActivity extends LocalData
         setFragmentClass(new LoginFragment());
     }
 
-    public void addProjectsToNavigationView(ArrayList<Project> projects) {
-        adapter = new NewProjectListAdapter(this, projects);
+    public void addProjectsToNavigationView(ProjectResponse response) {
+        adapter = new NewProjectListAdapter(this, response.projects);
         lv.setAdapter(adapter);
-        /*setCurrentCompany(0);
+        setCurrentCompany(0);
+        TextView name, job;
+        name = findViewById(R.id.nav_name);
+        job = findViewById(R.id.nav_job);
+        name.setText(response.name);
+        job.setText(response.job);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 setCurrentCompany(i);
             }
-        });*/
-        saveProject("1");
+        });
         ((TaskPager) fragments[2]).setLocalID(loadUser());
         navigation.setSelectedItemId(R.id.navigation_task);
     }
@@ -194,7 +201,7 @@ public class MainActivity extends LocalData
                 setFragmentClass(fragments[1]);
                 currentFragment = 1;
                 Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
-                title.setText(getResources().getString(R.string.title_chat)+" "+p.title);
+                title.setText(getResources().getString(R.string.title_chat) + " " + p.title);
                 invalidateOptionsMenu();
                 return true;
             case R.id.navigation_task:
@@ -222,10 +229,11 @@ public class MainActivity extends LocalData
         ProfileFragment profileFragment = new ProfileFragment();
         profileFragment.setID(id);
         title.setText(getResources().getString(R.string.title_employees));
+        setProgress(true);
         setFragmentClass(profileFragment);
         lastFragment = currentFragment;
         currentFragment = 6;
-        ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
         invalidateOptionsMenu();
     }
 
@@ -253,15 +261,17 @@ public class MainActivity extends LocalData
                 case 2:
                     setFragment(R.id.navigation_task);
                     break;
+                case 6:
+                    setFragmentClass(new LoginFragment());
+                    break;
                 case 7:
-                    setFragmentClass(/*new SearchProjectFragment()*/fragments[3]);
+                    setFragmentClass(fragments[3]);
                     lastFragment = currentFragment;
                     currentFragment = 7;
                     title.setText(getResources().getString(R.string.projects));
-                    ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                    ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                     invalidateOptionsMenu();
-                /*case 6:
-                    setFragmentClass(new LoginFragment());*/
+
             }
         }
         /*else {
@@ -384,7 +394,7 @@ public class MainActivity extends LocalData
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     ProjectResponse resp = gson.fromJson(response.body().string(), ProjectResponse.class);
-                    addProjectsToNavigationView(resp.projects);
+                    addProjectsToNavigationView(resp);
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());
                 }
