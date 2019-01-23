@@ -30,7 +30,6 @@ class TaskResponse {
     ArrayList<Task> tasks;
 }
 
-
 public class TaskPager extends Fragment {
     ViewPagerAdapter viewpager;
     TaskFragment pending, inProgress, done;
@@ -64,7 +63,6 @@ public class TaskPager extends Fragment {
             view = inflater.inflate(R.layout.fragment_task_pager, container, false);
             ViewPager vp = view.findViewById(R.id.v_pager);
             activity = ((MainActivity) getActivity());
-            projectID =  activity.loadProject();
             getList();
             setupViewPager(vp);
             ((TabLayout) view.findViewById(R.id.my_tabs)).setupWithViewPager(vp);
@@ -85,6 +83,7 @@ public class TaskPager extends Fragment {
 
     public void getList() {
         activity.setProgress(true);
+        projectID =  activity.loadProject();
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getList");
         getDataParams.put("user_id", localID);

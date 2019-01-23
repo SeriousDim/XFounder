@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.home;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.Projects;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.ViewPagerAdapter;
 import com.xproject.eightstudio.x_project.dataclasses.Employee;
 import com.xproject.eightstudio.x_project.task.Task;
 
@@ -34,14 +38,13 @@ class HomeResponse {
     ArrayList<Employee> workers;
 }
 
-public class CompanyHomeFragment extends Fragment {
+public class HomeFragment extends Fragment {
     ViewPagerAdapter adapter;
     EmployeesFragment emplFragment;
     HomeTaskFragment taskFragment;
     TextView founderName, projectName;
     View view;
     MainActivity activity;
-    String projectID;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -50,8 +53,7 @@ public class CompanyHomeFragment extends Fragment {
             .build();
     private Projects pro = retrofit.create(Projects.class);
 
-    public void getList() {
-        activity.setProgress(true);
+    public void getList(String projectID) {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("command", "getInfo");
         getDataParams.put("projectID", projectID);
@@ -96,11 +98,9 @@ public class CompanyHomeFragment extends Fragment {
             ViewPager vp = view.findViewById(R.id.home_pager);
             setupViewPager(vp);
             activity = (MainActivity) getActivity();
-            projectID = activity.loadProject();
             ((TabLayout) view.findViewById(R.id.home_tabs)).setupWithViewPager(vp);
             founderName = view.findViewById(R.id.founder_name);
             projectName = view.findViewById(R.id.project_name);
-            getList();
         }
         return view;
     }

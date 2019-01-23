@@ -27,9 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title"
-        android:layout_marginBottom="-10dp"
         android:layout_alignBottom="@+id/about"
         android:layout_marginTop="2dp"
+        android:layout_marginBottom="-10dp"
         android:background="@color/colorPrimary" />
 
     <io.gloxey.cfv.CFTextView
@@ -37,17 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="8dp"
         android:background="@drawable/task_view_down_white"
         android:ems="10"
-        android:focusableInTouchMode="true"
-        android:hint="@string/write_about"
-        android:inputType="text|textMultiLine|textCapSentences"
+        android:hint="Info about project"
         android:padding="10dp"
-        android:textColor="#000"/>
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:font_name="roboto_l.ttf" />
 
     <LinearLayout
         android:id="@+id/layout"

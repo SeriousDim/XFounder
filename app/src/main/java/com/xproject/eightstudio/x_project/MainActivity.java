@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
 import com.xproject.eightstudio.x_project.dataclasses.Project;
+import com.xproject.eightstudio.x_project.home.HomeFragment;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
@@ -52,7 +53,6 @@ class ProjectResponse {
 public class MainActivity extends LocalData
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -63,6 +63,7 @@ public class MainActivity extends LocalData
 
     int currentFragment;
     int lastFragment;
+    ArrayList<Project> projects;
     Fragment now;
     Fragment[] fragments;
     Toolbar toolbar;
@@ -122,7 +123,7 @@ public class MainActivity extends LocalData
         );
         fragments = new Fragment[5];
         try {
-            fragments[0] = CompanyHomeFragment.class.newInstance();
+            fragments[0] = HomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
             fragments[2] = TaskPager.class.newInstance();
             fragments[3] = SearchProjectFragment.class.newInstance();
@@ -132,7 +133,8 @@ public class MainActivity extends LocalData
         findViewById(R.id.add_comp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentClass(/*new SearchProjectFragment()*/fragments[3]);
+                setProgress(true);
+                setFragmentClass(new SearchProjectFragment());
                 lastFragment = currentFragment;
                 currentFragment = 7;
                 title.setText(getResources().getString(R.string.projects));
@@ -193,6 +195,8 @@ public class MainActivity extends LocalData
         switch (item) {
             case R.id.navigation_home:
                 setFragmentClass(fragments[0]);
+                setProgress(true);
+                ((HomeFragment)fragments[0]).getList(loadProject());
                 currentFragment = 0;
                 title.setText(getResources().getString(R.string.title_home));
                 invalidateOptionsMenu();
@@ -384,7 +388,7 @@ public class MainActivity extends LocalData
         getProjectsForNav();
     }
 
-    private void getProjectsForNav() {
+    public void getProjectsForNav() {
         HashMap<String, String> getDataParams = new HashMap<>();
         getDataParams.put("user_id", loadUser());
         getDataParams.put("command", "getMyProjects");
@@ -394,6 +398,7 @@ public class MainActivity extends LocalData
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     ProjectResponse resp = gson.fromJson(response.body().string(), ProjectResponse.class);
+                    projects = resp.projects;
                     addProjectsToNavigationView(resp);
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());

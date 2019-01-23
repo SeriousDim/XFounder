@@ -50,13 +50,15 @@
         android:textSize="20sp" />
 
     <io.gloxey.cfv.CFButton
-        android:id="@+id/btn_reg2"
+        android:id="@+id/create_proj"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
         android:text="Готово"
         android:textAlignment="center"
