@@ -70,7 +70,7 @@ public class MainActivity extends LocalData
     CFTextView title;
     ListView lv;
     NewProjectListAdapter adapter;
-    MenuItem add, edit, addProj;
+    MenuItem add, edit, addProj, resume;
     BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -283,7 +283,15 @@ public class MainActivity extends LocalData
                     title.setText(getResources().getString(R.string.projects));
                     ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                     invalidateOptionsMenu();
-
+                case 8:
+                    setProgress(true);
+                    setFragmentClass(new SearchProjectFragment());
+                    lastFragment = currentFragment;
+                    currentFragment = 7;
+                    title.setText(getResources().getString(R.string.projects));
+                    ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                    invalidateOptionsMenu();
+                    break;
             }
         }
         /*else {
@@ -302,6 +310,7 @@ public class MainActivity extends LocalData
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
         addProj = menu.findItem(R.id.create_proj);
+        resume = menu.findItem(R.id.give_resume);
         switch (this.currentFragment) {
             case 0:
             case 1:
@@ -309,36 +318,61 @@ public class MainActivity extends LocalData
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 2:
                 add.setVisible(true);
                 edit.setVisible(false);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 3:
                 add.setVisible(false);
                 edit.setVisible(true);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 4:
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 5:
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 6:
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
             case 7:
                 add.setVisible(false);
                 edit.setVisible(false);
                 addProj.setVisible(true);
+                resume.setVisible(false);
+                break;
+            case 9: // фрагмент с подачей заявки
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(false);
+                resume.setVisible(false);
+                break;
+            case 11:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(false);
+                resume.setVisible(true);
+                break;
+            case 10:
+                add.setVisible(false);
+                edit.setVisible(false);
+                addProj.setVisible(false);
+                resume.setVisible(false);
                 break;
         }
         return true;
@@ -360,6 +394,9 @@ public class MainActivity extends LocalData
                 title.setText(R.string.create_new_project);
                 invalidateOptionsMenu();
                 return true;
+            case R.id.give_resume:
+                openResume();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -373,6 +410,14 @@ public class MainActivity extends LocalData
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void openResume(){
+        //setFragmentClass(...);
+        Toast.makeText(this, "Resume", Toast.LENGTH_LONG).show();
+        lastFragment = currentFragment;
+        currentFragment = 9;
+        //invalidateOptionsMenu();
     }
 
     public void addTask() {
