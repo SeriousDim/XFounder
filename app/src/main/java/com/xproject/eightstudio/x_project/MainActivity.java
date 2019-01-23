@@ -172,6 +172,7 @@ public class MainActivity extends LocalData
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 setCurrentCompany(i);
+                updateTasks();
             }
         });
         ((TaskPager) fragments[2]).setLocalID(loadUser());
@@ -187,8 +188,9 @@ public class MainActivity extends LocalData
         Project p = (Project) lv.getItemAtPosition(position);
         p.selected = true;
         adapter.currentProject = position;
-        adapter.notifyDataSetChanged();
         saveProject(p.p_id);
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+        adapter.notifyDataSetChanged();
     }
 
     public boolean setFragment(int item) {
@@ -196,7 +198,7 @@ public class MainActivity extends LocalData
             case R.id.navigation_home:
                 setFragmentClass(fragments[0]);
                 setProgress(true);
-                ((HomeFragment)fragments[0]).getList(loadProject());
+                ((HomeFragment) fragments[0]).getList(loadProject());
                 currentFragment = 0;
                 title.setText(getResources().getString(R.string.title_home));
                 invalidateOptionsMenu();
