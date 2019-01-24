@@ -13,17 +13,6 @@
         android:layout_height="wrap_content">
 
         <View
-            android:id="@+id/imageView7"
-            android:layout_width="135dp"
-            android:layout_height="0dp"
-            android:layout_alignParentEnd="true"
-            android:background="@color/gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <View
             android:id="@+id/imageView6"
             android:layout_width="5dp"
             android:layout_height="0dp"
@@ -67,28 +56,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/il_name" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="5dp"
-            android:text="До 20-11-2012"
-            android:textAlignment="center"
-            android:textSize="18sp"
+        <RelativeLayout
+            android:id="@+id/imageView7"
+            android:layout_width="135dp"
+            android:layout_height="0dp"
+            android:layout_alignParentEnd="true"
+            android:background="@color/gray"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView7" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="44dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_event_available_black_24dp"
-            app:layout_constraintEnd_toEndOf="@id/date"
-            android:layout_marginEnd="35dp"
-            app:layout_constraintBottom_toTopOf="@id/date"/>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/date_icon"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="До 20-11-2012"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/date_icon"
+                android:layout_width="44dp"
+                android:layout_height="36dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_event_available_black_24dp" />
+
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

@@ -199,6 +199,14 @@ public class MainActivity extends LocalData
         adapter.notifyDataSetChanged();
     }
 
+    public void acceptRequest(String id){
+        Toast.makeText(this, "accept" + id, Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteRequest(String id){
+        Toast.makeText(this, "delete" + id, Toast.LENGTH_SHORT).show();
+    }
+
     public boolean setFragment(int item) {
         switch (item) {
             case R.id.navigation_home:
@@ -361,7 +369,6 @@ public class MainActivity extends LocalData
                 addProj.setVisible(false);
                 resume.setVisible(false);
                 break;
-            case 11:
             case 0:
                 add.setVisible(false);
                 edit.setVisible(false);
@@ -395,7 +402,7 @@ public class MainActivity extends LocalData
                 invalidateOptionsMenu();
                 return true;
             case R.id.give_resume:
-                openResume();
+                openRequests();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -412,11 +419,12 @@ public class MainActivity extends LocalData
         return true;
     }
 
-    public void openResume() {
+    public void openRequests() {
         setFragmentClass(new RequestFragment());
+        title.setText("Заявки");
         lastFragment = currentFragment;
         currentFragment = 9;
-        //invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     public void addTask() {
