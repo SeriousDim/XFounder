@@ -61,7 +61,7 @@ public class MainActivity extends LocalData
             .build();
     private Projects pro = retrofit.create(Projects.class);
 
-    int currentFragment;
+    int currentFragment = 1;
     int lastFragment;
     ArrayList<Project> projects;
     Fragment now;
@@ -110,6 +110,7 @@ public class MainActivity extends LocalData
             @Override
             public void onClick(View v) {
                 saveUser("");
+                saveProject("");
                 openLogin();
             }
         });
@@ -134,13 +135,14 @@ public class MainActivity extends LocalData
                 invalidateOptionsMenu();
             }
         });
-        if (loadUser() == "") {
+        if (loadUser().equals("")) {
             openLogin();
         } else {
             loginSuccess();
         }
         lv = findViewById(R.id.comp_list);
         setProgress(false);
+        Log.d("tagged", "discard MainActivity");
         lastFragment = 2;
     }
 
@@ -155,7 +157,8 @@ public class MainActivity extends LocalData
     public void addProjectsToNavigationView(ProjectResponse response) {
         adapter = new NewProjectListAdapter(this, response.projects);
         lv.setAdapter(adapter);
-        setCurrentCompany(0);
+        if (response.projects.size() > 0)
+            setCurrentCompany(0);
         TextView name, job;
         name = findViewById(R.id.nav_name);
         job = findViewById(R.id.nav_job);
@@ -199,32 +202,41 @@ public class MainActivity extends LocalData
         adapter.notifyDataSetChanged();
     }
 
-    public void acceptRequest(String id, int pos){
+    public void acceptRequest(String id, int pos) {
         setProgress(true);
-        ((RequestFragment)now).acceptRequest(id, pos);
+        ((RequestFragment) now).acceptRequest(id, pos);
     }
 
-    public void deleteRequest(String id, int pos){
+    public void deleteRequest(String id, int pos) {
         setProgress(true);
-        ((RequestFragment)now).deleteRequest(id, pos);
+        ((RequestFragment) now).deleteRequest(id, pos);
     }
 
     public boolean setFragment(int item) {
         switch (item) {
             case R.id.navigation_home:
-                setFragmentClass(fragments[0]);
-                setProgress(true);
-                ((HomeFragment) fragments[0]).getList(loadProject());
-                currentFragment = 0;
-                title.setText(getResources().getString(R.string.title_home));
-                invalidateOptionsMenu();
+                if (loadProject().equals(""))
+                    Toast.makeText(this, "Присоединитесь к существующему или создайте свой проект", Toast.LENGTH_SHORT).show();
+
+                else {
+                    setFragmentClass(fragments[0]);
+                    setProgress(true);
+                    ((HomeFragment) fragments[0]).getList(loadProject());
+                    currentFragment = 0;
+                    title.setText(getResources().getString(R.string.title_home));
+                    invalidateOptionsMenu();
+                }
                 return true;
             case R.id.navigation_chat:
-                setFragmentClass(fragments[1]);
-                currentFragment = 1;
-                Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
-                title.setText(getResources().getString(R.string.title_chat) + " " + p.title);
-                invalidateOptionsMenu();
+                if (loadProject().equals(""))
+                    Toast.makeText(this, "Присоединитесь к существующему или создайте свой проект", Toast.LENGTH_SHORT).show();
+                else {
+                    setFragmentClass(fragments[1]);
+                    currentFragment = 1;
+                    Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
+                    title.setText(getResources().getString(R.string.title_chat) + " " + p.title);
+                    invalidateOptionsMenu();
+                }
                 return true;
             case R.id.navigation_task:
                 setFragmentClass(fragments[2]);
@@ -282,6 +294,7 @@ public class MainActivity extends LocalData
                     break;
                 case 2:
                     setFragment(R.id.navigation_task);
+                    updateTasks();
                     break;
                 case 6:
                     setFragmentClass(new LoginFragment());
@@ -321,68 +334,77 @@ public class MainActivity extends LocalData
         edit = menu.findItem(R.id.edit);
         addProj = menu.findItem(R.id.create_proj);
         resume = menu.findItem(R.id.give_resume);
-        switch (this.currentFragment) {
-            case 1:
-            case 8:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 2:
-                add.setVisible(true);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 3:
-                add.setVisible(false);
-                edit.setVisible(true);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 4:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 5:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 6:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 7:
-                add.setVisible(false);
-                edit.setVisible(false);
+        if (loadProject().equals("")) {
+            add.setVisible(false);
+            edit.setVisible(false);
+            addProj.setVisible(false);
+            resume.setVisible(false);
+            if (currentFragment == 7)
                 addProj.setVisible(true);
-                resume.setVisible(false);
-                break;
-            case 9: // фрагмент с подачей заявки
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
-            case 0:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(true);
-                break;
-            case 10:
-                add.setVisible(false);
-                edit.setVisible(false);
-                addProj.setVisible(false);
-                resume.setVisible(false);
-                break;
+        } else {
+            switch (this.currentFragment) {
+                case 1:
+                case 8:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 2:
+                    add.setVisible(true);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 3:
+                    add.setVisible(false);
+                    edit.setVisible(true);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 4:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 5:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 6:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 7:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(true);
+                    resume.setVisible(false);
+                    break;
+                case 9: // фрагмент с подачей заявки
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+                case 0:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(true);
+                    break;
+                case 10:
+                    add.setVisible(false);
+                    edit.setVisible(false);
+                    addProj.setVisible(false);
+                    resume.setVisible(false);
+                    break;
+            }
         }
         return true;
     }
@@ -414,8 +436,6 @@ public class MainActivity extends LocalData
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -448,6 +468,8 @@ public class MainActivity extends LocalData
     public void loginSuccess() {
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
+        setProgress(true);
+        Log.d("tagged", "show Login");
         getProjectsForNav();
         ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }

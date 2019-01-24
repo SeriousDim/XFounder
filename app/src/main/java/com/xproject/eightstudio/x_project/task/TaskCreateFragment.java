@@ -41,7 +41,8 @@ class SpinnerResponse {
 
 
 public class TaskCreateFragment extends Fragment {
-    Task task;
+    MainActivity activity;
+    Task task = new Task();
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -69,14 +70,16 @@ public class TaskCreateFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_task_create, container, false);
+            activity = (MainActivity) getActivity();
             initDateAndTime(view);
-            localID = ((MainActivity) getActivity()).loadUser();
-            projectID =  ((MainActivity)getActivity()).loadProject();
+            localID = activity.loadUser();
+            projectID = activity.loadProject();
             task_desc = view.findViewById(R.id.task_desc);
             task_name = view.findViewById(R.id.task_name);
             sp = view.findViewById(R.id.spinner);
+            activity.setProgress(true);
             getWorkers();
-            if (task != null) {
+            if (task.title != null) {
                 fT = true;
                 fD = true;
                 tT = true;
@@ -86,6 +89,7 @@ public class TaskCreateFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (checking()) {
+                            activity.setProgress(true);
                             editTask();
                         }
                     }
@@ -95,6 +99,7 @@ public class TaskCreateFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (checking()) {
+                            activity.setProgress(true);
                             createTask();
                         }
                     }
@@ -149,22 +154,27 @@ public class TaskCreateFragment extends Fragment {
 
     private void createTask() {
         HashMap<String, String> postDataParams = new HashMap<>();
+        task.date_from = (dt_from.getTimeInMillis() / 1000L);
+        task.date_to = (dt_to.getTimeInMillis() / 1000L);
+        task.title = task_name.getText().toString();
+        task.description = task_desc.getText().toString();
+        task.performer_id =  ((Employee) sp.getSelectedItem()).id;
+        task.author_id = localID;
         postDataParams.put("command", "createTask");
         postDataParams.put("creator_id", localID);
         postDataParams.put("project_id", projectID);
-        postDataParams.put("date_from", (Long) (dt_from.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("date_to", (Long) (dt_to.getTimeInMillis() / 1000L) + "");
-        postDataParams.put("title", task_name.getText().toString());
-        postDataParams.put("description", task_desc.getText().toString());
-        postDataParams.put("performer_id", ((Employee) sp.getSelectedItem()).id);
+        postDataParams.put("date_from", task.date_from + "");
+        postDataParams.put("date_to", task.date_to + "");
+        postDataParams.put("title", task.title);
+        postDataParams.put("description", task.description);
+        postDataParams.put("performer_id",task.performer_id);
+
 
         Call<ResponseBody> call = tasks.performPostCall(postDataParams);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                MainActivity m = (MainActivity) getActivity();
-                m.setFragment(R.id.navigation_task);
-                m.updateTasks();
+                activity.openTask(task);
             }
 
             @Override
@@ -294,9 +304,9 @@ public class TaskCreateFragment extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     SpinnerResponse resp = gson.fromJson(response.body().string(), SpinnerResponse.class);
-
                     SpinAdapter spa = new SpinAdapter(getActivity(), resp.workers);
                     sp.setAdapter(spa);
+                    activity.setProgress(false);
                 } catch (IOException e) {
                     Log.d("tagged", e.toString());
                 }

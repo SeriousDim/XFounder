@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import io.gloxey.cfv.CFButton;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,16 +52,15 @@ public class TaskViewFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
             activity = (MainActivity) getActivity();
             getTaskInfo();
-            spinAdapter = new ArrayAdapter<String>(getContext(), R.layout.status_item, getContext().getResources().getStringArray(R.array.statuses));
-                    //ArrayAdapter.createFromResource(getContext(), R.array.statuses, R.layout.status_item);
+            spinAdapter = new ArrayAdapter<>(getContext(), R.layout.status_item, getContext().getResources().getStringArray(R.array.statuses));
             spinAdapter.setDropDownViewResource(R.layout.status_item_2);
             spin = view.findViewById(R.id.status);
             spin.setAdapter(spinAdapter);
             spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(getContext(), "New item selected "+i, Toast.LENGTH_SHORT).show();
-                    // save new status here
+                    if (i != Integer.parseInt(task.status))
+                        updateStatus(i + "");
                 }
 
                 @Override
@@ -72,6 +70,26 @@ public class TaskViewFragment extends Fragment {
             });
         }
         return view;
+    }
+
+    private void updateStatus(String i) {
+        HashMap<String, String> postDataParams = new HashMap<>();
+        postDataParams.put("command", "updateStatus");
+        postDataParams.put("status", i);
+        task.status = i;
+        postDataParams.put("task_id", task.task_id);
+        Call<ResponseBody> call = tasks.performPostCall(postDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public Task getTask() {
@@ -104,7 +122,6 @@ public class TaskViewFragment extends Fragment {
                     final String dateTo = df.format(date_to);
                     ((TextView) view.findViewById(R.id.date_from)).setText("Начало: " + dateFrom);
                     ((TextView) view.findViewById(R.id.date_to)).setText("Конец: " + dateTo);
-                    //((TextView) view.findViewById(R.id.status)).setText(new int[]{R.string.pending, R.string.in_progress, R.string.done}[Integer.parseInt(resp.get("status"))]);
                     spin.setSelection(Integer.parseInt(resp.get("status")));
                     activity.setProgress(false);
 

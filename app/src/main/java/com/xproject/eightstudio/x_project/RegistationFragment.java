@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegistationFragment extends Fragment {
     View view;
+    MainActivity activity;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -39,6 +40,7 @@ public class RegistationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_reg_page, container, false);
+        activity = (MainActivity) getActivity();
         editName = view.findViewById(R.id.reg_name);
         editJob = view.findViewById(R.id.reg_job);
         editDesc = view.findViewById(R.id.reg_desc);
@@ -56,6 +58,7 @@ public class RegistationFragment extends Fragment {
 
     public void signUp() {
         if (checking()) {
+            activity.setProgress(true);
             HashMap<String, String> postDataParams = new HashMap<>();
             postDataParams.put("command", "signUp");
             postDataParams.put("name", editName.getText().toString() + " " + editSurname.getText().toString());
@@ -70,10 +73,10 @@ public class RegistationFragment extends Fragment {
                     try {
                         HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
                         if (resp.get("success").equals("good")) {
-                            MainActivity m = (MainActivity) getActivity();
-                            m.saveUser(resp.get("user_id"));
-                            m.loginSuccess();
+                            activity.saveUser(resp.get("user_id"));
+                            activity.loginSuccess();
                         } else if (resp.get("success").equals("not unique")) {
+                            activity.setProgress(false);
                             Toast.makeText(getContext(), "Login is not unique", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
@@ -102,11 +105,11 @@ public class RegistationFragment extends Fragment {
         } else if (editJob.getText().toString().equals("")) {
             Toast.makeText(getContext(), "Пустая профессия", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (editLogin.getText().toString().equals("")) {
-            Toast.makeText(getContext(), "Пустой логин", Toast.LENGTH_SHORT).show();
+        } else if (editLogin.getText().toString().equals("") || editLogin.getText().toString().contains(" ")) {
+            Toast.makeText(getContext(), "Логин не может быть пустым или содержать пробелы", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (editPass.getText().toString().length()<8) {
-            Toast.makeText(getContext(), "Слишком короткий пароль", Toast.LENGTH_SHORT).show();
+        } else if (editPass.getText().toString().length() < 8 || editPass.getText().toString().contains(" ")) {
+            Toast.makeText(getContext(), "Пароль не может содержать пробелы или быть меньше 8 символов", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

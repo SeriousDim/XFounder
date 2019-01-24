@@ -24,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
     View view;
+    MainActivity activity;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -38,10 +39,11 @@ public class LoginFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_login_page, container, false);
             Button reg = view.findViewById(R.id.btn_reg);
+            activity = (MainActivity) getActivity();
             reg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity m  = (MainActivity) getActivity();
+                    MainActivity m = (MainActivity) getActivity();
                     m.setFragmentClass(new RegistationFragment());
                     m.lastFragment = 6;
                     m.currentFragment = 6;
@@ -53,11 +55,24 @@ public class LoginFragment extends Fragment {
             log.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    login(login.getText().toString(), password.getText().toString());
+                    String lg = login.getText().toString(), ps = password.getText().toString();
+                    if (checking(lg, ps)) {
+                        activity.setProgress(true);
+                        login(lg, ps);
+                    } else {
+                        Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
         return view;
+    }
+
+    private boolean checking(String login, String password) {
+        if (login.contains(" ") || password.contains(" ")){
+            return false;
+        }
+        return true;
     }
 
     public void login(String login, String password) {
@@ -70,14 +85,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    HashMap<String,String> resp = gson.fromJson(response.body().string(), HashMap.class);
-                    if (resp.get("success").equals("good")){
+                    HashMap<String, String> resp = gson.fromJson(response.body().string(), HashMap.class);
+                    if (resp.get("success").equals("good")) {
                         MainActivity m = (MainActivity) getActivity();
                         m.saveUser(resp.get("user_id"));
                         m.loginSuccess();
-                    }
-                    else{
-                        Toast.makeText(getContext(), "Wrong pass or login", Toast.LENGTH_LONG).show();
+                    } else {
+                        activity.setProgress(false);
+                        Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
