@@ -106,7 +106,7 @@ public class MainActivity extends LocalData
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.save_task).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUser("");
@@ -142,6 +142,8 @@ public class MainActivity extends LocalData
         lv = findViewById(R.id.comp_list);
         setProgress(false);
         lastFragment = 2;
+        navigation.setSelectedItemId(R.id.navigation_task);
+        setFragment(R.id.navigation_task);
     }
 
 
