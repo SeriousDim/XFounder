@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProjectFragment extends Fragment {
     View view;
     MainActivity activity;
+    String localID;
     LinkedTreeMap<String, String> project;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
@@ -42,10 +43,37 @@ public class ProjectFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_company_home_closed, container, false);
             activity = (MainActivity) getActivity();
+            view.findViewById(R.id.join).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.setVisibility(View.GONE);
+                    addRequest();
+                }
+            });
+            localID = activity.loadUser();
             activity.setProgress(true);
             getDescription();
         }
         return view;
+    }
+
+    private void addRequest() {
+        HashMap<String, String> getDataParams = new HashMap<>();
+        getDataParams.put("command", "addRequest");
+        getDataParams.put("userID", localID);
+        getDataParams.put("projectID", project.get("p_id"));
+        Call<ResponseBody> call = pro.performGetCall(getDataParams);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                activity.setProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void setProject(LinkedTreeMap project) {

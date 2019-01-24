@@ -7,7 +7,7 @@
     android:background="@color/background">
 
     <io.gloxey.cfv.CFButton
-        android:id="@+id/btn_join"
+        android:id="@+id/join"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

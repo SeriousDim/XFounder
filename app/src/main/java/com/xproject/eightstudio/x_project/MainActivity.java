@@ -142,7 +142,6 @@ public class MainActivity extends LocalData
         lv = findViewById(R.id.comp_list);
         setProgress(false);
         lastFragment = 2;
-        navigation.setSelectedItemId(R.id.navigation_task);
     }
 
 
@@ -477,3 +476,4 @@ public class MainActivity extends LocalData
         });
     }
 }
+
