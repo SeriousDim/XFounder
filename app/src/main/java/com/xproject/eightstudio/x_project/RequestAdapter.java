@@ -38,6 +38,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         holder.e = e;
         holder.emplName.setText(e.name);
         holder.job.setText(e.job);
+        holder.pos = position;
     }
 
     public void setEmployees(List<Employee> newEmployees) {
@@ -53,6 +54,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView emplName, job;
         Employee e;
+        int pos;
 
         ViewHolder(View v) {
             super(v);
@@ -65,13 +67,13 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             v.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.acceptRequest(e.id);
+                    activity.acceptRequest(e.id, pos);
                 }
             });
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.deleteRequest(e.id);
+                    activity.deleteRequest(e.id, pos);
                 }
             });
             this.emplName = v.findViewById(R.id.il_name);

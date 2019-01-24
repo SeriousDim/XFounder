@@ -106,7 +106,7 @@ public class MainActivity extends LocalData
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        findViewById(R.id.save_task).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUser("");
@@ -143,7 +143,6 @@ public class MainActivity extends LocalData
         setProgress(false);
         lastFragment = 2;
         navigation.setSelectedItemId(R.id.navigation_task);
-        setFragment(R.id.navigation_task);
     }
 
 
@@ -201,12 +200,14 @@ public class MainActivity extends LocalData
         adapter.notifyDataSetChanged();
     }
 
-    public void acceptRequest(String id){
-        Toast.makeText(this, "accept" + id, Toast.LENGTH_SHORT).show();
+    public void acceptRequest(String id, int pos){
+        setProgress(true);
+        ((RequestFragment)now).acceptRequest(id, pos);
     }
 
-    public void deleteRequest(String id){
-        Toast.makeText(this, "delete" + id, Toast.LENGTH_SHORT).show();
+    public void deleteRequest(String id, int pos){
+        setProgress(true);
+        ((RequestFragment)now).deleteRequest(id, pos);
     }
 
     public boolean setFragment(int item) {
@@ -422,7 +423,8 @@ public class MainActivity extends LocalData
     }
 
     public void openRequests() {
-        setFragmentClass(new RequestFragment());
+        now = new RequestFragment();
+        setFragmentClass(now);
         title.setText("Заявки");
         lastFragment = currentFragment;
         currentFragment = 9;

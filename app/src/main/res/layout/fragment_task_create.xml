@@ -101,8 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="8dp"
-            android:background="@drawable/task_view_down_white"
-            android:entries="@array/catlist" />
+            android:background="@drawable/task_view_down_white" />
 
         <io.gloxey.cfv.CFTextView
             android:id="@+id/txt_deadlines"
