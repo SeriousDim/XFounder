@@ -48,6 +48,6 @@ public class SpinAdapter extends ArrayAdapter<Employee> {
 
     static class ViewHolder {
         TextView name;
-}
+    }
 
 }

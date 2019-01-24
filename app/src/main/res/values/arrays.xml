@@ -6,4 +6,9 @@
         <item>Anna Kolesnikova</item>
         <item>Dmitriy Lykov</item>
     </string-array>
+    <string-array name="statuses">
+        <item>Waiting</item>
+        <item>In process</item>
+        <item>Complete</item>
+    </string-array>
 </resources>

@@ -5,6 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import io.gloxey.cfv.CFButton;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TaskViewFragment extends Fragment {
     View view;
     MainActivity activity;
+    ArrayAdapter<?> spinAdapter;
+    Spinner spin;
     private final String server = "https://gleb2700.000webhostapp.com";
     final Gson gson = new GsonBuilder().create();
     Retrofit retrofit = new Retrofit.Builder()
@@ -45,6 +53,23 @@ public class TaskViewFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_full_task, container, false);
             activity = (MainActivity) getActivity();
             getTaskInfo();
+            spinAdapter = new ArrayAdapter<String>(getContext(), R.layout.status_item, getContext().getResources().getStringArray(R.array.statuses));
+                    //ArrayAdapter.createFromResource(getContext(), R.array.statuses, R.layout.status_item);
+            spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spin = view.findViewById(R.id.status);
+            spin.setAdapter(spinAdapter);
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    Toast.makeText(getContext(), "New item selected "+i, Toast.LENGTH_SHORT).show();
+                    // save new status here
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
         return view;
     }
@@ -79,7 +104,8 @@ public class TaskViewFragment extends Fragment {
                     final String dateTo = df.format(date_to);
                     ((TextView) view.findViewById(R.id.date_from)).setText("Начало: " + dateFrom);
                     ((TextView) view.findViewById(R.id.date_to)).setText("Конец: " + dateTo);
-                    ((TextView) view.findViewById(R.id.status)).setText(new int[]{R.string.pending, R.string.in_progress, R.string.done}[Integer.parseInt(resp.get("status"))]);
+                    //((TextView) view.findViewById(R.id.status)).setText(new int[]{R.string.pending, R.string.in_progress, R.string.done}[Integer.parseInt(resp.get("status"))]);
+                    spin.setSelection(Integer.parseInt(resp.get("status")));
                     activity.setProgress(false);
 
                 } catch (IOException e) {

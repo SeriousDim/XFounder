@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.gloxey.cfv.CFTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:text="В ожидании"
+    android:textAlignment="textStart"
+    android:textColor="#000"
+    android:textSize="25sp"
+    app:font_name="roboto_l.ttf" />
