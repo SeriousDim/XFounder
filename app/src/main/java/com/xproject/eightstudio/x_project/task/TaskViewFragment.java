@@ -55,7 +55,7 @@ public class TaskViewFragment extends Fragment {
             getTaskInfo();
             spinAdapter = new ArrayAdapter<String>(getContext(), R.layout.status_item, getContext().getResources().getStringArray(R.array.statuses));
                     //ArrayAdapter.createFromResource(getContext(), R.array.statuses, R.layout.status_item);
-            spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinAdapter.setDropDownViewResource(R.layout.status_item_2);
             spin = view.findViewById(R.id.status);
             spin.setAdapter(spinAdapter);
             spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
