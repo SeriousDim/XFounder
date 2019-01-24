@@ -92,7 +92,6 @@ public class TaskViewFragment extends Fragment {
                     ((TextView) view.findViewById(R.id.performer)).setText("Исполнитель: " + resp.get("name"));
                     task.title = resp.get("title");
                     ((TextView) view.findViewById(R.id.name)).setText(task.title);
-                    task.name = resp.get("name");
                     ((TextView) view.findViewById(R.id.creator)).setText("Создатель: " + task.name);
                     task.description = resp.get("description");
                     ((TextView) view.findViewById(R.id.description)).setText(task.description);

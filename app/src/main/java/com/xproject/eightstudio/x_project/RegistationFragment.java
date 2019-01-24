@@ -77,7 +77,7 @@ public class RegistationFragment extends Fragment {
                             Toast.makeText(getContext(), "Login is not unique", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
-                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
