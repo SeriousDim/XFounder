@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.auth;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,10 +45,8 @@ public class LoginFragment extends Fragment {
             reg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity m = (MainActivity) getActivity();
-                    m.setFragmentClass(new RegistationFragment());
-                    m.lastFragment = 6;
-                    m.currentFragment = 6;
+                    activity.setFragmentClass(new RegistationFragment());
+                    activity.currentFragment = 14;
                 }
             });
             Button log = view.findViewById(R.id.btn_login);

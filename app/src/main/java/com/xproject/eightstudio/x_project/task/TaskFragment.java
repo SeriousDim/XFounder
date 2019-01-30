@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 
 import java.util.ArrayList;

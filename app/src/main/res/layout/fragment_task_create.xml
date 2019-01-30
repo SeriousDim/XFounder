@@ -215,5 +215,4 @@
         android:textAllCaps="false"
         android:textSize="24sp"
         app:font_name="banch.ttf" />
-<!--TODO: add all to the scroll layout-->
 </RelativeLayout>

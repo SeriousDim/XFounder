@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
 import java.util.ArrayList;
 
 public class EmployeesFragment extends Fragment {

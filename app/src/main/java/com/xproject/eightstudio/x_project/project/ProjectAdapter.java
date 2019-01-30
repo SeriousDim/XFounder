@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.project;
 
 import java.util.ArrayList;
 import java.util.HashMap;

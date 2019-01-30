@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.MainActivity;
-import com.xproject.eightstudio.x_project.ViewPagerAdapter;
-import com.xproject.eightstudio.x_project.Workers;
+import com.xproject.eightstudio.x_project.main.MainActivity;
+import com.xproject.eightstudio.x_project.general.ViewPagerAdapter;
+import com.xproject.eightstudio.x_project.general.Workers;
 
 import java.io.IOException;
 import java.util.HashMap;

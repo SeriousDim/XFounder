@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;

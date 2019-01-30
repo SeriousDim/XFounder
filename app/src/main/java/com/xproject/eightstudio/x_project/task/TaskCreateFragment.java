@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,10 +17,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.MainActivity;
-import com.xproject.eightstudio.x_project.Projects;
+import com.xproject.eightstudio.x_project.main.MainActivity;
+import com.xproject.eightstudio.x_project.general.Projects;
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,6 +63,10 @@ public class TaskCreateFragment extends Fragment {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public Task getTask() {
+        return this.task;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,8 +128,7 @@ public class TaskCreateFragment extends Fragment {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                MainActivity m = (MainActivity) getActivity();
-                m.openTask(task);
+                activity.openTask(task);
             }
 
             @Override
@@ -158,7 +160,7 @@ public class TaskCreateFragment extends Fragment {
         task.date_to = (dt_to.getTimeInMillis() / 1000L);
         task.title = task_name.getText().toString();
         task.description = task_desc.getText().toString();
-        task.performer_id =  ((Employee) sp.getSelectedItem()).id;
+        task.performer_id = ((Employee) sp.getSelectedItem()).id;
         task.author_id = localID;
         postDataParams.put("command", "createTask");
         postDataParams.put("creator_id", localID);
@@ -167,7 +169,7 @@ public class TaskCreateFragment extends Fragment {
         postDataParams.put("date_to", task.date_to + "");
         postDataParams.put("title", task.title);
         postDataParams.put("description", task.description);
-        postDataParams.put("performer_id",task.performer_id);
+        postDataParams.put("performer_id", task.performer_id);
 
 
         Call<ResponseBody> call = tasks.performPostCall(postDataParams);

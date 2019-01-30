@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.MainActivity;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
 
 import java.util.ArrayList;
 import java.util.List;

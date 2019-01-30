@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.MainActivity;
-import com.xproject.eightstudio.x_project.Projects;
+import com.xproject.eightstudio.x_project.main.MainActivity;
+import com.xproject.eightstudio.x_project.general.Projects;
 import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.ViewPagerAdapter;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.ViewPagerAdapter;
+import com.xproject.eightstudio.x_project.general.Employee;
 import com.xproject.eightstudio.x_project.task.Task;
 
 import java.io.IOException;

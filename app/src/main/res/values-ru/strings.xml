@@ -21,6 +21,7 @@
     <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="open_profile">Открыть профиль</string>
     <string name="projects">Проекты</string>
+    <string name="requests">Заявки</string>
     <string name="current_task">Задача</string>
     <string name="add_comp">Добавить проект</string>
     <string name="edit_task">Изменить задачу</string>

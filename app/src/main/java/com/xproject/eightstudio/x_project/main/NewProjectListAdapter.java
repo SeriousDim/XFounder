@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.main;
 
 import android.app.Activity;
 import android.support.v7.widget.CardView;
@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.dataclasses.Project;
+import com.xproject.eightstudio.x_project.general.Project;
+import com.xproject.eightstudio.x_project.R;
 
 import java.util.ArrayList;
 

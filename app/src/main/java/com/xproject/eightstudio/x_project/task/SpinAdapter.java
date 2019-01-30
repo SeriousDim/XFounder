@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.R;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
 
 import java.util.ArrayList;
 

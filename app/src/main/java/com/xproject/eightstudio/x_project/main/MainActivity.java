@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,10 +23,16 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xproject.eightstudio.x_project.auth.LoginFragment;
+import com.xproject.eightstudio.x_project.general.Project;
+import com.xproject.eightstudio.x_project.general.Projects;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.home.RequestFragment;
 import com.xproject.eightstudio.x_project.chat.ChatFragment;
-import com.xproject.eightstudio.x_project.dataclasses.Project;
 import com.xproject.eightstudio.x_project.home.HomeFragment;
 import com.xproject.eightstudio.x_project.profile.ProfileFragment;
+import com.xproject.eightstudio.x_project.project.CreateProjectFragment;
+import com.xproject.eightstudio.x_project.project.SearchProjectFragment;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.TaskCreateFragment;
 import com.xproject.eightstudio.x_project.task.TaskPager;
@@ -61,17 +67,18 @@ public class MainActivity extends LocalData
             .build();
     private Projects pro = retrofit.create(Projects.class);
 
-    int currentFragment = 1;
-    int lastFragment;
-    ArrayList<Project> projects;
-    Fragment now;
-    Fragment[] fragments;
-    Toolbar toolbar;
-    CFTextView title;
-    ListView lv;
-    NewProjectListAdapter adapter;
-    MenuItem add, edit, addProj, resume;
-    BottomNavigationView navigation;
+    public int currentFragment = 2;
+    public ArrayList<Project> projects;
+    public Fragment now;
+    public Fragment[] fragments;
+    public Toolbar toolbar;
+    public CFTextView title;
+    public ListView lv;
+    public NewProjectListAdapter adapter;
+    public MenuItem add, edit, addProj, request;
+    public MenuItem[] icons;
+    public int currentIcon = 0;
+    public BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -128,7 +135,6 @@ public class MainActivity extends LocalData
             public void onClick(View view) {
                 setProgress(true);
                 setFragmentClass(new SearchProjectFragment());
-                lastFragment = currentFragment;
                 currentFragment = 7;
                 title.setText(getResources().getString(R.string.projects));
                 ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
@@ -142,8 +148,6 @@ public class MainActivity extends LocalData
         }
         lv = findViewById(R.id.comp_list);
         setProgress(false);
-        Log.d("tagged", "discard MainActivity");
-        lastFragment = 2;
     }
 
 
@@ -152,6 +156,7 @@ public class MainActivity extends LocalData
         getSupportActionBar().hide();
         setFragmentClass(new LoginFragment());
         ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        currentFragment = 13;
     }
 
     public void addProjectsToNavigationView(ProjectResponse response) {
@@ -177,7 +182,7 @@ public class MainActivity extends LocalData
     }
 
     public void initFragments() {
-        fragments = new Fragment[5];
+        fragments = new Fragment[4];
         try {
             fragments[0] = HomeFragment.class.newInstance();
             fragments[1] = ChatFragment.class.newInstance();
@@ -213,37 +218,34 @@ public class MainActivity extends LocalData
     }
 
     public boolean setFragment(int item) {
-        switch (item) {
-            case R.id.navigation_home:
-                if (loadProject().equals(""))
-                    Toast.makeText(this, "Присоединитесь к существующему или создайте свой проект", Toast.LENGTH_SHORT).show();
-
-                else {
+        if (loadProject().equals("")) {
+            Toast.makeText(this, "Присоединитесь к существующему или создайте свой проект", Toast.LENGTH_SHORT).show();
+            setFragmentClass(fragments[2]);
+            currentFragment = 2;
+            title.setText(getResources().getString(R.string.title_tasks));
+            invalidateOptionsMenu();
+        } else {
+            switch (item) {
+                case R.id.navigation_home:
                     setFragmentClass(fragments[0]);
                     setProgress(true);
                     ((HomeFragment) fragments[0]).getList(loadProject());
                     currentFragment = 0;
                     title.setText(getResources().getString(R.string.title_home));
-                    invalidateOptionsMenu();
-                }
-                return true;
-            case R.id.navigation_chat:
-                if (loadProject().equals(""))
-                    Toast.makeText(this, "Присоединитесь к существующему или создайте свой проект", Toast.LENGTH_SHORT).show();
-                else {
+                    return true;
+                case R.id.navigation_chat:
                     setFragmentClass(fragments[1]);
                     currentFragment = 1;
                     Project p = (Project) lv.getItemAtPosition(adapter.currentProject);
                     title.setText(getResources().getString(R.string.title_chat) + " " + p.title);
-                    invalidateOptionsMenu();
-                }
-                return true;
-            case R.id.navigation_task:
-                setFragmentClass(fragments[2]);
-                currentFragment = 2;
-                title.setText(getResources().getString(R.string.title_tasks));
-                invalidateOptionsMenu();
-                return true;
+                    return true;
+                case R.id.navigation_task:
+                    setFragmentClass(fragments[2]);
+                    currentFragment = 2;
+                    title.setText(getResources().getString(R.string.title_tasks));
+                    return true;
+            }
+            invalidateOptionsMenu();
         }
         return false;
     }
@@ -252,7 +254,6 @@ public class MainActivity extends LocalData
         TaskViewFragment taskViewFragment = new TaskViewFragment();
         taskViewFragment.setTask(task);
         setFragmentClass(taskViewFragment);
-        lastFragment = currentFragment;
         currentFragment = 3;
         title.setText(getResources().getString(R.string.current_task));
         invalidateOptionsMenu();
@@ -265,7 +266,6 @@ public class MainActivity extends LocalData
         title.setText(getResources().getString(R.string.title_employees));
         setProgress(true);
         setFragmentClass(profileFragment);
-        lastFragment = currentFragment;
         currentFragment = 6;
         ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
         invalidateOptionsMenu();
@@ -280,46 +280,34 @@ public class MainActivity extends LocalData
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        /*if (currentFragment == 3 || currentFragment == 4)
-            setFragment(R.id.navigation_task);*/
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (currentFragment > 2) {
-            switch (lastFragment) {
-                case 0:
-                    setFragment(R.id.navigation_home);
-                    break;
-                case 1:
-                    setFragment(R.id.navigation_chat);
-                    break;
-                case 2:
+        } else {
+            switch (currentFragment) {
+                case 3:
+                case 4:
                     setFragment(R.id.navigation_task);
                     updateTasks();
                     break;
-                case 6:
-                    setFragmentClass(new LoginFragment());
+                case 5:
+                    openTask(((TaskCreateFragment) now).getTask());
                     break;
-                case 7:
-                    setFragmentClass(fragments[3]);
-                    lastFragment = currentFragment;
-                    currentFragment = 7;
-                    title.setText(getResources().getString(R.string.projects));
-                    ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
-                    invalidateOptionsMenu();
                 case 8:
                     setProgress(true);
-                    setFragmentClass(new SearchProjectFragment());
-                    lastFragment = currentFragment;
+                    setFragmentClass(fragments[3]);
                     currentFragment = 7;
                     title.setText(getResources().getString(R.string.projects));
-                    ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
-                    invalidateOptionsMenu();
+                    break;
+                case 9:
+                    setFragment(R.id.navigation_home);
+                    break;
+                case 13:
+                    openLogin();
                     break;
             }
+            ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+            invalidateOptionsMenu();
         }
-        /*else {
-            super.onBackPressed();
-        }*/
     }
 
     public void updateTasks() {
@@ -333,76 +321,37 @@ public class MainActivity extends LocalData
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
         addProj = menu.findItem(R.id.create_proj);
-        resume = menu.findItem(R.id.give_resume);
+        request = menu.findItem(R.id.give_resume);
+        add.setVisible(false);
+        edit.setVisible(false);
+        addProj.setVisible(false);
+        request.setVisible(false);
+        icons = new MenuItem[]{add, edit, addProj, request};
         if (loadProject().equals("")) {
-            add.setVisible(false);
-            edit.setVisible(false);
-            addProj.setVisible(false);
-            resume.setVisible(false);
-            if (currentFragment == 7)
+            if (currentFragment == 7) {
                 addProj.setVisible(true);
+                currentIcon = 2;
+            }
         } else {
+            icons[currentIcon].setVisible(false);
             switch (this.currentFragment) {
-                case 1:
-                case 8:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
-                    break;
                 case 2:
-                    add.setVisible(true);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
+                    icons[0].setVisible(true); // add task
+                    currentIcon = 0;
                     break;
                 case 3:
-                    add.setVisible(false);
-                    edit.setVisible(true);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
-                    break;
-                case 4:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
-                    break;
-                case 5:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
-                    break;
-                case 6:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
+                    icons[1].setVisible(true); // edit task
+                    currentIcon = 1;
                     break;
                 case 7:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(true);
-                    resume.setVisible(false);
-                    break;
-                case 9: // фрагмент с подачей заявки
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
+                    icons[2].setVisible(true); // add project
+                    currentIcon = 2;
                     break;
                 case 0:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(true);
+                    icons[3].setVisible(true); // requests
+                    currentIcon = 3;
                     break;
-                case 10:
-                    add.setVisible(false);
-                    edit.setVisible(false);
-                    addProj.setVisible(false);
-                    resume.setVisible(false);
+                default:
                     break;
             }
         }
@@ -419,11 +368,7 @@ public class MainActivity extends LocalData
                 openTaskEdit(((TaskViewFragment) now).getTask());
                 return true;
             case R.id.create_proj:
-                setFragmentClass(new CreateProjectFragment());
-                lastFragment = currentFragment;
-                currentFragment = 8;
-                title.setText(R.string.create_new_project);
-                invalidateOptionsMenu();
+                openCreateProject();
                 return true;
             case R.id.give_resume:
                 openRequests();
@@ -433,9 +378,15 @@ public class MainActivity extends LocalData
         }
     }
 
+    private void openCreateProject() {
+        setFragmentClass(new CreateProjectFragment());
+        currentFragment = 8;
+        title.setText(R.string.create_new_project);
+        invalidateOptionsMenu();
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -444,15 +395,13 @@ public class MainActivity extends LocalData
     public void openRequests() {
         now = new RequestFragment();
         setFragmentClass(now);
-        title.setText("Заявки");
-        lastFragment = currentFragment;
+        title.setText(getResources().getString(R.string.requests));
         currentFragment = 9;
         invalidateOptionsMenu();
     }
 
     public void addTask() {
         setFragmentClass(new TaskCreateFragment());
-        lastFragment = currentFragment;
         currentFragment = 4;
         invalidateOptionsMenu();
     }
@@ -460,6 +409,7 @@ public class MainActivity extends LocalData
     public void openTaskEdit(Task task) {
         TaskCreateFragment te = new TaskCreateFragment();
         te.setTask(task);
+        now = te;
         setFragmentClass(te);
         currentFragment = 5;
         invalidateOptionsMenu();
@@ -469,7 +419,6 @@ public class MainActivity extends LocalData
         navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         setProgress(true);
-        Log.d("tagged", "show Login");
         getProjectsForNav();
         ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }

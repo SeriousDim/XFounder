@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.auth;
 
 import java.util.HashMap;
 
@@ -10,11 +10,11 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
-public interface Projects {
+public interface Profile {
     @FormUrlEncoded
-    @POST("/projects.php")
+    @POST("/profile.php")
     Call<ResponseBody> performPostCall(@FieldMap HashMap<String, String> postDataParams);
 
-    @GET("/projects.php")
+    @GET("/profile.php")
     Call<ResponseBody> performGetCall(@QueryMap HashMap<String, String> getDataParams);
 }

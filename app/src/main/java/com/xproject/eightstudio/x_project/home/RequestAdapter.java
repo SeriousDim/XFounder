@@ -1,15 +1,15 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.home;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

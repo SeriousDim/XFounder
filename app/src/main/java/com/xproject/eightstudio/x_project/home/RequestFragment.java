@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.dataclasses.Employee;
+import com.xproject.eightstudio.x_project.general.Employee;
+import com.xproject.eightstudio.x_project.general.Projects;
+import com.xproject.eightstudio.x_project.R;
+import com.xproject.eightstudio.x_project.main.MainActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;

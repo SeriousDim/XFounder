@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.general;
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;

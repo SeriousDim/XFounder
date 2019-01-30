@@ -1,8 +1,7 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
+import com.xproject.eightstudio.x_project.main.MainActivity;
+import com.xproject.eightstudio.x_project.general.Projects;
+import com.xproject.eightstudio.x_project.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;

@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.main;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

@@ -1,4 +1,4 @@
-package com.xproject.eightstudio.x_project;
+package com.xproject.eightstudio.x_project.project;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import com.xproject.eightstudio.x_project.dataclasses.Project;
+import com.xproject.eightstudio.x_project.main.MainActivity;
+import com.xproject.eightstudio.x_project.general.Project;
+import com.xproject.eightstudio.x_project.general.Projects;
+import com.xproject.eightstudio.x_project.R;
 import com.xproject.eightstudio.x_project.home.HomeFragment;
 
 import java.io.IOException;
