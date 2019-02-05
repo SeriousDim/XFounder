@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +79,6 @@ public class TaskPager extends Fragment {
 
     public void getList() {
         activity.setProgress(true);
-        Log.d("tagged", "show TaskPager");
         projectID = activity.loadProject();
         localID = activity.loadUser();
         HashMap<String, String> getDataParams = new HashMap<>();
@@ -98,12 +96,17 @@ public class TaskPager extends Fragment {
                     ArrayList<Task> doneL = new ArrayList<>();
                     for (int p = 0; p < resp.tasks.size(); p++) {
                         Task currrentTask = resp.tasks.get(p);
-                        if (currrentTask.status.equals("0"))
-                            pendingL.add(currrentTask);
-                        else if (currrentTask.status.equals("1"))
-                            progressL.add(currrentTask);
-                        else if (currrentTask.status.equals("2"))
-                            doneL.add(currrentTask);
+                        switch (currrentTask.status){
+                            case "0":
+                                pendingL.add(currrentTask);
+                                break;
+                            case "1":
+                                progressL.add(currrentTask);
+                                break;
+                            case "2":
+                                doneL.add(currrentTask);
+                                break;
+                        }
                     }
                     pending.setTasks(pendingL);
                     inProgress.setTasks(progressL);
@@ -112,13 +115,11 @@ public class TaskPager extends Fragment {
                     e.printStackTrace();
                 }
                 activity.setProgress(false);
-                Log.d("tagged", "discard TaskPager");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 activity.setProgress(false);
-                Log.d("tagged", "discard TaskPager");
             }
         });
     }

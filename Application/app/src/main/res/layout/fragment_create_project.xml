@@ -72,8 +72,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/background_light"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:translationZ="4dp">
+        android:theme="?attr/actionBarTheme">
 
         <io.gloxey.cfv.CFTextView
             android:id="@+id/my_title"

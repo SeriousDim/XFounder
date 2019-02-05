@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xproject.eightstudio.x_project.main.MainActivity;
 import com.xproject.eightstudio.x_project.R;
 import com.xproject.eightstudio.x_project.task.Task;
 import com.xproject.eightstudio.x_project.task.Tasks;
@@ -58,9 +57,11 @@ public class GanntFragment extends Fragment {
     int length;
     long allTime;
     String localID;
+    ProfileFragment prof;
 
-    public void setId(String id) {
+    public void setIdAndFrag(String id, ProfileFragment prof) {
         this.localID = id;
+        this.prof = prof;
     }
 
     @Override
@@ -119,7 +120,7 @@ public class GanntFragment extends Fragment {
                     tasks = resp.tasks;
                     time = resp.time;
                     initGannt();
-                    ((MainActivity)getActivity()).setProgress(false);
+                    prof.setProgress();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

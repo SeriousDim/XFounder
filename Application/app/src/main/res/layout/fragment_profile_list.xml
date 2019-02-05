@@ -67,7 +67,7 @@
         android:layout_alignTop="@+id/title"
         android:layout_marginTop="60dp"
         android:layout_below="@id/title"
-        android:src="@drawable/avatar" />
+        android:src="@drawable/avatar_light" />
 
     <io.gloxey.cfv.CFTextView
         android:id="@+id/empl_name"

@@ -48,15 +48,24 @@ public class ProfileFragment extends Fragment {
     EditText descriptionField;
     Button confirm;
     MainActivity activity;
+    Boolean status = false;
 
     private void setupViewPager(ViewPager viewPager) {
         desc = new DescriptionFragment();
         desc.setWorkerID(workerID);
         chart = new GanntFragment();
-        chart.setId(workerID);
+        chart.setIdAndFrag(workerID, this);
         adapter.addFragment(desc, getResources().getString(R.string.decsription));
         adapter.addFragment(chart, getResources().getString(R.string.chart));
         viewPager.setAdapter(adapter);
+    }
+
+    public void setProgress() {
+        if (status) {
+            activity.setProgress(false);
+        } else {
+            status = true;
+        }
     }
 
     @Override
@@ -106,6 +115,7 @@ public class ProfileFragment extends Fragment {
                         desc.getDescriptionField().setLongClickable(false);
                         confirm.setVisibility(View.GONE);
                     }
+                    setProgress();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

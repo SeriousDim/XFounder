@@ -105,6 +105,6 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:src="@drawable/avatar" />
+        android:src="@drawable/avatar_light" />
 
 </RelativeLayout>

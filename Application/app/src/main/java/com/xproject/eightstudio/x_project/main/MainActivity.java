@@ -67,7 +67,7 @@ public class MainActivity extends LocalData
             .build();
     private Projects pro = retrofit.create(Projects.class);
 
-    public int currentFragment = 2;
+    public int currentFragment = -1;
     public ArrayList<Project> projects;
     public Fragment now;
     public Fragment[] fragments;
@@ -109,7 +109,6 @@ public class MainActivity extends LocalData
         toggle.setDrawerSlideAnimationEnabled(false);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -179,6 +178,8 @@ public class MainActivity extends LocalData
             }
         });
         navigation.setSelectedItemId(R.id.navigation_task);
+        navigation.setVisibility(View.VISIBLE);
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     public void initFragments() {
@@ -223,7 +224,6 @@ public class MainActivity extends LocalData
             setFragmentClass(fragments[2]);
             currentFragment = 2;
             title.setText(getResources().getString(R.string.title_tasks));
-            invalidateOptionsMenu();
         } else {
             switch (item) {
                 case R.id.navigation_home:
@@ -245,7 +245,6 @@ public class MainActivity extends LocalData
                     title.setText(getResources().getString(R.string.title_tasks));
                     return true;
             }
-            invalidateOptionsMenu();
         }
         return false;
     }
@@ -275,6 +274,7 @@ public class MainActivity extends LocalData
         now = frag;
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.contfrag, frag).commit();
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -321,7 +321,7 @@ public class MainActivity extends LocalData
         add = menu.findItem(R.id.add_task);
         edit = menu.findItem(R.id.edit);
         addProj = menu.findItem(R.id.create_proj);
-        request = menu.findItem(R.id.give_resume);
+        request = menu.findItem(R.id.requests);
         add.setVisible(false);
         edit.setVisible(false);
         addProj.setVisible(false);
@@ -370,7 +370,7 @@ public class MainActivity extends LocalData
             case R.id.create_proj:
                 openCreateProject();
                 return true;
-            case R.id.give_resume:
+            case R.id.requests:
                 openRequests();
                 return true;
             default:
@@ -416,11 +416,10 @@ public class MainActivity extends LocalData
     }
 
     public void loginSuccess() {
-        navigation.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         setProgress(true);
+        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         getProjectsForNav();
-        ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     public void getProjectsForNav() {

@@ -6,6 +6,7 @@
         android:id="@+id/add_task"
         android:icon="@drawable/add_icon"
         android:title="Item"
+        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/edit"
@@ -17,10 +18,11 @@
         android:id="@+id/create_proj"
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Item"
+        android:visible="false"
         app:showAsAction="always" />
     <item
-        android:id="@+id/give_resume"
-        android:icon="@drawable/resume_icon"
+        android:id="@+id/requests"
+        android:icon="@drawable/requests"
         android:title="Item"
         android:visible="false"
         app:showAsAction="always" />

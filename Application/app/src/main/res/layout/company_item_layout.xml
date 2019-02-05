@@ -12,8 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <View
+            android:id="@+id/sp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
         <ImageView
-            android:id="@+id/il_logo"
+            android:id="@+id/avatar_light"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/avatar_light" />
+
+        <ImageView
+            android:id="@+id/avatar"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
@@ -33,7 +55,7 @@
             android:text="My Company Inc."
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/il_logo"
+            app:layout_constraintStart_toEndOf="@+id/sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -42,9 +64,10 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:text="В. В. Пупкин"
+            android:textAlignment="textStart"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/il_logo"
+            app:layout_constraintStart_toEndOf="@+id/sp"
             app:layout_constraintTop_toBottomOf="@+id/il_name" />
 
     </android.support.constraint.ConstraintLayout>

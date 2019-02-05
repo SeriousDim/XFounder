@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment {
             ViewPager vp = view.findViewById(R.id.home_pager);
             setupViewPager(vp);
             activity = (MainActivity) getActivity();
+            Log.d("tagged",activity.currentFragment+"");
             ((TabLayout) view.findViewById(R.id.home_tabs)).setupWithViewPager(vp);
             founderName = view.findViewById(R.id.founder_name);
             projectName = view.findViewById(R.id.project_name);
