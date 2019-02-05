@@ -69,10 +69,7 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean checking(String login, String password) {
-        if (login.contains(" ") || password.contains(" ")){
-            return false;
-        }
-        return true;
+        return !login.contains(" ") && !password.contains(" ");
     }
 
     public void login(String login, String password) {

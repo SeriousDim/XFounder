@@ -4,14 +4,8 @@
     <string name="title_employees">Profile</string>
     <string name="title_chat">Chat</string>
     <string name="title_tasks">Tasks</string>
-    <string name="director">Director</string>
-    <string name="completed">Completed items</string>
     <string name="choose_performer">Choose performer</string>
     <string name="employers_work">Employees</string>
-    <string name="priority">Priority:</string>
-    <string name="action_settings">Settings</string>
-    <string name="complete">Complete</string>
-    <string name="delete">Delete</string>
     <string name="write_about">Write something about yourself</string>
     <string name="accept">Save</string>
     <string name="pending">Pending</string>
@@ -19,20 +13,17 @@
     <string name="done">Done</string>
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close</string>
-    <string name="open_profile">Open profile</string>
     <string name="current_task">Task</string>
     <string name="add_comp">Add project</string>
     <string name="projects">Projects</string>
     <string name="requests">Requests</string>
     <string name="edit_task">Edit task</string>
-    <string name="confirm_task">Accept the task</string>
     <string name="create_project">Create project</string>
 
     <string name="decsription">About me</string>
     <string name="chart">Chart</string>
     <string name="enter_title_comp">Enter project name</string>
     <string name="project_name_title">Project title</string>
-    <string name="branch">Project occupation</string>
     <string name="desc_proj">Project description</string>
     <string name="create_new_project">Create project</string>
 </resources>

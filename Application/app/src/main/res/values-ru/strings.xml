@@ -5,13 +5,7 @@
     <string name="title_chat">Чат</string>
     <string name="title_tasks">Задачи</string>
     <string name="choose_performer">Выбрать исполнителя</string>
-    <string name="director">Директор</string>
     <string name="employers_work">Сотрудники</string>
-    <string name="priority">"Приоритет: "</string>
-    <string name="completed">Выполненные задачи</string>
-    <string name="action_settings">Настройки</string>
-    <string name="complete">Готово</string>
-    <string name="delete">Удалить</string>
     <string name="write_about">Напиши о себе</string>
     <string name="accept">Сохранить</string>
     <string name="pending">В ожидании</string>
@@ -19,19 +13,16 @@
     <string name="done">Готово</string>
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close</string>
-    <string name="open_profile">Открыть профиль</string>
     <string name="projects">Проекты</string>
     <string name="requests">Заявки</string>
     <string name="current_task">Задача</string>
     <string name="add_comp">Добавить проект</string>
     <string name="edit_task">Изменить задачу</string>
-    <string name="confirm_task">Создать задачу</string>
     <string name="create_project">Создать проект</string>
     <string name="decsription">Про себя</string>
     <string name="chart">Диаграмма</string>
     <string name="enter_title_comp">Введите название проекта</string>
     <string name="project_name_title">Название проекта</string>
-    <string name="branch">Род деятельности</string>
     <string name="desc_proj">Описание</string>
     <string name="create_new_project">Создать проект</string>
 </resources>
